@@ -8,7 +8,10 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Apple silicon drivers
       ./apple-silicon-support
+      # Systemd services to be run as root
+      ./services
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -28,7 +31,8 @@
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-  time.timeZone = "America/Chicago";
+  # time.timeZone = "America/Chicago";
+  time.timeZone = "Asia/Beijing";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -91,13 +95,22 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+
+    # DEVELOPMENT
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    # C and C++
+    cmake
+    libtool
+    # Nix
+    nil # Nix language server
+
+    # UI/UX
     # TODO: configure gestures so they're actually useful
     # creates user daemon libinput-gestures.service
     # TODO: can this be enabled through config?
     libinput-gestures # touchpad gesture support
-    wmctrl # allows libinput-gestures to interact with the WM
+    wmctrl # allows libinput-gestures to interact with the window manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
