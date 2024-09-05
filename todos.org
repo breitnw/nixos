@@ -1,0 +1,6 @@
+#+title: NixOS configuration TODOs
+#+author: Nick Breitling
+
+* TODO kitty color scheme
+* TODO redshift service (if possible)
+* TODO enable tiny-dfr daemon on startup

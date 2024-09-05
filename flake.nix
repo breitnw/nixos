@@ -21,17 +21,17 @@
     formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
 
     nixosConfigurations = {
-      nix = nixpkgs.lib.nixosSystem {
+      mnd = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs system; };
         modules = [
           # hardware-configuration.nix is imported by configuration.nix
-          ./hosts/nix/configuration.nix
+          ./hosts/mnd/configuration.nix
         ];
       };
     };
 
     homeConfigurations = {
-      "breitnw@nix" = home-manager.lib.homeManagerConfiguration {
+      "breitnw@mnd" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { inherit inputs system; };
         modules = [

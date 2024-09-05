@@ -24,6 +24,13 @@
   home = {
     username = "breitnw";
     homeDirectory = "/home/breitnw";
+
+    sessionVariables = {
+      EDITOR = "emacs";
+      TERMINAL = "kitty";
+      NIX_PATH = "~/NixOS";
+    };
+
     packages = with pkgs; [
       #==============#
       # GUI PROGRAMS #
@@ -62,6 +69,8 @@
       wmctrl # allows libinput-gestures to interact with the window manager
     ];
   };
+
+  xsession.enable = true;
 
   programs.home-manager.enable = true;
   programs.emacs.enable = true;
