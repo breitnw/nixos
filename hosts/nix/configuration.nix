@@ -31,8 +31,8 @@
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Set your time zone.
-  # time.timeZone = "America/Chicago";
-  time.timeZone = "Asia/Beijing";
+  time.timeZone = "America/Chicago";
+  # time.timeZone = "Asia/Shanghai";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -83,34 +83,15 @@
       "networkmanager" # Allow the user to access the network manager
       "input" # Enable libinput-gestures for the user
     ];
-    # packages = with pkgs; [
-    #   firefox
-    #   tree
-    #   neofetch
-    #   kitty
-    #   sayonara # music player
-    # ];
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Configure system packages
+  # STYLE: This should only contain packages necessary for commands/services run as root,
+  #  or for system recovery in an emergency. All other packages should be configured via
+  #  home-manager on a per-user basis
   environment.systemPackages = with pkgs; [
+    vim
     wget
-
-    # DEVELOPMENT
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    # C and C++
-    cmake
-    libtool
-    # Nix
-    nil # Nix language server
-
-    # UI/UX
-    # TODO: configure gestures so they're actually useful
-    # creates user daemon libinput-gestures.service
-    # TODO: can this be enabled through config?
-    libinput-gestures # touchpad gesture support
-    wmctrl # allows libinput-gestures to interact with the window manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

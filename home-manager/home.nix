@@ -1,13 +1,16 @@
 {
-  inputs,
-  lib,
-  config,
+  # inputs,
+  # lib,
+  # config,
   pkgs,
   ...
-}: {
+}:
+
+{
   imports = [
-    # ...
-    ./programs/gui/kitty.nix
+    ./cli-programs
+    ./gui-programs
+    ./services
   ];
 
   nixpkgs = {
@@ -18,10 +21,46 @@
     };
   };
 
-  # TODO: add packages
   home = {
     username = "breitnw";
     homeDirectory = "/home/breitnw";
+    packages = with pkgs; [
+      #==============#
+      # GUI PROGRAMS #
+      #==============#
+
+      firefox
+      kitty
+      sayonara # music player
+
+      #==============#
+      # CLI PROGRAMS #
+      #==============#
+
+      # random ----------------
+      neofetch
+
+      # dev tools -------------
+      cmake
+      rustup
+      nil # Nix language server
+
+      #===========#
+      # LIBRARIES #
+      #===========#
+
+      libtool # required for vterm-module compilation
+
+      #==========#
+      # SERVICES #
+      #==========#
+
+      # TODO: configure gestures so they're actually useful
+      # creates user daemon libinput-gestures.service
+      # TODO: can this be enabled through config?
+      libinput-gestures # touchpad gesture support
+      wmctrl # allows libinput-gestures to interact with the window manager
+    ];
   };
 
   programs.home-manager.enable = true;
@@ -33,5 +72,5 @@
 
   systemd.user.startServices = "sd-switch";
 
-  home.stateVersion = "23.05";
+  home.stateVersion = "24.05";
 }
