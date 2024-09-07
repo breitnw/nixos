@@ -27,7 +27,6 @@
 
     sessionVariables = {
       EDITOR = "emacs";
-      TERMINAL = "kitty";
       FLAKE = "/home/breitnw/NixOS"; # config directory for nh
     };
 
