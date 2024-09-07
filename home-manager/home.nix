@@ -43,6 +43,9 @@
       # random --------------------------------------
       pkgs.neofetch
 
+      # utilities
+      pkgs.unzip
+
       # dev tools -----------------------------------
       pkgs.cmake
       pkgs.rustup
