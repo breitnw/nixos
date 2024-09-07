@@ -1,8 +1,9 @@
 {
-  # inputs,
-  # lib,
-  # config,
-  pkgs,
+  # lib,         # the nixpkgs library
+  # config,      # the results of all options after merging the values from all modules together
+  # options,     # the options declared in all modules
+  # specialArgs, # the specialArgs argument passed to evalModules
+  pkgs,          # the nixpkgs package set according to the nixpkgs.pkgs option
   ...
 }:
 
@@ -14,7 +15,6 @@
   ];
 
   nixpkgs = {
-    # overlays = [];
     config = {
       allowUnfree = true;
       allowUnfreePredicate = _: true;
@@ -28,45 +28,37 @@
     sessionVariables = {
       EDITOR = "emacs";
       TERMINAL = "kitty";
-      NIX_PATH = "~/NixOS";
+      FLAKE = "/home/breitnw/NixOS"; # config directory for nh
     };
 
-    packages = with pkgs; [
-      #==============#
-      # GUI PROGRAMS #
-      #==============#
+    packages =  [
+      # GUI PROGRAMS ================================
+      pkgs.firefox
+      pkgs.kitty
+      pkgs.sayonara # music player
+      pkgs.unstable.ladybird
+      pkgs.libreoffice-qt6-fresh
+      pkgs.qbittorrent-qt5
 
-      firefox
-      kitty
-      sayonara # music player
+      # CLI PROGRAMS ================================
+      # random --------------------------------------
+      pkgs.neofetch
 
-      #==============#
-      # CLI PROGRAMS #
-      #==============#
+      # dev tools -----------------------------------
+      pkgs.cmake
+      pkgs.rustup
+      pkgs.nh # Nix helper
+      pkgs.nil # Nix language server
 
-      # random ----------------
-      neofetch
+      # LIBRARIES ===================================
+      pkgs.libtool # required for vterm-module compilation
 
-      # dev tools -------------
-      cmake
-      rustup
-      nil # Nix language server
-
-      #===========#
-      # LIBRARIES #
-      #===========#
-
-      libtool # required for vterm-module compilation
-
-      #==========#
-      # SERVICES #
-      #==========#
-
+      # SERVICES ====================================
       # TODO: configure gestures so they're actually useful
       # creates user daemon libinput-gestures.service
       # TODO: can this be enabled through config?
-      libinput-gestures # touchpad gesture support
-      wmctrl # allows libinput-gestures to interact with the window manager
+      pkgs.libinput-gestures # touchpad gesture support
+      pkgs.wmctrl # allows libinput-gestures to interact with the window manager
     ];
   };
 
@@ -74,7 +66,6 @@
 
   programs.home-manager.enable = true;
   programs.emacs.enable = true;
-  programs.git.enable = true;
   programs.firefox.enable = true;
   programs.bat.enable = true;
   programs.fish.enable = true;

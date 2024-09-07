@@ -31,9 +31,15 @@
   networking.hostName = "mnd";
   networking.networkmanager.enable = true;
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  # It doesn't appear XFCE has a bluetooth GUI, so blueman provides this
+  # TODO: move to xfce config
+  services.blueman.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/Chicago";
-  # time.timeZone = "Asia/Shanghai";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -48,6 +54,8 @@
   # };
 
   # Enable the X11 windowing system and configure XFCE
+
+  # TODO: move to xfce config
   services.xserver = {
     enable = true;
 
@@ -69,13 +77,7 @@
   services.printing.enable = true;
 
   # Enable sound.
-  # -- ENABLED BY DEFAULT in xfce
-  # hardware.pulseaudio.enable = true;
-  # OR
-  # services.pipewire = {
-  #   enable = true;
-  #   pulse.enable = true;
-  # };
+  # Pipewire is enabled in apple-silicon-support/modules/sound/default.nix
 
   # Enable touchpad support (enabled default in most desktopManager).
   # -- ENABLED BY DEFAULT in xfce
@@ -100,7 +102,15 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    # Since we don't use pulseaudio, we won't get this automatically...
+    # but it will still work because pipewire is a "drop-in" replacement
+    # for pulseaudio
+    # TODO: move this to xfce config
+    xfce.xfce4-pulseaudio-plugin
   ];
+
+  # Needs to be enabled, or else Ladybird won't work for some reason
+  programs.ladybird.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
