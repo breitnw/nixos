@@ -21,9 +21,36 @@
     };
   };
 
+  gtk = {
+    enable = true;
+    # gtk3.extraconfig.gtk-decoration-layout = "menu:";
+    theme = {
+      # TODO: I don't think this is actually setting the config
+      name = "gruvbox-dark";
+      package = pkgs.gruvbox-dark-gtk;
+      # other cool themes:
+      # pkgs.equilux-theme
+      # pkgs.gruvbox-dark-gtk
+      # pkgs.matcha-gtk-theme
+      # pkgs.pop-gtk-theme
+      # pkgs.rose-pine-gtk-theme
+      # pkgs.shades-of-gray-theme
+    };
+    iconTheme = {
+      name = "Buuf 3.45";
+      # TODO: pull from git?
+    };
+    # cursorTheme = {
+    #   name =
+    # }
+  };
+
   home = {
     username = "breitnw";
     homeDirectory = "/home/breitnw";
+
+    # TODO: does this work?
+    # pointerCursor.gtk.enable = true;
 
     sessionVariables = {
       EDITOR = "emacs";
@@ -34,7 +61,7 @@
       # GUI PROGRAMS ================================
       pkgs.firefox
       pkgs.kitty
-      pkgs.sayonara # music player
+      pkgs.tauon # music player
       pkgs.unstable.ladybird
       pkgs.libreoffice-qt6-fresh
       pkgs.qbittorrent-qt5
