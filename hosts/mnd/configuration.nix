@@ -107,6 +107,9 @@
     # for pulseaudio
     # TODO: move this to xfce config
     xfce.xfce4-pulseaudio-plugin
+    # a volume mixer
+    # TODO: check if this is working, move to xfce config
+    pavucontrol
   ];
 
   # Needs to be enabled, or else Ladybird won't work for some reason
@@ -128,6 +131,11 @@
     settings = {
       PasswordAuthentication = false;
     };
+  };
+
+  # Enable the touch bar with tiny-dfr
+  services.tiny-dfr = {
+    enable = true;
   };
 
   # Open ports in the firewall.

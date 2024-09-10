@@ -7,5 +7,6 @@
       window_margin_width = 6;
       shell = "fish";
     };
+    theme = "Kaolin Temple";
   };
 }

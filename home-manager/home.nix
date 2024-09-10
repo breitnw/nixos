@@ -51,6 +51,7 @@
       pkgs.rustup
       pkgs.nh # Nix helper
       pkgs.nil # Nix language server
+      pkgs.octaveFull # octave (with gui)
 
       # LIBRARIES ===================================
       pkgs.libtool # required for vterm-module compilation

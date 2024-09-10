@@ -1,3 +1,4 @@
+{ ... }:
 {
   imports = [
     ./tiny-dfr.nix
