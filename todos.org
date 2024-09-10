@@ -1,16 +1,20 @@
 #+title: NixOS configuration TODOs
 #+author: Nick Breitling
 
-* TODO kitty color scheme
-* TODO redshift service (if possible)
-* TODO enable tiny-dfr daemon on startup
-* TODO conifgure environment variables with home-manager
+* DONE kitty color scheme
+
+* TODO systemd daemons
+** TODO redshift service (if possible)
+** DONE enable tiny-dfr daemon on startup
+** TODO webdav daemon
+
+* STRT conifgure environment variables with home-manager
 
 * TODO configure emacs [0/2]
 ** TODO compile from source with a derivation?
 ** TODO manage dotfiles with home-manager
 [[https://discourse.nixos.org/t/make-home-manager-clone-some-git-repos-for-my-dotfiles/32591/3][Cloning dotfiles from a git repo]]
 
-* TODO configure XFCE desktop
+* STRT configure XFCE desktop
 ** TODO clone icons from git repo
-** TODO separate out XFCE-related stuff (including bluetooth, gestures) to its own module
+** STRT separate out XFCE-related stuff (including bluetooth, gestures) to its own module

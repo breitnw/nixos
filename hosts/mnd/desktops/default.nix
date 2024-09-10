@@ -1,7 +1,6 @@
 { ... }:
-
 {
   imports = [
-    ./tiny-dfr.nix
+    ./xfce.nix
   ];
 }

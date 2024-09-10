@@ -18,6 +18,8 @@
       ./hardware
       # Systemd services to be run as root
       ./services
+      # Desktop environment configuration
+      ./desktops
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -34,9 +36,6 @@
   # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  # It doesn't appear XFCE has a bluetooth GUI, so blueman provides this
-  # TODO: move to xfce config
-  services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -46,23 +45,13 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  #   useXkbConfig = true; # use xkb.options in tty.
-  # };
+  console.useXkbConfig = true; # use xkb.options in tty.
 
   # Enable the X11 windowing system and configure XFCE
+  desktops.xfce.enable = true;
 
-  # TODO: move to xfce config
   services.xserver = {
     enable = true;
-
-    desktopManager = {
-      xfce.enable = true;
-      xterm.enable = false;
-    };
 
     xkb = {
       layout = "us";
@@ -71,7 +60,6 @@
     };
   };
 
-  services.displayManager.defaultSession = "xfce";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -102,14 +90,6 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    # Since we don't use pulseaudio, we won't get this automatically...
-    # but it will still work because pipewire is a "drop-in" replacement
-    # for pulseaudio
-    # TODO: move this to xfce config
-    xfce.xfce4-pulseaudio-plugin
-    # a volume mixer
-    # TODO: check if this is working, move to xfce config
-    pavucontrol
   ];
 
   # Needs to be enabled, or else Ladybird won't work for some reason
