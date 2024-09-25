@@ -3,6 +3,5 @@
 {
   imports = [
     ./xfconf.nix
-    ./themes
   ];
 }

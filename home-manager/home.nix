@@ -13,6 +13,7 @@
     ./gui-programs
     ./services
     ./desktop
+    ./themes
   ];
 
   nixpkgs = {

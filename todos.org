@@ -1,8 +1,6 @@
 #+title: NixOS configuration TODOs
 #+author: Nick Breitling
 
-* DONE kitty color scheme
-
 * TODO systemd daemons
 ** TODO redshift service (if possible)
 ** DONE enable tiny-dfr daemon on startup
@@ -17,4 +15,3 @@
 
 * STRT configure XFCE desktop
 ** TODO clone icons from git repo
-** STRT separate out XFCE-related stuff (including bluetooth, gestures) to its own module
