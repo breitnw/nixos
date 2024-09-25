@@ -1,12 +1,25 @@
-{ ... }:
+{ lib, config, ... }:
+
+let
+  cfg = config.modules.kitty;
+in
 
 {
-  programs.kitty = {
-    enable = true;
-    settings = {
-      window_margin_width = 6;
-      shell = "fish";
+  options = {
+    modules.kitty = {
+      enable = lib.mkEnableOption
+        "whether to enable the kitty configuration";
     };
-    theme = "Kaolin Temple";
+  };
+
+  config = lib.mkIf cfg.enable {
+    programs.kitty = {
+      enable = true;
+      settings = {
+        window_margin_width = 6;
+        shell = "fish";
+      };
+      # theme is configured in desktop/themes
+    };
   };
 }

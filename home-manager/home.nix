@@ -12,6 +12,7 @@
     ./cli-programs
     ./gui-programs
     ./services
+    ./desktop
   ];
 
   nixpkgs = {
@@ -19,30 +20,6 @@
       allowUnfree = true;
       allowUnfreePredicate = _: true;
     };
-  };
-
-  gtk = {
-    enable = true;
-    # gtk3.extraconfig.gtk-decoration-layout = "menu:";
-    theme = {
-      # TODO: I don't think this is actually setting the config
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-dark-gtk;
-      # other cool themes:
-      # pkgs.equilux-theme
-      # pkgs.gruvbox-dark-gtk
-      # pkgs.matcha-gtk-theme
-      # pkgs.pop-gtk-theme
-      # pkgs.rose-pine-gtk-theme
-      # pkgs.shades-of-gray-theme
-    };
-    iconTheme = {
-      name = "Buuf 3.45";
-      # TODO: pull from git?
-    };
-    # cursorTheme = {
-    #   name =
-    # }
   };
 
   home = {
@@ -57,10 +34,10 @@
       FLAKE = "/home/breitnw/NixOS"; # config directory for nh
     };
 
-    packages =  [
+    packages = [
+
       # GUI PROGRAMS ================================
       pkgs.firefox
-      pkgs.kitty
       pkgs.tauon # music player
       pkgs.unstable.ladybird
       pkgs.libreoffice-qt6-fresh
@@ -72,13 +49,22 @@
 
       # utilities
       pkgs.unzip
+      pkgs.pass
+      pkgs.ripgrep
 
-      # dev tools -----------------------------------
+      # languages -----------------------------------
+      # ...C and C++
+      pkgs.gnumake
+      pkgs.gcc
       pkgs.cmake
+      # ...rust
       pkgs.rustup
+      # ...nix
       pkgs.nh # Nix helper
       pkgs.nil # Nix language server
+      # ...school
       pkgs.octaveFull # GNU Octave (with gui)
+      pkgs.racket_7_9 # racket (and DrRacket)
 
       # LIBRARIES ===================================
       pkgs.libtool # required for vterm-module compilation
@@ -92,15 +78,24 @@
     ];
   };
 
-  xsession.enable = true;
-
+  # builtin programs
   programs.home-manager.enable = true;
   programs.emacs.enable = true;
   programs.firefox.enable = true;
   programs.bat.enable = true;
   programs.fish.enable = true;
 
-  systemd.user.startServices = "sd-switch";
+  # builtin services
+  services.kdeconnect.enable = true;
 
+  # custom modules
+  modules.kitty.enable = true;
+
+  # global theme
+  theme.name = "Gruvbox";
+
+  # defaults (?)
+  xsession.enable = true;
+  systemd.user.startServices = "sd-switch";
   home.stateVersion = "24.05";
 }

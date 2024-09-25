@@ -1,0 +1,8 @@
+{ ... }:
+
+{
+  imports = [
+    ./xfconf.nix
+    ./themes
+  ];
+}
