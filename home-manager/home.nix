@@ -32,17 +32,19 @@
 
     sessionVariables = {
       EDITOR = "emacs";
-      FLAKE = "/home/breitnw/NixOS"; # config directory for nh
+      FLAKE = "/home/breitnw/Documents/code/nixos"; # config directory for nh
     };
 
     packages = [
-
       # GUI PROGRAMS ================================
       pkgs.firefox
       pkgs.tauon # music player
       pkgs.unstable.ladybird
       pkgs.libreoffice-qt6-fresh
       pkgs.qbittorrent-qt5
+      pkgs.vesktop # discord client
+      pkgs.emacs
+      pkgs.graphviz
 
       # CLI PROGRAMS ================================
       # random --------------------------------------
@@ -52,6 +54,7 @@
       pkgs.unzip
       pkgs.pass
       pkgs.ripgrep
+      pkgs.bat
 
       # languages -----------------------------------
       # ...C and C++
@@ -63,9 +66,15 @@
       # ...nix
       pkgs.nh # Nix helper
       pkgs.nil # Nix language server
+      # ...latex
+      pkgs.texliveFull
       # ...school
       pkgs.octaveFull # GNU Octave (with gui)
       pkgs.racket_7_9 # racket (and DrRacket)
+
+      # FONTS =======================================
+      pkgs.creep
+      pkgs.cozette
 
       # LIBRARIES ===================================
       pkgs.libtool # required for vterm-module compilation
@@ -81,10 +90,7 @@
 
   # builtin programs
   programs.home-manager.enable = true;
-  programs.emacs.enable = true;
   programs.firefox.enable = true;
-  programs.bat.enable = true;
-  programs.fish.enable = true;
 
   # builtin services
   services.kdeconnect.enable = true;

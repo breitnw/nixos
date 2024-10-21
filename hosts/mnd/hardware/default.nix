@@ -3,6 +3,7 @@
 {
   imports = [
     ./apple-silicon-support
+    ./displaylink
   ];
 
   config = {

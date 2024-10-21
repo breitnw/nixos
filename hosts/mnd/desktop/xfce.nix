@@ -11,6 +11,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    # enable xserver
+    services.xserver.enable = true;
     # enable XFCE and configure it as the default session
     services.xserver.desktopManager.xfce.enable = true;
     services.displayManager.defaultSession = "xfce";
@@ -24,6 +26,15 @@ in {
       xfce.xfce4-pulseaudio-plugin
       # a volume mixer
       pavucontrol
+      # default application support (this doesn't work otherwise fsr)
+      xfce.exo
     ];
+
+    programs.thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+      ];
+    };
   };
 }

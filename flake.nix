@@ -25,7 +25,7 @@
     formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
 
     nixosConfigurations = {
-      mnd = nixpkgs.lib.nixosSystem {
+      mnd = nixpkgs-unstable.lib.nixosSystem {
         # specialArgs = { inherit system; };
         modules = [
           # hardware-configuration.nix is imported by configuration.nix

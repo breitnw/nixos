@@ -4,7 +4,7 @@
 
 {
   # config,
-  # lib,
+  lib,
   pkgs,
   ...
 }:
@@ -37,6 +37,9 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
+  # External displays
+  # hardware.displaylink.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
@@ -48,11 +51,14 @@
   console.useXkbConfig = true; # use xkb.options in tty.
 
   # Enable the X11 windowing system and configure XFCE
+
+  # TODO use an enum
+  # Enable xfce
   desktops.xfce.enable = true;
+  # don't enable KDE
+  desktops.kde.enable = false;
 
   services.xserver = {
-    enable = true;
-
     xkb = {
       layout = "us";
       variant = "colemak";
