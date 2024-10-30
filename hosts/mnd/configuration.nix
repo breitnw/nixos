@@ -4,8 +4,8 @@
 
 {
   # config,
-  lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -18,8 +18,10 @@
       ./hardware
       # Systemd services to be run as root
       ./services
-      # Desktop environment configuration
-      ./desktop
+      # Desktop environment support
+      ./desktop-support
+      # Secrets management with sops-nix
+      ./secrets
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -98,8 +100,8 @@
     wget
   ];
 
-  # Needs to be enabled, or else Ladybird won't work for some reason
-  programs.ladybird.enable = true;
+  # ensure that nixpkgs path aligns with nixpkgs flake input
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

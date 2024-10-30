@@ -2,6 +2,6 @@
 
 {
   imports = [
-    ./xfconf.nix
+    ./xfce.nix
   ];
 }

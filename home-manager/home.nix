@@ -1,18 +1,12 @@
-{
-  # lib,         # the nixpkgs library
-  # config,      # the results of all options after merging the values from all modules together
-  # options,     # the options declared in all modules
-  # specialArgs, # the specialArgs argument passed to evalModules
-  pkgs,          # the nixpkgs package set according to the nixpkgs.pkgs option
-  ...
-}:
+{ pkgs, ... }:
+# other options: lib, config, options, specialArgs
 
 {
   imports = [
     ./cli-programs
     ./gui-programs
     ./services
-    ./desktop
+    ./desktop-settings
     ./themes
   ];
 
@@ -35,56 +29,57 @@
       FLAKE = "/home/breitnw/Documents/code/nixos"; # config directory for nh
     };
 
-    packages = [
+    packages = with pkgs; [
       # GUI PROGRAMS ================================
-      pkgs.firefox
-      pkgs.tauon # music player
-      pkgs.unstable.ladybird
-      pkgs.libreoffice-qt6-fresh
-      pkgs.qbittorrent-qt5
-      pkgs.vesktop # discord client
-      pkgs.emacs
-      pkgs.graphviz
+      firefox
+      tauon # music player
+      libreoffice-qt6-fresh
+      qbittorrent-qt5
+      vesktop # discord client
+      emacs
+      vscode
+      picard
 
       # CLI PROGRAMS ================================
       # random --------------------------------------
-      pkgs.neofetch
+      neofetch
 
       # utilities
-      pkgs.unzip
-      pkgs.pass
-      pkgs.ripgrep
-      pkgs.bat
+      unzip
+      # pass
+      ripgrep
+      bat
 
       # languages -----------------------------------
       # ...C and C++
-      pkgs.gnumake
-      pkgs.gcc
-      pkgs.cmake
+      gnumake
+      gcc
+      cmake
       # ...rust
-      pkgs.rustup
+      rustup
       # ...nix
-      pkgs.nh # Nix helper
-      pkgs.nil # Nix language server
+      nh # Nix helper
+      nixd # Nix language server
+      nixfmt
       # ...latex
-      pkgs.texliveFull
+      texliveFull
       # ...school
-      pkgs.octaveFull # GNU Octave (with gui)
-      pkgs.racket_7_9 # racket (and DrRacket)
+      octaveFull # GNU Octave (with gui)
+      racket_7_9 # racket (and DrRacket)
 
       # FONTS =======================================
-      pkgs.creep
-      pkgs.cozette
+      creep
+      cozette
 
       # LIBRARIES ===================================
-      pkgs.libtool # required for vterm-module compilation
+      libtool # required for vterm-module compilation
 
       # SERVICES ====================================
       # TODO: configure gestures so they're actually useful
       # creates user daemon libinput-gestures.service
       # TODO: can this be enabled through config?
-      pkgs.libinput-gestures # touchpad gesture support
-      pkgs.wmctrl # allows libinput-gestures to interact with the window manager
+      libinput-gestures # touchpad gesture support
+      wmctrl # allows libinput-gestures to interact with the window manager
     ];
   };
 
@@ -93,10 +88,14 @@
   programs.firefox.enable = true;
 
   # builtin services
-  services.kdeconnect.enable = true;
+  services.easyeffects = {
+    enable = true;
+    preset = "scoop";
+  };
 
   # custom modules
   modules.kitty.enable = true;
+  modules.redshift.enable = false;
 
   # global theme
   theme.name = "Gruvbox";
