@@ -8,6 +8,7 @@
     ./services
     ./desktop-settings
     ./themes
+    ./secrets
   ];
 
   nixpkgs = {
@@ -36,15 +37,11 @@
       libreoffice-qt6-fresh
       qbittorrent-qt5
       vesktop # discord client
-      emacs
       vscode
       picard
 
       # CLI PROGRAMS ================================
-      # random --------------------------------------
       neofetch
-
-      # utilities
       unzip
       # pass
       ripgrep
@@ -86,16 +83,15 @@
   # builtin programs
   programs.home-manager.enable = true;
   programs.firefox.enable = true;
+  programs.emacs.enable = true;
 
   # builtin services
-  services.easyeffects = {
-    enable = true;
-    preset = "scoop";
-  };
+  services.easyeffects.enable = true;
 
   # custom modules
   modules.kitty.enable = true;
   modules.redshift.enable = false;
+  modules.mail.enable = true;
 
   # global theme
   theme.name = "Gruvbox";

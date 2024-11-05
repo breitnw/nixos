@@ -1,13 +1,15 @@
+# secrets management via sops-nix
+
 { pkgs, inputs, ... }:
 
 {
   imports = [
-    inputs.sops-nix.nixosModules.sops
+    inputs.sops-nix.homeManagerModules.sops
     ./keys.nix
   ];
 
   config = {
-    environment.systemPackages = [
+    home.packages = [
       pkgs.sops
     ];
 

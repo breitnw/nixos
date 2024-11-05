@@ -4,6 +4,6 @@
   imports = [
     ./redshift.nix
     ./webdav.nix
-    # ./mbsync.nix
+    ./mail.nix
   ];
 }

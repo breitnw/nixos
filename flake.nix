@@ -37,11 +37,11 @@
     homeConfigurations = {
       "breitnw@mnd" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
-        # extraSpecialArgs = { inherit system; };
+        extraSpecialArgs = { inherit inputs; };
         modules = [
           # enable an overlay with unstable packages
           ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-          ./home-manager/home.nix
+          ./home/breitnw/home.nix
         ];
       };
     };

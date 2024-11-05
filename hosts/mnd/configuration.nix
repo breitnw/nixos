@@ -20,8 +20,6 @@
       ./services
       # Desktop environment support
       ./desktop-support
-      # Secrets management with sops-nix
-      ./secrets
     ];
 
   # Use the systemd-boot EFI boot loader.
