@@ -10,17 +10,16 @@
 }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan [built automatically]
-      ./hardware-configuration.nix
-      # Apple silicon hardware support
-      ./hardware
-      # Systemd services to be run as root
-      ./services
-      # Desktop environment support
-      ./desktop-support
-    ];
+  imports = [
+    # Include the results of the hardware scan [built automatically]
+    ./hardware-configuration.nix
+    # Apple silicon hardware support
+    ./hardware
+    # Systemd services to be run as root
+    ./services
+    # Desktop environment support
+    ./desktop-support
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -127,13 +126,11 @@
   # Open ports in the firewall.
   networking.firewall = {
     enable = true;
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
     allowedTCPPortRanges = [
-      { from = 1714; to = 1764; } # KDE Connect
+      # { from = 1714; to = 1764; } # KDE Connect
     ];
     allowedUDPPortRanges = [
-      { from = 1714; to = 1764; } # KDE Connect
+      # { from = 1714; to = 1764; } # KDE Connect
     ];
   };
 

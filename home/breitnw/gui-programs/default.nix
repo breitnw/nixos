@@ -3,5 +3,6 @@
 {
   imports = [
     ./kitty.nix
+    ./emacs
   ];
 }

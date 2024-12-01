@@ -35,7 +35,6 @@
       firefox
       tauon # music player
       libreoffice-qt6-fresh
-      qbittorrent-qt5
       vesktop # discord client
       vscode
       picard
@@ -56,13 +55,13 @@
       rustup
       # ...nix
       nh # Nix helper
-      nixd # Nix language server
-      nixfmt
+      unstable.nixd # Nix language server
+      nixfmt-classic
       # ...latex
       texliveFull
       # ...school
       octaveFull # GNU Octave (with gui)
-      racket_7_9 # racket (and DrRacket)
+      unstable.racket # racket (and DrRacket)
 
       # FONTS =======================================
       creep
@@ -72,10 +71,6 @@
       libtool # required for vterm-module compilation
 
       # SERVICES ====================================
-      # TODO: configure gestures so they're actually useful
-      # creates user daemon libinput-gestures.service
-      # TODO: can this be enabled through config?
-      libinput-gestures # touchpad gesture support
       wmctrl # allows libinput-gestures to interact with the window manager
     ];
   };
@@ -97,7 +92,7 @@
   theme.name = "Gruvbox";
 
   # defaults (?)
-  xsession.enable = true;
+  xsession.enable = true; # TODO might need to disable for wayland
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "24.05";
 }
