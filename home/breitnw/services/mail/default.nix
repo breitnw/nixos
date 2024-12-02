@@ -140,18 +140,9 @@ in {
 
     in load_path_expr + contexts_expr + load_expr;
 
-    # automatically sync with services.mbsync
-    # we don't need to do this because emacs should handle it for us
-    # services.mbsync = {
-    #   enable = true;
-    #   frequency = "*:0/5";
-    # };
-
     # configure email accounts
     accounts.email = {
-      maildirBasePath =
-        assert "${config.home.homeDirectory}/Mail" == "/home/breitnw/Mail";
-        "/home/breitnw/Mail";
+      maildirBasePath = "${config.home.homeDirectory}/Mail";
 
       accounts = lib.attrsets.mapAttrs (name: value: {
         inherit (value) primary aliases realName;
