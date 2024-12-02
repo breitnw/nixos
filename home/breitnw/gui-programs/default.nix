@@ -3,6 +3,6 @@
 {
   imports = [
     ./kitty.nix
-    ./emacs
+    ./emacs.nix
   ];
 }

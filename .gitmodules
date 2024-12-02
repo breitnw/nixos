@@ -1,0 +1,3 @@
+[submodule "home/breitnw/gui-programs/emacs/doom-config"]
+	path = home/breitnw/gui-programs/emacs/doom-config
+	url = git@github.com:breitnw/doom.git
