@@ -1,4 +1,8 @@
+;; -*- lexical-binding: t -*-
+
 (after! mu4e
+  (defvar mail-accounts) ;; set by nix config
+
   ;; appearance tweak: instead of the ugly highlight do blue arrows
   (set-face-attribute 'mu4e-highlight-face nil :inherit 'nerd-icons-blue)
 

@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-# other options: lib, config, options, specialArgs
+{ pkgs, config, ... }:
+# other options: lib, options, specialArgs
 
 {
   imports = [
@@ -27,7 +27,7 @@
 
     sessionVariables = {
       EDITOR = "emacs";
-      FLAKE = "/home/breitnw/Documents/code/nixos"; # config directory for nh
+      FLAKE = "${config.home.homeDirectory}/Config/nixos"; # config directory for nh
     };
 
     packages = with pkgs; [

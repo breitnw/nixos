@@ -107,7 +107,7 @@ in {
       # the package set used by this emacs install
       emacsPackages = pkgs.emacsPackagesFor config.programs.emacs.package;
 
-      # expression to add mu4e to the emacs load path (TODO: implement if load path doesn't work)
+      # expression to add mu4e to the emacs load path
       # also TODO: will this break if mu4e is updated? will it work if we just add the `elpa`
       # folder to the load path?
       load_path_expr = ''
@@ -129,14 +129,16 @@ in {
       # expression to define the contexts for mu4e to load (one for each
       # alias and main address, as desired). uses the address as the key,
       # and the name of the context as the value
-      contexts_expr = "(setq mail-accounts '(" + lib.concatStrings
-        (lib.mapAttrsToList (name: value: ''
-          ("${value}" . "${name}")
-        '') contexts) + ''
-          ))
-        '';
+      contexts_expr = "(defvar mail-accounts '(" + lib.concatStringsSep " "
+        (lib.mapAttrsToList (name: value: ''("${value}" . "${name}")'')
+          contexts) + "))";
 
-    in load_path_expr + contexts_expr + (builtins.readFile ./mail.el);
+      # expression to load mu4e variables
+      load_expr = ''
+        (load "${./mail.el}")
+      '';
+
+    in load_path_expr + contexts_expr + load_expr;
 
     # automatically sync with services.mbsync
     # we don't need to do this because emacs should handle it for us

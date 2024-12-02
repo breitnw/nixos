@@ -1,27 +1,16 @@
 { pkgs, config, ... }:
 
-# based on https://github.com/sebnyberg/doomemacs-nix-example
-# can't use submodules inside of flakes right now, so it's impossible
-# to keep emacs config as a submodule
+# might want to look at https://github.com/sebnyberg/doomemacs-nix-example
+# for doom specific config
 
 {
-  programs.emacs.enable = true;
+  config = {
+    programs.emacs = {
+      enable = true;
+      package = pkgs.unstable.emacs30;
+    };
 
-  # from https://tech.j4m3s.eu/posts/emacs-nix-setup/
-  home.sessionVariables = {
-    DOOMDIR = "${config.xdg.configHome}/doom";
-    EMACSDIR = "${config.xdg.configHome}/emacs";
-    DOOMLOCALDIR = "${config.xdg.dataHome}/doom";
-    DOOMPROFILELOADFILE = "${config.xdg.stateHome}/doom-profiles-load.el";
-  };
-
-  # add doom binaries to PATH
-  home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
-
-  xdg.configFile."emacs".source = pkgs.fetchFromGitHub {
-    owner = "doomemacs";
-    repo = "doomemacs";
-    rev = "9c8cfaadde1ccc96a780d713d2a096f0440b9483";
-    hash = "sha256-ketdYl75drmTQZRUvUDcVswUXGi0vKonzqopX8Maja8=";
+    # add doom binaries to PATH
+    home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
   };
 }
