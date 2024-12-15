@@ -87,6 +87,7 @@
   modules.kitty.enable = true;
   modules.redshift.enable = false;
   modules.mail.enable = true;
+  modules.pio.enable = true;
 
   # global theme
   theme.name = "Gruvbox";

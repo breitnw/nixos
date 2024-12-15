@@ -9,14 +9,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
-    apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon/main";
   };
 
   outputs = {
     nixpkgs,
     nixpkgs-unstable,
     home-manager,
-    apple-silicon-support,
     ...
   } @ inputs: let
     system = "aarch64-linux";
@@ -32,7 +30,6 @@
         modules = [
           # hardware-configuration.nix is imported by configuration.nix
           ./hosts/mnd/configuration.nix
-          apple-silicon-support.modules.nixos.default
         ];
       };
     };

@@ -42,21 +42,15 @@
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   console.useXkbConfig = true; # use xkb.options in tty.
 
   # Enable the X11 windowing system and configure XFCE
-
-  # TODO use an enum
-  # Enable xfce
+  # Enable xfce (TODO use an enum)
   desktops.xfce.enable = true;
-  # don't enable KDE
   desktops.kde.enable = false;
 
+  # Configure keyboard to use colemak
   services.xserver = {
     xkb = {
       layout = "us";
@@ -121,17 +115,6 @@
   # Enable the touch bar with tiny-dfr
   services.tiny-dfr = {
     enable = true;
-  };
-
-  # Open ports in the firewall.
-  networking.firewall = {
-    enable = true;
-    allowedTCPPortRanges = [
-      # { from = 1714; to = 1764; } # KDE Connect
-    ];
-    allowedUDPPortRanges = [
-      # { from = 1714; to = 1764; } # KDE Connect
-    ];
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
