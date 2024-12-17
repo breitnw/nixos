@@ -38,6 +38,8 @@
       vesktop # discord client
       vscode
       picard
+      superTuxKart
+      krita
 
       # CLI PROGRAMS ================================
       neofetch

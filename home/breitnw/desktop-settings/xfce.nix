@@ -7,7 +7,7 @@
 {
   xfconf.settings = {
     xsettings = {
-      "Net/IconThemeName" = "buuf-icon-theme";
+      "Net/IconThemeName" = "buuf-icon-theme"; # TODO: fetch from github?
       "Xft/DPI" = 120;
       "Gtk/FontName" = "Sans 11";
       "Gtk/MonospaceFontName" = "Monospace 11";
