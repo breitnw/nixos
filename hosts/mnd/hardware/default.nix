@@ -8,7 +8,7 @@ let
   };
 in {
   imports = [
-    ./displaylink.nix
+    ./display-support
     "${asahi}/apple-silicon-support"
   ];
 

@@ -2,6 +2,7 @@
 
 let
   cfg = config.desktops.kde;
+  default = config.desktops.default == "kde";
 in
 {
   options = {
@@ -12,8 +13,8 @@ in
 
   config = lib.mkIf cfg.enable {
     services.displayManager.sddm.enable = true;
-    services.desktopManager.plasma6.enable = true;
+    services.displayManager.defaultSession = lib.mkIf default "plasma";
 
-    services.displayManager.defaultSession = "plasma";
+    services.desktopManager.plasma6.enable = true;
   };
 }

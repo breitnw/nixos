@@ -48,11 +48,12 @@
       ripgrep
       bat
 
-      # languages -----------------------------------
+      # languages and build tools -------------------
       # ...C and C++
       gnumake
       gcc
       cmake
+      pkg-config
       # ...rust
       rustup
       # ...nix
@@ -61,13 +62,16 @@
       nixfmt-classic
       # ...latex
       texliveFull
+      # ...python
+      python3
       # ...school
       octaveFull # GNU Octave (with gui)
       unstable.racket # racket (and DrRacket)
 
       # FONTS =======================================
-      creep
-      cozette
+      # to update fonts, it may be necessary to run fc-cache -f
+      creep   # used for title bars
+      cozette # used for pretty much everything else
 
       # LIBRARIES ===================================
       libtool # required for vterm-module compilation
@@ -80,22 +84,21 @@
   # builtin programs
   programs.home-manager.enable = true;
   programs.firefox.enable = true;
-  programs.emacs.enable = true;
 
   # builtin services
-  services.easyeffects.enable = true;
+  services.easyeffects.enable = false;
 
   # custom modules
-  modules.kitty.enable = true;
+  modules.alacritty.enable = true;
   modules.redshift.enable = false;
   modules.mail.enable = true;
   modules.pio.enable = true;
 
   # global theme
-  theme.name = "Gruvbox";
+  themes.themeName = "Gruvbox";
 
   # defaults (?)
-  xsession.enable = true; # TODO might need to disable for wayland
+  xsession.enable = true;
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "24.05";
 }

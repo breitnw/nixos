@@ -1,0 +1,8 @@
+{ ... }:
+
+{
+  imports = [
+    ./xrandr
+    ./displaylink.nix
+  ];
+}

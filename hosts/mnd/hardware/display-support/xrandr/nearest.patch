@@ -1,0 +1,15 @@
+diff --git a/xrandr.c b/xrandr.c
+index 24b483e..8d97b53 100644
+--- a/xrandr.c
++++ b/xrandr.c
+@@ -3034,9 +3034,7 @@ main (int argc, char **argv)
+ 	    config_output->transform.transform.matrix[0][0] = XDoubleToFixed (sx);
+ 	    config_output->transform.transform.matrix[1][1] = XDoubleToFixed (sy);
+ 	    config_output->transform.transform.matrix[2][2] = XDoubleToFixed (1.0);
+-	    if (sx != 1 || sy != 1)
+-		config_output->transform.filter = "bilinear";
+-	    else
++        // PATCH: always use nearest filtering
+ 		config_output->transform.filter = "nearest";
+ 	    config_output->transform.nparams = 0;
+ 	    config_output->transform.params = NULL;

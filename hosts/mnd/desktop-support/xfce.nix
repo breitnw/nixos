@@ -3,6 +3,7 @@
 
 let
   cfg = config.desktops.xfce;
+  default = config.desktops.default == "xfce";
 in {
   options = {
     desktops.xfce = {
@@ -15,7 +16,7 @@ in {
     services.xserver.enable = true;
     # enable XFCE and configure it as the default session
     services.xserver.desktopManager.xfce.enable = true;
-    services.displayManager.defaultSession = "xfce";
+    services.displayManager.defaultSession = lib.mkIf default "xfce";
     # It doesn't appear XFCE has a bluetooth GUI, so blueman provides this
     services.blueman.enable = true;
     # XFCE-specific packages
@@ -29,12 +30,5 @@ in {
       # default application support (this doesn't work otherwise fsr)
       xfce.exo
     ];
-
-    programs.thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-      ];
-    };
   };
 }

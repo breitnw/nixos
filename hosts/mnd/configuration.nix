@@ -46,9 +46,20 @@
   console.useXkbConfig = true; # use xkb.options in tty.
 
   # Enable the X11 windowing system and configure XFCE
-  # Enable xfce (TODO use an enum)
+  # Enable xfce (TODO use an enum?)
+  desktops.default = "xfce";
   desktops.xfce.enable = true;
   desktops.kde.enable = false;
+
+  # from https://discourse.nixos.org/t/xdg-desktop-portal-gtk-desktop-collision/35063
+  # xdg desktop portals expose d-bus interfaces for xdg file access
+  # are needed by some containerized apps like firefox.
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    # gtk portal needed to make gtk apps happy
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 
   # Configure keyboard to use colemak
   services.xserver = {
@@ -58,7 +69,6 @@
       options = "caps:escape";
     };
   };
-
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -126,6 +136,4 @@
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
-
 }
-

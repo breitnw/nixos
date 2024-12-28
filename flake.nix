@@ -9,6 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs = {

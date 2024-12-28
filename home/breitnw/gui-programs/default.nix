@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./kitty.nix
-    ./emacs.nix
+    ./alacritty.nix
+    ./doom.nix
   ];
 }
