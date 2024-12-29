@@ -1,14 +1,21 @@
-{ lib, config, ... }:
+{ pkgs, lib, config, ... }@args:
 
 let
   cfg = config.modules.alacritty;
-in
+  # base16-alacritty provides the mustache template for
+  # the color scheme
+  base16-alacritty-repo = fetchGit {
+    url = "https://github.com/aarowill/base16-alacritty.git";
+    rev = "c95c200b3af739708455a03b5d185d3d2d263c6e";
+  };
+  base16-alacritty = "${base16-alacritty-repo}/templates/default.mustache";
+  mustache-base16 = import ../themes/mustache-base16.nix args;
 
-{
+in {
   options = {
     modules.alacritty = {
-      enable = lib.mkEnableOption
-        "whether to enable the alacritty configuration";
+      enable =
+        lib.mkEnableOption "whether to enable the alacritty configuration";
     };
   };
 
@@ -16,28 +23,12 @@ in
     programs.alacritty = {
       enable = true;
       settings = {
-        colors = with config.colorscheme.palette; {
-          # adapted from https://github.com/aarowill/base16-alacritty/blob/master/templates/default.mustache
-          draw_bold_text_with_bright_colors = false;
-          cursor = {
-            text = "0x${base00}";
-            cursor = "0x${base0F}";
+        import = let
+          themeFile = pkgs.writeTextFile {
+            name = "base16.toml";
+            text = mustache-base16 (builtins.readFile base16-alacritty);
           };
-          primary = {
-            background = "0x${base00}";
-            foreground = "0x${base05}";
-          };
-          normal = {
-            black = "0x${base00}";
-            red = "0x${base08}";
-            green = "0x${base0B}";
-            yellow = "0x${base0A}";
-            blue = "0x${base0D}";
-            magenta = "0x${base0E}";
-            cyan = "0x${base0C}";
-            white = "0x${base05}";
-          };
-        };
+        in [ themeFile ];
         window = {
           padding = {
             x = 6;

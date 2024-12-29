@@ -1,22 +1,17 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }@args:
 
 # might want to look at https://github.com/sebnyberg/doomemacs-nix-example
 # for doom specific config
 
 let
   cfg = config.modules.doom;
-  # mustache is used for templating in the color scheme
-  mustache-repo = fetchGit {
-    url = "https://github.com/valodzka/nix-mustache.git";
-    rev = "1155eeb0cbe33a448ceb3e9c4fb1583491ec79a5";
-  };
-  mustache = import "${mustache-repo}/mustache" { inherit lib; };
   # base16-doom provides the scheme itself
   base16-doom-repo = fetchGit {
     url = "https://github.com/MArpogaus/base16-doom.git";
     rev = "2618b791e738d04b89cd61ac76af75c5fd8d4cb1";
   };
   base16-doom = "${base16-doom-repo}/templates/default.mustache";
+  mustache-base16 = import ../themes/mustache-base16.nix args;
 
 in {
   options = {
@@ -32,40 +27,14 @@ in {
   config = {
     programs.emacs = {
       enable = true;
-      extraPackages = epkgs:
-        [
-          epkgs.kurecolor # required by the script
-        ];
+      # color stuff
+      extraPackages = epkgs: [ epkgs.kurecolor ]; # required by the script
       extraConfig = if (isNull cfg.theme) then
         let
-          theme = mustache {
-            template = builtins.readFile base16-doom;
-            # TODO find a cleaner way to do this
-            # maybe filter attrset by names and then map names if possible?
-            view = with config.colorscheme.palette; {
-              base00-hex = base00;
-              base01-hex = base01;
-              base02-hex = base02;
-              base03-hex = base03;
-              base04-hex = base04;
-              base05-hex = base05;
-              base06-hex = base06;
-              base07-hex = base07;
-              base08-hex = base08;
-              base09-hex = base09;
-              base0A-hex = base0A;
-              base0B-hex = base0B;
-              base0C-hex = base0C;
-              base0D-hex = base0D;
-              base0E-hex = base0E;
-              base0F-hex = base0F;
-            };
-          };
-
           themeDir = pkgs.writeTextFile {
             name = "doom-base16-theme.el";
             destination = "/doom-base16-theme.el";
-            text = theme;
+            text = mustache-base16 (builtins.readFile base16-doom);
           };
         in ''
           (add-to-list 'custom-theme-load-path "${themeDir}")

@@ -1,6 +1,15 @@
 { pkgs, config, ... }:
 # other options: lib, options, specialArgs
 
+# TASKS
+# - TODO configure vi keybinds globally and then apply them
+#   to emacs, qutebrowser, vi, vim, etc.
+# - TODO maybe create a "utils" folder with derivations such
+#   as mustache or keymaps
+# - TODO enable and configure colorscheme for qutebrowser
+# - TODO customizations for generated GTK theme
+# - TODO reload emacs theme as soon as config is regenerated (somehow)
+
 {
   imports = [
     ./cli-programs
@@ -95,7 +104,9 @@
   modules.pio.enable = true;
 
   # global theme
-  themes.themeName = "Gruvbox";
+  # themes.themeName = "gruvbox-dark-medium";
+  # themes.themeName = "darktooth";
+  themes.themeName = "catppuccin-macchiato";
 
   # defaults (?)
   xsession.enable = true;

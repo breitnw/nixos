@@ -51,7 +51,7 @@ in {
         type = lib.types.str;
       };
       overrideDesktopTextColor = lib.mkOption {
-        default = false;
+        default = true;
         description = ''
           Whether to override the default desktop text color configured in the GTK theme with
           the foreground color (base05) from nix-colors

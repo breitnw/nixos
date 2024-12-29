@@ -7,13 +7,12 @@ in
 {
   imports = [
     inputs.nix-colors.homeManagerModules.default
-    ./loaded.nix # import the loaded theme
+    ./mod-loader.nix # import the loaded theme
   ];
 
   options = {
     themes.themeName = lib.mkOption {
-      description = "The system theme to use";
-      default = "Adwaita";
+      description = "The base16 system theme to use";
     };
     themes.customGTKTheme = lib.mkOption {
       description = ''
@@ -35,6 +34,7 @@ in
   };
 
   config = {
+    colorScheme = inputs.nix-colors.colorSchemes."${cfg.themeName}";
     # we configure the GTK theme with the gtk attrset
     gtk.enable = true;
     # set the GTK theme according to the color scheme, unless it is overridden

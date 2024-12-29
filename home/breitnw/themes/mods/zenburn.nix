@@ -1,4 +1,4 @@
-{ lib, config, inputs, ... }:
+{ inputs, ... }:
 
 {
   # nix-colors
