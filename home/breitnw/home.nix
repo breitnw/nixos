@@ -4,11 +4,12 @@
 # TASKS
 # - TODO configure vi keybinds globally and then apply them
 #   to emacs, qutebrowser, vi, vim, etc.
-# - TODO maybe create a "utils" folder with derivations such
-#   as mustache or keymaps
-# - TODO enable and configure colorscheme for qutebrowser
 # - TODO customizations for generated GTK theme
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
+# - TODO it seems like cozette has a bunch of glyphs, so why are default
+#        nerd fonts being used?
+# - TODO customize panel based on whether scheme is light or dark
+# - TODO finish figuring out cursor
 
 {
   imports = [
@@ -18,6 +19,7 @@
     ./desktop-settings
     ./themes
     ./secrets
+    ./keybinds
   ];
 
   nixpkgs = {
@@ -31,9 +33,6 @@
     username = "breitnw";
     homeDirectory = "/home/breitnw";
 
-    # TODO: does this work?
-    # pointerCursor.gtk.enable = true;
-
     sessionVariables = {
       EDITOR = "emacs";
       FLAKE = "${config.home.homeDirectory}/Config/nixos"; # config directory for nh
@@ -45,7 +44,6 @@
       tauon # music player
       libreoffice-qt6-fresh
       vesktop # discord client
-      vscode
       picard
       superTuxKart
       krita
@@ -77,11 +75,6 @@
       octaveFull # GNU Octave (with gui)
       unstable.racket # racket (and DrRacket)
 
-      # FONTS =======================================
-      # to update fonts, it may be necessary to run fc-cache -f
-      creep   # used for title bars
-      cozette # used for pretty much everything else
-
       # LIBRARIES ===================================
       libtool # required for vterm-module compilation
 
@@ -104,9 +97,21 @@
   modules.pio.enable = true;
 
   # global theme
-  # themes.themeName = "gruvbox-dark-medium";
-  # themes.themeName = "darktooth";
-  themes.themeName = "catppuccin-macchiato";
+  # themes can be previewed at https://tinted-theming.github.io/base16-gallery/
+
+  # themes.themeName = "gruvbox-dark-medium";  # ★ a classic
+  # themes.themeName = "darktooth";            # ★ like gruvbox but more purple
+  # themes.themeName = "catppuccin-macchiato"; # purple pastel
+  # themes.themeName = "darkmoss";             # cool blue-green
+  # themes.themeName = "everforest-dark-hard"; # greenish and groovy
+  # themes.themeName = "gigavolt";             # dark and vibrant (purply)
+  # themes.themeName = "kanagawa";             # ★ blue with yellowed text
+  # themes.themeName = "kimber";               # nordish but more red
+  # themes.themeName = "mountain";             # ★ dark and moody
+  # themes.themeName = "oxocarbon-dark";       # ★ dark and vibrant
+  # themes.themeName = "pico";                 # highkey ugly but maybe redeemable
+  # themes.themeName = "rose-pine-dawn";       # light and cozy
+  themes.themeName = "summercamp";           # ★ earthy but vibrant
 
   # defaults (?)
   xsession.enable = true;

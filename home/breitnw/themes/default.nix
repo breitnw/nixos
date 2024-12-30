@@ -7,7 +7,8 @@ in
 {
   imports = [
     inputs.nix-colors.homeManagerModules.default
-    ./mod-loader.nix # import the loaded theme
+    ./mod-loader.nix # import mods for the loaded theme
+    ./mustache.nix   # for substituting the theme in config files
   ];
 
   options = {

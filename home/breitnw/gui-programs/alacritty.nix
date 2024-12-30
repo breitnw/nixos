@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }@args:
+{ pkgs, lib, config, ... }:
 
 let
   cfg = config.modules.alacritty;
@@ -8,8 +8,7 @@ let
     url = "https://github.com/aarowill/base16-alacritty.git";
     rev = "c95c200b3af739708455a03b5d185d3d2d263c6e";
   };
-  base16-alacritty = "${base16-alacritty-repo}/templates/default.mustache";
-  mustache-base16 = import ../themes/mustache-base16.nix args;
+  base16-alacritty = "${base16-alacritty-repo}/templates/default-256.mustache";
 
 in {
   options = {
@@ -26,7 +25,7 @@ in {
         import = let
           themeFile = pkgs.writeTextFile {
             name = "base16.toml";
-            text = mustache-base16 (builtins.readFile base16-alacritty);
+            text = config.utils.mustache.eval-base16 (builtins.readFile base16-alacritty);
           };
         in [ themeFile ];
         window = {

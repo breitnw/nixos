@@ -74,7 +74,6 @@ in {
         "Gtk/FontName" = describeFont cfg.defaultFont;
         "Gtk/MonospaceFontName" = describeFont cfg.defaultFont;
         "Xft/DPI" = 80;
-        "Gdk/WindowScalingFactor" = 1;
       };
       # desktop appearance
       xfce4-desktop = {

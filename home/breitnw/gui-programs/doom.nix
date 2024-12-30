@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }@args:
+{ config, lib, pkgs, ... }:
 
 # might want to look at https://github.com/sebnyberg/doomemacs-nix-example
 # for doom specific config
@@ -11,7 +11,6 @@ let
     rev = "2618b791e738d04b89cd61ac76af75c5fd8d4cb1";
   };
   base16-doom = "${base16-doom-repo}/templates/default.mustache";
-  mustache-base16 = import ../themes/mustache-base16.nix args;
 
 in {
   options = {
@@ -34,7 +33,7 @@ in {
           themeDir = pkgs.writeTextFile {
             name = "doom-base16-theme.el";
             destination = "/doom-base16-theme.el";
-            text = mustache-base16 (builtins.readFile base16-doom);
+            text = config.utils.mustache.eval-base16 (builtins.readFile base16-doom);
           };
         in ''
           (add-to-list 'custom-theme-load-path "${themeDir}")
