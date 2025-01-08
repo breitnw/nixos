@@ -8,8 +8,8 @@
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
 # - TODO it seems like cozette has a bunch of glyphs, so why are default
 #        nerd fonts being used?
-# - TODO customize panel based on whether scheme is light or dark
 # - TODO finish figuring out cursor
+# - TODO fetch themes from git instead of depending on local config
 
 {
   imports = [
@@ -82,7 +82,7 @@
   # themes can be previewed at https://tinted-theming.github.io/base16-gallery/
 
   # modules.themes.themeName = "gruvbox-dark-medium";  # ★ a classic
-  # modules.themes.themeName = "darktooth";            # ★ like gruvbox but more purple
+  modules.themes.themeName = "darktooth";            # ★ like gruvbox but more purple
   # modules.themes.themeName = "catppuccin-macchiato"; # purple pastel
   # modules.themes.themeName = "darkmoss";             # cool blue-green
   # modules.themes.themeName = "everforest-dark-hard"; # greenish and groovy
@@ -93,7 +93,7 @@
   # modules.themes.themeName = "oxocarbon-dark";       # ★ dark and vibrant
   # modules.themes.themeName = "pico";                 # highkey ugly but maybe redeemable
   # modules.themes.themeName = "rose-pine-dawn";       # light and cozy
-  modules.themes.themeName = "summercamp";           # ★ earthy but vibrant
+  # modules.themes.themeName = "summercamp";           # ★ earthy but vibrant
 
   # defaults (?)
   xsession.enable = true;

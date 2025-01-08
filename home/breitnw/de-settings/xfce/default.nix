@@ -1,8 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, ... } @ args:
 
 {
   imports = [
     ./options.nix # my XFCE options module
+    ./panel.nix
   ];
   config = {
     modules.de.xfce = {
@@ -37,6 +38,8 @@
             file-icons.show-filesystem = true;
           };
         };
+        # panel settings are defined in panel.nix
+        xfce4-panel = import ./panel.nix args;
         # window manager. I use xfwm4 (the default) since I like the theme options
         xfwm4.general = {
           # configure the style of the titlebar and decorations
@@ -69,9 +72,6 @@
             0;
           MacBookPro171_Touch_Bar.Properties.Device_Enabled = 0;
         };
-        # xfce4-panel = {
-        #   # TODO configure color based on theme light or dark
-        # };
         # xfce4-keyboard-shortcuts = {
         #   "Commands"
         # };

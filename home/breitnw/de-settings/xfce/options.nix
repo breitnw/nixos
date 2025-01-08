@@ -31,7 +31,10 @@ in {
           the foreground color (base05) from nix-colors
         '';
       };
-      settings = lib.mkOption { };
+      settings = lib.mkOption {
+        default = { };
+        type = lib.types.attrsOf (lib.types.attrsOf lib.types.attrs);
+      };
     };
   };
 
@@ -40,18 +43,18 @@ in {
     fonts.fontconfig.enable = true;
     home.packages = [ cfg.defaultFont.package cfg.titleBarFont.package ];
 
-    # some settings are configured by other options (not directly configurable), so
-    # configure them here instead of default.nix
-    # modules.de.xfce.settings = {
-    # };
-
     xfconf.enable = true;
     xfconf.settings = let
+      # some settings are configured by other options (not directly configurable), so
+      # configure them here instead of default.nix
       generatedSettings = {
         # set the themes and fonts
         # ... for xfce
         xsettings = {
-          Net.IconThemeName = cfg.iconTheme;
+          Net = {
+            IconThemeName = cfg.iconTheme;
+            ThemeName = config.modules.themes.themeName;
+          };
           Gtk = {
             CursorThemeName = cfg.cursorTheme;
             FontName = describeFont cfg.defaultFont;
@@ -65,6 +68,7 @@ in {
         };
         # configure desktop icon text color
         # FIXME not sure if this works with XFCE 4.19
+        #       or xfce 4.20, for that matter
         xfce4-desktop.desktop-icons = {
           use-custom-label-text-color = cfg.overrideDesktopTextColor;
           # TODO does this still work?
@@ -82,8 +86,16 @@ in {
       # (easier to write) in the way home-manager wants
       flattenAttrs' = currentPath: attrs:
         lib.concatMapAttrs (name: val:
+          # If val is an atterset, recursively flatten it
           if (builtins.isAttrs val) then
             flattenAttrs' (currentPath ++ [ name ]) val
+          # if the attribute is named VALUE, it represents the value for the
+          # current path (which may have sub-paths)
+          else if (name == "VALUE") then {
+            currentPath = val;
+          }
+          # Otherwise, the value is the used for the path ending in the
+          # attribute name
           else {
             ${builtins.concatStringsSep "/" (currentPath ++ [ name ])} = val;
           }) attrs;
