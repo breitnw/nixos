@@ -18,7 +18,7 @@
     # Systemd services to be run as root
     ./services
     # Desktop environment support
-    ./desktop-support
+    ./de-support
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -27,6 +27,14 @@
 
   # Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Enable automatic optimization and garbage collection
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 7d";
+  };
+  nix.optimise.automatic = true;
+
 
   # Networking
   networking.hostName = "mnd";

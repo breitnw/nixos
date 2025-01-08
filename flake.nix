@@ -2,10 +2,10 @@
   description = "breitnw's nixos config";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix.url = "github:Mic92/sops-nix";
@@ -22,10 +22,11 @@
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
 
       nixosConfigurations = {
-        mnd = nixpkgs-unstable.lib.nixosSystem {
+        mnd = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            # hardware-configuration.nix is imported by configuration.nix
+            # enable an overlay with unstable packages
+            ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
             ./hosts/mnd/configuration.nix
           ];
         };

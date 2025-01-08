@@ -1,5 +1,7 @@
 { lib, ... }:
 
+# Desktop environment support modules
+
 {
   options = {
     desktops = {

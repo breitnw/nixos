@@ -2,7 +2,7 @@
 
 {
   # custom GTK theme, since the colors are too vibrant for my taste
-  themes.customGTKTheme = {
+  modules.themes.customGTKTheme = {
     package = pkgs.gruvbox-dark-gtk;
     name = "gruvbox-dark";
   };

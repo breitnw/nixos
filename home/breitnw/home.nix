@@ -16,7 +16,7 @@
     ./cli-programs
     ./gui-programs
     ./services
-    ./desktop-settings
+    ./de-settings
     ./themes
     ./secrets
     ./keybinds
@@ -40,9 +40,8 @@
 
     packages = with pkgs; [
       # GUI PROGRAMS ================================
-      firefox
       tauon # music player
-      libreoffice-qt6-fresh
+      libreoffice
       vesktop # discord client
       picard
       superTuxKart
@@ -51,35 +50,22 @@
       # CLI PROGRAMS ================================
       neofetch
       unzip
-      # pass
       ripgrep
       bat
 
-      # languages and build tools -------------------
-      # ...C and C++
-      gnumake
-      gcc
-      cmake
-      pkg-config
-      # ...rust
-      rustup
+      # languages and tools -------------------------
       # ...nix
       nh # Nix helper
       unstable.nixd # Nix language server
       nixfmt-classic
       # ...latex
       texliveFull
-      # ...python
-      python3
       # ...school
       octaveFull # GNU Octave (with gui)
-      unstable.racket # racket (and DrRacket)
 
       # LIBRARIES ===================================
-      libtool # required for vterm-module compilation
-
-      # SERVICES ====================================
-      wmctrl # allows libinput-gestures to interact with the window manager
+      # TODO remove this and install vterm with nix
+      # libtool # required for vterm-module compilation
     ];
   };
 
@@ -87,31 +73,27 @@
   programs.home-manager.enable = true;
   programs.firefox.enable = true;
 
-  # builtin services
-  services.easyeffects.enable = false;
-
   # custom modules
   modules.alacritty.enable = true;
-  modules.redshift.enable = false;
+  # modules.redshift.enable = true;
   modules.mail.enable = true;
-  modules.pio.enable = true;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/base16-gallery/
 
-  # themes.themeName = "gruvbox-dark-medium";  # ★ a classic
-  # themes.themeName = "darktooth";            # ★ like gruvbox but more purple
-  # themes.themeName = "catppuccin-macchiato"; # purple pastel
-  # themes.themeName = "darkmoss";             # cool blue-green
-  # themes.themeName = "everforest-dark-hard"; # greenish and groovy
-  # themes.themeName = "gigavolt";             # dark and vibrant (purply)
-  # themes.themeName = "kanagawa";             # ★ blue with yellowed text
-  # themes.themeName = "kimber";               # nordish but more red
-  # themes.themeName = "mountain";             # ★ dark and moody
-  # themes.themeName = "oxocarbon-dark";       # ★ dark and vibrant
-  # themes.themeName = "pico";                 # highkey ugly but maybe redeemable
-  # themes.themeName = "rose-pine-dawn";       # light and cozy
-  themes.themeName = "summercamp";           # ★ earthy but vibrant
+  # modules.themes.themeName = "gruvbox-dark-medium";  # ★ a classic
+  # modules.themes.themeName = "darktooth";            # ★ like gruvbox but more purple
+  # modules.themes.themeName = "catppuccin-macchiato"; # purple pastel
+  # modules.themes.themeName = "darkmoss";             # cool blue-green
+  # modules.themes.themeName = "everforest-dark-hard"; # greenish and groovy
+  # modules.themes.themeName = "gigavolt";             # dark and vibrant (purply)
+  # modules.themes.themeName = "kanagawa";             # ★ blue with yellowed text
+  # modules.themes.themeName = "kimber";               # nordish but more red
+  # modules.themes.themeName = "mountain";             # ★ dark and moody
+  # modules.themes.themeName = "oxocarbon-dark";       # ★ dark and vibrant
+  # modules.themes.themeName = "pico";                 # highkey ugly but maybe redeemable
+  # modules.themes.themeName = "rose-pine-dawn";       # light and cozy
+  modules.themes.themeName = "summercamp";           # ★ earthy but vibrant
 
   # defaults (?)
   xsession.enable = true;

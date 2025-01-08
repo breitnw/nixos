@@ -4,6 +4,6 @@
   imports = [
     ./git.nix
     ./fish.nix
-    ./pio.nix
+    ./direnv.nix
   ];
 }

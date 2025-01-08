@@ -11,18 +11,19 @@ let
 in {
   programs.qutebrowser = {
     enable = true;
+    # I'm using unstable for now because the stable version has a rendering bug
+    # where some bitmap fonts (including creep) aren't rendered
+    package = pkgs.unstable.qutebrowser;
     settings = {
-      fonts = with config.modules.desktops.xfce; {
+      fonts = with config.modules.de.xfce; {
         default_family = defaultFont.family;
-        tabs.selected =
-          "${toString titleBarFont.size}px ${titleBarFont.family}";
-        tabs.unselected =
-          "${toString titleBarFont.size}px ${titleBarFont.family}";
+        prompts = "default_size default_family";
       };
       # TODO make helper to create python dict from attrset
       tabs = {
         "padding[\"bottom\"]" = 4;
         "padding[\"top\"]" = 4;
+        position = "left";
       };
       statusbar = {
         "padding[\"bottom\"]" = 4;
@@ -31,8 +32,7 @@ in {
       content.javascript.clipboard = "access";
       zoom.default = "90%";
       scrolling.bar = "when-searching";
-    };
-    keyMappings = {
+      hints.chars = "arstneiodh"; # colemak!
     };
     keyBindings = {
       # see :help bindings.default
@@ -56,11 +56,19 @@ in {
         "${lib.toUpper config.keybinds.vi.up}" = "tab-prev";
         "${lib.toUpper config.keybinds.vi.right}" = "forward";
         "${config.keybinds.vi.jump-inclusive}" = "hint";
-        "${config.keybinds.vi.insert}" = "mode-enter insert";
+        "${config.keybinds.vi.insert-before}" = "mode-enter insert";
+        "${config.keybinds.vi.insert-after}" = "mode-enter insert";
         "${config.keybinds.vi.undo}" = "undo";
         "${config.keybinds.vi.search-next}" = "search-next";
         "${lib.toUpper config.keybinds.vi.search-next}" = "search-prev";
-      };
+      } // (let
+        spawn = ''
+          spawn --userscript qute-pass --username-target secret --username-pattern "login: (.+)"'';
+      in {
+        "zl" = "${spawn}";
+        "zul" = "${spawn} --username-only";
+        "zpl" = "${spawn} --password-only";
+      });
     };
     extraConfig = let
       themeFile = pkgs.writeTextFile {
@@ -71,8 +79,8 @@ in {
     in ''
       config.source("${themeFile}")
       # load the selected tab foreground after the theme
-      c.colors.tabs.selected.even.fg = "#${config.colorscheme.palette.base0A}";
-      c.colors.tabs.selected.odd.fg = "#${config.colorscheme.palette.base0A}";
+      c.colors.tabs.selected.even.fg = "#${config.colorscheme.palette.base0E}";
+      c.colors.tabs.selected.odd.fg = "#${config.colorscheme.palette.base0E}";
     '';
   };
 }

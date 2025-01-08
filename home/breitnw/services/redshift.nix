@@ -9,9 +9,10 @@ in
   options = {
     modules.redshift = {
       enable = lib.mkEnableOption
-        "whether to enable the kitty configuration";
+        "whether to enable the redshift configuration";
     };
   };
+
   config = lib.mkIf cfg.enable {
     services.redshift = {
       enable = true;
@@ -19,8 +20,8 @@ in
       latitude = "42.0463392";
       provider = "manual";
       tray = true; # tray applet
-      temperature.day = 3000;
-      temperature.night = 3000;
+      temperature.day = 5700;
+      temperature.night = 3500;
       settings = {
         redshift = {
           adjustment-method = "randr";

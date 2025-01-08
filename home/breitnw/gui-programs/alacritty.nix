@@ -22,7 +22,7 @@ in {
     programs.alacritty = {
       enable = true;
       settings = {
-        import = let
+        general.import = let
           themeFile = pkgs.writeTextFile {
             name = "base16.toml";
             text = config.utils.mustache.eval-base16 (builtins.readFile base16-alacritty);
@@ -42,8 +42,8 @@ in {
           family = "Cozette";
           style = "Medium";
         };
-        cursor.style.shape = "Underline";
-        shell = "fish";
+        cursor.style.shape = "Block";
+        terminal.shell = "fish";
       };
     };
   };

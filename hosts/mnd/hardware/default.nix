@@ -4,7 +4,7 @@ let
   # fetch asahi linux support modules from the nixos-apple-silicon github
   asahi = builtins.fetchGit {
     url = "git@github.com:tpwrules/nixos-apple-silicon.git";
-    rev = "e8c07c3ae199b55a8c1c35a7c067c5cef9c7e929";
+    rev = "3daf0637409689d7a1304cedc50d20542bc47905";
   };
 in {
   imports = [

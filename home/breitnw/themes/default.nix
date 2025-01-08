@@ -1,7 +1,7 @@
 { config, lib, inputs, pkgs, ... }:
 
 let
-  cfg = config.themes;
+  cfg = config.modules.themes;
 in
 
 {
@@ -12,25 +12,27 @@ in
   ];
 
   options = {
-    themes.themeName = lib.mkOption {
-      description = "The base16 system theme to use";
-    };
-    themes.customGTKTheme = lib.mkOption {
-      description = ''
+    modules.themes = {
+      themeName = lib.mkOption {
+        description = "The base16 system theme to use";
+      };
+      customGTKTheme = lib.mkOption {
+        description = ''
         The custom GTK theme to use. If null, a materia GTK theme is automatically
         generated based on the nix-colors scheme.
       '';
-      default = null;
-      type = lib.types.nullOr (lib.types.submodule {
-        options = {
-          name = lib.mkOption {
-            type = lib.types.str;
+        default = null;
+        type = lib.types.nullOr (lib.types.submodule {
+          options = {
+            name = lib.mkOption {
+              type = lib.types.str;
+            };
+            package = lib.mkOption {
+              type = lib.types.package;
+            };
           };
-          package = lib.mkOption {
-            type = lib.types.package;
-          };
-        };
-      });
+        });
+      };
     };
   };
 
