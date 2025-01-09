@@ -19,3 +19,28 @@ insert-after   = "a"
 undo           = "l"
 search         = "/"
 search-next    = "k" # search-prev is capitalized
+
+[xfce]
+# custom: correspond with commands manually defined in xfce
+# configuration
+[xfce.custom]
+find-app = "<Super>space"
+emacs    = "<Super>e"
+
+# xfwm4: automatically added to xfce configuration; exo application
+# name corresponding with option name
+[xfce.exo]
+WebBrowser       = "<Super>q"
+TerminalEmulator = "<Super>t"
+FileBrowser      = "<Super>f"
+
+# xfwm4: automatically added to xfce configuration; xfwm4 command
+# name corresponding with option name
+[xfce.xfwm4]
+cycle_windows_key              = "<Super>Tab"
+cycle_reverse_windows_key      = "<Super><Shift>Tab"
+close_window_key               = "<Super>w"
+left_workspace_key             = "<Super>Left"
+right_workspace_key            = "<Super>Right"
+move_window_prev_workspace_key = "<Super><Shift>Left"
+move_window_next_workspace_key = "<Super><Shift>Right"

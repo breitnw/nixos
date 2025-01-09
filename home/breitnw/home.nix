@@ -8,7 +8,6 @@
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
 # - TODO it seems like cozette has a bunch of glyphs, so why are default
 #        nerd fonts being used?
-# - TODO finish figuring out cursor
 # - TODO fetch themes from git instead of depending on local config
 
 {

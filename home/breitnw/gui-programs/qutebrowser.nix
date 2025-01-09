@@ -34,33 +34,33 @@ in {
       scrolling.bar = "when-searching";
       hints.chars = "arstneiodh"; # colemak!
     };
-    keyBindings = {
+    keyBindings = with config.utils.keybinds; {
       # see :help bindings.default
       caret = {
-        "${config.keybinds.vi.left}" = "move-to-prev-char";
-        "${config.keybinds.vi.down}" = "move-to-next-line";
-        "${config.keybinds.vi.up}" = "move-to-prev-line";
-        "${config.keybinds.vi.right}" = "move-to-next-char";
+        "${vi.left}" = "move-to-prev-char";
+        "${vi.down}" = "move-to-next-line";
+        "${vi.up}" = "move-to-prev-line";
+        "${vi.right}" = "move-to-next-char";
         # FIXME don't think these work
-        # "${config.keybinds.vi.word-back}" = "move-to-prev-word";
-        # "${config.keybinds.vi.word-end}" = "move-to-end-of-word";
-        # "${config.keybinds.vi.word-next}" = "move-to-next-word";
+        # "${vi.word-back}" = "move-to-prev-word";
+        # "${vi.word-end}" = "move-to-end-of-word";
+        # "${vi.word-next}" = "move-to-next-word";
       };
       normal = {
-        "${config.keybinds.vi.left}" = "scroll left";
-        "${config.keybinds.vi.down}" = "scroll down";
-        "${config.keybinds.vi.up}" = "scroll up";
-        "${config.keybinds.vi.right}" = "scroll right";
-        "${lib.toUpper config.keybinds.vi.left}" = "back";
-        "${lib.toUpper config.keybinds.vi.down}" = "tab-next";
-        "${lib.toUpper config.keybinds.vi.up}" = "tab-prev";
-        "${lib.toUpper config.keybinds.vi.right}" = "forward";
-        "${config.keybinds.vi.jump-inclusive}" = "hint";
-        "${config.keybinds.vi.insert-before}" = "mode-enter insert";
-        "${config.keybinds.vi.insert-after}" = "mode-enter insert";
-        "${config.keybinds.vi.undo}" = "undo";
-        "${config.keybinds.vi.search-next}" = "search-next";
-        "${lib.toUpper config.keybinds.vi.search-next}" = "search-prev";
+        "${vi.left}" = "scroll left";
+        "${vi.down}" = "scroll down";
+        "${vi.up}" = "scroll up";
+        "${vi.right}" = "scroll right";
+        "${lib.toUpper vi.left}" = "back";
+        "${lib.toUpper vi.down}" = "tab-next";
+        "${lib.toUpper vi.up}" = "tab-prev";
+        "${lib.toUpper vi.right}" = "forward";
+        "${vi.jump-inclusive}" = "hint";
+        "${vi.insert-before}" = "mode-enter insert";
+        "${vi.insert-after}" = "mode-enter insert";
+        "${vi.undo}" = "undo";
+        "${vi.search-next}" = "search-next";
+        "${lib.toUpper vi.search-next}" = "search-prev";
       } // (let
         spawn = ''
           spawn --userscript qute-pass --username-target secret --username-pattern "login: (.+)"'';

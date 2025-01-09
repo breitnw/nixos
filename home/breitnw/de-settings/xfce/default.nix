@@ -2,8 +2,9 @@
 
 {
   imports = [
-    ./options.nix # my XFCE options module
-    ./panel.nix
+    ./options.nix   # my XFCE options module
+    ./panel.nix     # xfce4-panel settings
+    ./shortcuts.nix # keyboard shortcuts for xfce/xfwm4
   ];
   config = {
     modules.de.xfce = {
@@ -72,9 +73,11 @@
             0;
           MacBookPro171_Touch_Bar.Properties.Device_Enabled = 0;
         };
-        # xfce4-keyboard-shortcuts = {
-        #   "Commands"
-        # };
+        # power manager
+        xfce4-power-manager = {
+          # when the power button is pressed, ask what to do
+          power-button-action = 3;
+        };
       };
     };
   };

@@ -33,7 +33,7 @@ in {
       };
       settings = lib.mkOption {
         default = { };
-        type = lib.types.attrsOf (lib.types.attrsOf lib.types.attrs);
+        type = lib.types.attrsOf lib.types.attrs;
       };
     };
   };

@@ -2,14 +2,14 @@
 
 {
   options = {
-    keybinds = lib.mkOption {
+    utils.keybinds = lib.mkOption {
       description = ''
         A standardized set of global key bindings.
       '';
-      type = lib.types.attrsOf (lib.types.attrsOf lib.types.str);
+      type = lib.types.attrs;
     };
   };
   config = {
-    keybinds = builtins.fromTOML (builtins.readFile ./keybinds.toml);
+    utils.keybinds = builtins.fromTOML (builtins.readFile ./keybinds.toml);
   };
 }
