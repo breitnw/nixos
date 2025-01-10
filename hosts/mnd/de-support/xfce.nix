@@ -14,6 +14,8 @@ in {
   config = lib.mkIf cfg.enable {
     # enable xserver
     services.xserver.enable = true;
+    # enable xfconf (required by home-manager)
+    programs.xfconf.enable = true;
     # enable XFCE and configure it as the default session
     services.xserver.desktopManager.xfce.enable = true;
     services.displayManager.defaultSession = lib.mkIf default "xfce";

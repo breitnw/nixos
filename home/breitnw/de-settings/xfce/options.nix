@@ -80,8 +80,9 @@ in {
           in rgba_scaled;
         };
       };
-      # For some reason, the xfconf home-manager module represents setting names by
-      # concatenating categories with a "/", instead of just taking a recursive
+
+      # The xfconf home-manager module represents setting names by concatenating
+      # categories with a "/", instead of just taking a recursive
       # attribute set. This will generate the settings from a recursive attribute set
       # (easier to write) in the way home-manager wants
       flattenAttrs' = currentPath: attrs:
@@ -92,7 +93,7 @@ in {
           # if the attribute is named VALUE, it represents the value for the
           # current path (which may have sub-paths)
           else if (name == "VALUE") then {
-            currentPath = val;
+            ${builtins.concatStringsSep "/" currentPath} = val;
           }
           # Otherwise, the value is the used for the path ending in the
           # attribute name

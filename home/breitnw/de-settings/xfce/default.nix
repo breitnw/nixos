@@ -3,8 +3,6 @@
 {
   imports = [
     ./options.nix   # my XFCE options module
-    ./panel.nix     # xfce4-panel settings
-    ./shortcuts.nix # keyboard shortcuts for xfce/xfwm4
   ];
   config = {
     modules.de.xfce = {
@@ -26,6 +24,9 @@
       overrideDesktopTextColor = true;
 
       settings = {
+        # import other modules for complex settings
+        xfce4-panel = import ./panel.nix args;
+        xfce4-keyboard-shortcuts = import ./shortcuts.nix args;
         # basic icon/cursor theme and font settings. most of this stuff is offloaded to the
         # theme section of the config
         xsettings = {
@@ -39,8 +40,6 @@
             file-icons.show-filesystem = true;
           };
         };
-        # panel settings are defined in panel.nix
-        xfce4-panel = import ./panel.nix args;
         # window manager. I use xfwm4 (the default) since I like the theme options
         xfwm4.general = {
           # configure the style of the titlebar and decorations
@@ -59,6 +58,7 @@
           # use window snapping instead of edge resistance
           snap_resist = false;
           tile_on_move = true;
+          wrap_windows = false;
           # windows should snap to the screen border and to other windows
           snap_to_border = true;
           snap_to_windows = true;
