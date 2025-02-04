@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./redshift.nix
     ./mail
   ];
 }

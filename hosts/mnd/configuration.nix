@@ -3,11 +3,8 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  # config,
-  pkgs,
-  inputs,
-  ...
-}:
+# config,
+pkgs, inputs, ... }:
 
 {
   imports = [
@@ -34,7 +31,6 @@
     options = "--delete-older-than 30d";
   };
   nix.optimise.automatic = true;
-
 
   # Networking
   networking.hostName = "mnd";
@@ -91,23 +87,24 @@
   # Configure users
   users.mutableUsers = false;
   users.users.breitnw = {
-    hashedPassword = "$y$j9T$sjn2BP/Vf7c/YuzYdQ/0K0$mq/EbgLp0/BLODW5uLM0f6agAeqrue65Nc25KUCM8XB";
+    hashedPassword =
+      "$y$j9T$sjn2BP/Vf7c/YuzYdQ/0K0$mq/EbgLp0/BLODW5uLM0f6agAeqrue65Nc25KUCM8XB";
     isNormalUser = true;
     extraGroups = [
       "wheel" # Enable ‘sudo’ for the user.
       "networkmanager" # Allow the user to access the network manager
-      "input" # Enable libinput-gestures for the user
+      "docker" # Provide access to the docker socket
     ];
   };
+
+  # Enable docker
+  virtualisation.docker.enable = true;
 
   # Configure system packages
   # STYLE: This should only contain packages necessary for commands/services run as root,
   #  or for system recovery in an emergency. All other packages should be configured via
   #  home-manager on a per-user basis
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-  ];
+  environment.systemPackages = with pkgs; [ vim wget ];
 
   # ensure that nixpkgs path aligns with nixpkgs flake input
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
@@ -125,15 +122,11 @@
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    settings = {
-      PasswordAuthentication = false;
-    };
+    settings = { PasswordAuthentication = false; };
   };
 
   # Enable the touch bar with tiny-dfr
-  services.tiny-dfr = {
-    enable = true;
-  };
+  services.tiny-dfr.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

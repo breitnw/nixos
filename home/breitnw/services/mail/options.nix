@@ -160,7 +160,7 @@ in {
         mbsync = {
           enable = true;
           create = "both"; # sync mailbox creations
-          # expunge = "both"; # sync message expunges (permanent deletion)
+          expunge = "both"; # sync message expunges (permanent deletion)
           remove = "both"; # sync mailbox deletions
           groups = lib.mkIf value.gmail {
             # filed messages

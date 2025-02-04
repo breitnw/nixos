@@ -16,11 +16,33 @@
         mu4e-headers-thread-root-prefix '("□ " . "□ ")
         mu4e-headers-thread-single-orphan-prefix '("── " . "── "))
 
+  ;; add bookmark for all inboxes
+  (setq mu4e-bookmarks
+        `((:name "All inboxes"
+           :query ,(mapconcat
+                    (lambda (account)
+                      (format "maildir:/%s/Inbox" (car account)))
+                    mail-accounts
+                    " OR ")
+           :key ?i)
+          (:name "Unread messages"
+           :query "flag:unread AND NOT flag:trashed"
+           :key ?u)
+          (:name "Today's messages"
+           :query "date:today..now"
+           :key ?t)))
+
+  ;; every new email composition gets its own frame!
+  (setq mu4e-compose-switch t)
+
   ;; avoid mail syncing issues when using mbsync
   (setq mu4e-change-filenames-when-moving t)
 
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
+
+  (setq message-kill-buffer-on-exit t)
+  (setq mu4e-attachment-dir  "~/Downloads")
 
   ;; send messages with msmtp
   (setq send-mail-function 'smtpmail-send-it
@@ -38,6 +60,9 @@
         mu4e-get-mail-command "mbsync -a"
         mu4e-root-maildir "~/Mail")
 
+  ;; mu4e-context
+  (setq mu4e-context-policy 'pick-first)
+  (setq mu4e-compose-context-policy 'always-ask)
   ;; use said accounts to create mu4e contexts
   (setq mu4e-contexts
         (mapcar

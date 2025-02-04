@@ -34,7 +34,8 @@
 
     sessionVariables = {
       EDITOR = "emacs";
-      FLAKE = "${config.home.homeDirectory}/Config/nixos"; # config directory for nh
+      FLAKE =
+        "${config.home.homeDirectory}/Config/nixos"; # config directory for nh
     };
 
     packages = with pkgs; [
@@ -44,7 +45,9 @@
       vesktop # discord client
       picard
       superTuxKart
-      krita
+      krita # paint
+      reaper # daw
+      mate.atril # pdf reader
 
       # CLI PROGRAMS ================================
       neofetch
@@ -61,6 +64,7 @@
       texliveFull
       # ...school
       octaveFull # GNU Octave (with gui)
+      ccls # language server for C
 
       # LIBRARIES ===================================
       # TODO remove this and install vterm with nix
@@ -74,14 +78,13 @@
 
   # custom modules
   modules.alacritty.enable = true;
-  # modules.redshift.enable = true;
   modules.mail.enable = true;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/base16-gallery/
 
   # modules.themes.themeName = "gruvbox-dark-medium";  # ★ a classic
-  modules.themes.themeName = "darktooth";            # ★ like gruvbox but more purple
+  # modules.themes.themeName = "darktooth"; # ★ like gruvbox but more purple
   # modules.themes.themeName = "catppuccin-macchiato"; # purple pastel
   # modules.themes.themeName = "darkmoss";             # cool blue-green
   # modules.themes.themeName = "everforest-dark-hard"; # greenish and groovy
@@ -92,10 +95,10 @@
   # modules.themes.themeName = "oxocarbon-dark";       # ★ dark and vibrant
   # modules.themes.themeName = "pico";                 # highkey ugly but maybe redeemable
   # modules.themes.themeName = "rose-pine-dawn";       # light and cozy
-  # modules.themes.themeName = "summercamp";           # ★ earthy but vibrant
+  # modules.themes.themeName = "cupcake"
+  modules.themes.themeName = "summercamp"; # ★ earthy but vibrant
 
   # defaults (?)
-  xsession.enable = true;
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "24.05";
 }

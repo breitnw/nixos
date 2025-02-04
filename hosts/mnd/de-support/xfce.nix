@@ -26,7 +26,7 @@ in {
       # Since we don't use pulseaudio, we won't get this automatically...
       # but it will still work because pipewire is a "drop-in" replacement
       # for pulseaudio
-      xfce.xfce4-pulseaudio-plugin
+      # xfce.xfce4-pulseaudio-plugin
       # a volume mixer
       pavucontrol
       # default application support (this doesn't work otherwise fsr)

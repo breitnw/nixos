@@ -38,9 +38,12 @@ in {
             lines = 20;
           };
         };
-        font.normal = {
-          family = "Cozette";
-          style = "Medium";
+        font = {
+          normal = {
+            family = "Cozette";
+            style = "Medium";
+          };
+          builtin_box_drawing = false;
         };
         cursor.style.shape = "Block";
         terminal.shell = "fish";

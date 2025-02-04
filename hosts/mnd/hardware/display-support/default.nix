@@ -1,8 +1,5 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
-  imports = [
-    ./xrandr
-    ./displaylink.nix
-  ];
+  imports = [ ./xrandr ./displaylink.nix ];
 }

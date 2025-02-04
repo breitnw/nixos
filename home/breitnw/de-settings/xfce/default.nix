@@ -74,7 +74,7 @@
           MacBookPro171_Touch_Bar.Properties.Device_Enabled = 0;
         };
         # power manager
-        xfce4-power-manager = {
+        xfce4-power-manager.xfce4-power-manager = {
           # when the power button is pressed, ask what to do
           power-button-action = 3;
         };

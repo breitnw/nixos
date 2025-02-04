@@ -1,4 +1,7 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, ... }:
+
+# FIXME currently, it seems that displaylink causes issues with suspending
+# the system. See /etc/systemd/system/pre-sleep.service
 
 let
   cfg = config.hardware.displaylink;

@@ -23,7 +23,6 @@ in {
       tabs = {
         "padding[\"bottom\"]" = 4;
         "padding[\"top\"]" = 4;
-        position = "left";
       };
       statusbar = {
         "padding[\"bottom\"]" = 4;
@@ -41,34 +40,30 @@ in {
         "${vi.down}" = "move-to-next-line";
         "${vi.up}" = "move-to-prev-line";
         "${vi.right}" = "move-to-next-char";
-        # FIXME don't think these work
-        # "${vi.word-back}" = "move-to-prev-word";
-        # "${vi.word-end}" = "move-to-end-of-word";
-        # "${vi.word-next}" = "move-to-next-word";
       };
-      normal = {
+      normal = let
+        spawn = ''
+          spawn --userscript qute-pass --username-target secret --username-pattern "login: (.+)"'';
+      in {
         "${vi.left}" = "scroll left";
         "${vi.down}" = "scroll down";
         "${vi.up}" = "scroll up";
         "${vi.right}" = "scroll right";
-        "${lib.toUpper vi.left}" = "back";
-        "${lib.toUpper vi.down}" = "tab-next";
-        "${lib.toUpper vi.up}" = "tab-prev";
-        "${lib.toUpper vi.right}" = "forward";
+        "${lib.toUpper vi.up}" = "back";
+        "${lib.toUpper vi.right}" = "tab-next";
+        "${lib.toUpper vi.left}" = "tab-prev";
+        "${lib.toUpper vi.down}" = "forward";
         "${vi.jump-inclusive}" = "hint";
         "${vi.insert-before}" = "mode-enter insert";
         "${vi.insert-after}" = "mode-enter insert";
         "${vi.undo}" = "undo";
         "${vi.search-next}" = "search-next";
         "${lib.toUpper vi.search-next}" = "search-prev";
-      } // (let
-        spawn = ''
-          spawn --userscript qute-pass --username-target secret --username-pattern "login: (.+)"'';
-      in {
+        "xs" = "config-cycle tabs.position top left";
         "zl" = "${spawn}";
         "zul" = "${spawn} --username-only";
         "zpl" = "${spawn} --password-only";
-      });
+      };
     };
     extraConfig = let
       themeFile = pkgs.writeTextFile {
