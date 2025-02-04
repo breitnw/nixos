@@ -12,6 +12,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    # use xfce 4.20!
+    nixpkgs.overlays = [ (final: prev: { xfce = final.unstable.xfce; }) ];
     # enable xserver
     services.xserver.enable = true;
     # enable xfconf (required by home-manager)

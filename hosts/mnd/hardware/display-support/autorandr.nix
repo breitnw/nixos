@@ -1,18 +1,6 @@
 { pkgs, ... }:
 
 {
-  # patch xrandr to always use nearest filtering when the display
-  # is scaled. The default (bilinear) is all smudgy
-  nixpkgs.overlays = [
-    (final: prev: rec {
-      xorg = prev.xorg.overrideScope (xfinal: xprev: {
-        xrandr = xprev.xrandr.overrideAttrs
-          (old: { patches = (old.patches or [ ]) ++ [ ./nearest.patch ]; });
-      });
-      autorandr = prev.autorandr.override { xrandr = xorg.xrandr; };
-    })
-  ];
-
   services.autorandr = {
     enable = true;
     profiles = {
@@ -49,14 +37,14 @@
             mode = "2560x1600";
             position = "2560x207";
             rate = "60.00";
-            # transform = [ [ 0.5 0.0 0.0 ] [ 0.0 0.5 0.0 ] [ 0.0 0.0 1.0 ] ];
+            transform = [ [ 0.5 0.0 0.0 ] [ 0.0 0.5 0.0 ] [ 0.0 0.0 1.0 ] ];
           };
         };
       };
     };
-    # don't think we need this, since we switch out the autorandr package
+    # TODO can this be included in the autorandr config?
     hooks.postswitch = {
-      docked = "${pkgs.xorg.xrandr}/bin/xrandr --output eDP-1 --scale 0.5x0.5";
+      docked = "${pkgs.xorg.xrandr}/bin/xrandr --output eDP-1 --filter nearest";
     };
   };
 }

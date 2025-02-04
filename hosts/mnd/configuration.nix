@@ -41,7 +41,7 @@ pkgs, inputs, ... }:
   hardware.bluetooth.powerOnBoot = true;
 
   # External display support with DisplayLink
-  hardware.displaylink.enable = true;
+  # hardware.displaylink.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
