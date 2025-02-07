@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./autorandr.nix ./displaylink.nix ];
+  imports = [ ./autorandr ./displaylink.nix ];
 }

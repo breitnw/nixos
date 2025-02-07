@@ -22,11 +22,11 @@
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
 
       nixosConfigurations = {
-        mnd = nixpkgs.lib.nixosSystem {
+        mnd = nixpkgs-unstable.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
             # enable an overlay with unstable packages
-            ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+            # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
             ./hosts/mnd/configuration.nix
           ];
         };

@@ -49,10 +49,10 @@ in {
         "${vi.down}" = "scroll down";
         "${vi.up}" = "scroll up";
         "${vi.right}" = "scroll right";
-        "${lib.toUpper vi.up}" = "back";
-        "${lib.toUpper vi.right}" = "tab-next";
-        "${lib.toUpper vi.left}" = "tab-prev";
-        "${lib.toUpper vi.down}" = "forward";
+        "${lib.toUpper vi.up}" = "tab-prev";
+        "${lib.toUpper vi.right}" = "forward";
+        "${lib.toUpper vi.left}" = "back";
+        "${lib.toUpper vi.down}" = "tab-next";
         "${vi.jump-inclusive}" = "hint";
         "${vi.insert-before}" = "mode-enter insert";
         "${vi.insert-after}" = "mode-enter insert";

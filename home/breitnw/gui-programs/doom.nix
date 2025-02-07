@@ -26,21 +26,31 @@ in {
   config = {
     programs.emacs = {
       enable = true;
-      # color stuff
-      extraPackages = epkgs: [ epkgs.kurecolor ]; # required by the script
-      extraConfig = if (isNull cfg.theme) then
-        let
-          themeDir = pkgs.writeTextFile {
-            name = "doom-base16-theme.el";
-            destination = "/doom-base16-theme.el";
-            text = config.utils.mustache.eval-base16 (builtins.readFile base16-doom);
-          };
-        in ''
-          (add-to-list 'custom-theme-load-path "${themeDir}")
-          (setq doom-theme 'doom-base16)
+      package = pkgs.emacs30;
+      extraPackages = epkgs: [
+        epkgs.kurecolor # required by the color script
+        epkgs.vterm
+      ];
+      extraConfig =
+        # python (necessary for some treemacs features)
         ''
-      else
-        "(setq doom-theme '${cfg.theme})";
+          (add-to-list 'exec-path "${pkgs.python3}/bin/")
+        ''
+        # color stuff
+        + (if (isNull cfg.theme) then
+          let
+            themeDir = pkgs.writeTextFile {
+              name = "doom-base16-theme.el";
+              destination = "/doom-base16-theme.el";
+              text = config.utils.mustache.eval-base16
+                (builtins.readFile base16-doom);
+            };
+          in ''
+            (add-to-list 'custom-theme-load-path "${themeDir}")
+            (setq doom-theme 'doom-base16)
+          ''
+        else
+          "(setq doom-theme '${cfg.theme})");
     };
 
     # set environment variables for doom

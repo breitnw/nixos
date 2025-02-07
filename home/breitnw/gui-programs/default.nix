@@ -1,9 +1,5 @@
 { ... }:
 
 {
-  imports = [
-    ./alacritty.nix
-    ./doom.nix
-    ./qutebrowser.nix
-  ];
+  imports = [ ./alacritty.nix ./doom.nix ./qutebrowser.nix ./parole.nix ];
 }

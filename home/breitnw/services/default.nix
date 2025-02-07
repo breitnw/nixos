@@ -1,7 +1,5 @@
 { ... }:
 
 {
-  imports = [
-    ./mail
-  ];
+  imports = [ ./mail ./calendar.nix ];
 }
