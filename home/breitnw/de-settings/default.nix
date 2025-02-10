@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./xfce ./picom.nix ];
+  imports = [ ./xfconf ./picom.nix ];
 }

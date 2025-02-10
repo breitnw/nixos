@@ -15,7 +15,7 @@ in {
     # where some bitmap fonts (including creep) aren't rendered
     package = pkgs.unstable.qutebrowser;
     settings = {
-      fonts = with config.modules.de.xfce; {
+      fonts = with config.modules.de.xfconf; {
         default_family = defaultFont.family;
         prompts = "default_size default_family";
       };

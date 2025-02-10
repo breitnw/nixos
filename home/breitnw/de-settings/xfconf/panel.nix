@@ -5,7 +5,7 @@
 let
   icon-size = 16;
   describeFont = font: "${font.family} ${font.weight} ${toString font.size}";
-  cfg = config.modules.de.xfce;
+  cfg = config.modules.de.xfconf;
 in {
   panels = {
     VALUE = [ 1 ];
@@ -20,19 +20,18 @@ in {
       plugin-ids = [ 1 2 3 4 5 6 7 8 9 10 11 12 13 ];
     };
   };
-  plugins =
-    let
-      sep = {
-        VALUE = "separator";
-        expand = false;
-        style = 0;
-      };
-      sep-expand = {
-        VALUE = "separator";
-        expand = true;
-        style = 0;
-      };
-    in {
+  plugins = let
+    sep = {
+      VALUE = "separator";
+      expand = false;
+      style = 0;
+    };
+    sep-expand = {
+      VALUE = "separator";
+      expand = true;
+      style = 0;
+    };
+  in {
     plugin-1 = {
       VALUE = "tasklist";
       include-all-workspaces = true;

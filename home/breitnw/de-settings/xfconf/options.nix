@@ -3,7 +3,7 @@
 # A bridge between my configuration and the xfconf home-manager module
 
 let
-  cfg = config.modules.de.xfce;
+  cfg = config.modules.de.xfconf;
   font = lib.types.submodule {
     options = {
       family = lib.mkOption { type = lib.types.str; };
@@ -16,7 +16,7 @@ let
 
 in {
   options = {
-    modules.de.xfce = {
+    modules.de.xfconf = {
       defaultFont = lib.mkOption { type = font; };
       titleBarFont = lib.mkOption { type = font; };
       iconTheme = lib.mkOption { type = lib.types.str; };
@@ -90,8 +90,8 @@ in {
           # If val is an atterset, recursively flatten it
           if (builtins.isAttrs val) then
             flattenAttrs' (currentPath ++ [ name ]) val
-          # if the attribute is named VALUE, it represents the value for the
-          # current path (which may have sub-paths)
+            # if the attribute is named VALUE, it represents the value for the
+            # current path (which may have sub-paths)
           else if (name == "VALUE") then {
             ${builtins.concatStringsSep "/" currentPath} = val;
           }
