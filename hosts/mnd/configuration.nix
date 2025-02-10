@@ -18,6 +18,9 @@ pkgs, inputs, ... }:
     ./de-support
   ];
 
+  # required udev rules for platformio
+  services.udev.packages = [ pkgs.platformio-core pkgs.openocd ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
@@ -41,7 +44,7 @@ pkgs, inputs, ... }:
   hardware.bluetooth.powerOnBoot = true;
 
   # External display support with DisplayLink
-  # hardware.displaylink.enable = true;
+  hardware.displaylink.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";

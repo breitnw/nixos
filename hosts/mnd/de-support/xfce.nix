@@ -15,11 +15,13 @@ in {
     # use xfce 4.20!
     # nixpkgs.overlays = [ (final: prev: { xfce = final.unstable.xfce; }) ];
     # enable xserver
-    services.xserver.enable = true;
+    services.xserver = {
+      enable = true;
+      desktopManager.xfce.enable = true;
+    };
     # enable xfconf (required by home-manager)
     programs.xfconf.enable = true;
-    # enable XFCE and configure it as the default session
-    services.xserver.desktopManager.xfce.enable = true;
+    # configure xfce as the default session
     services.displayManager.defaultSession = lib.mkIf default "xfce";
     # It doesn't appear XFCE has a bluetooth GUI, so blueman provides this
     services.blueman.enable = true;
