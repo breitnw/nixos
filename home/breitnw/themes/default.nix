@@ -6,6 +6,7 @@ in {
   imports = [
     inputs.nix-colors.homeManagerModules.default
     ./mod-loader.nix # import mods for the loaded theme
+    ./custom-loader.nix # import custom themes
     ./mustache.nix # for substituting the theme in config files
   ];
 
@@ -26,11 +27,19 @@ in {
           };
         });
       };
+      customSchemes = lib.mkOption {
+        description = ''
+          An attribute set of custom color schemes to add (in addition to default base16 schemes)
+        '';
+        type = lib.types.attrsOf lib.types.attrs;
+        default = { };
+      };
     };
   };
 
-  config = {
-    colorScheme = inputs.nix-colors.colorSchemes."${cfg.themeName}";
+  config = let schemes = inputs.nix-colors.colorSchemes // cfg.customSchemes;
+  in {
+    colorScheme = schemes."${cfg.themeName}";
     # we configure the GTK theme with the gtk attrset
     gtk.enable = true;
     # set the GTK theme according to the color scheme, unless it is overridden

@@ -10,10 +10,12 @@
 {
   services.picom = {
     enable = true;
-    vSync = true;
     fade = true;
     shadow = true;
     fadeDelta = 3;
-    backend = "glx";
+    # glx backend causes blank screen with only cursor
+    backend = "xrender";
+    # don't show a shadow for the dock
+    shadowExclude = [ "class_g = 'Xfce4-panel' && window_type = 'dock'" ];
   };
 }

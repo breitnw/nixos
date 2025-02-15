@@ -7,5 +7,6 @@ let
   cfg = config.modules.themes;
   filename = "${cfg.themeName}.nix";
 
-in lib.mkMerge (map (path: lib.mkIf (baseNameOf path == filename) (import path args))
+in lib.mkMerge
+(map (path: lib.mkIf (baseNameOf path == filename) (import path args))
   (lib.fileset.toList ./mods))

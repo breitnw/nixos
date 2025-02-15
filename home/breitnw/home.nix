@@ -81,7 +81,7 @@
   modules.mail.enable = true;
 
   # global theme
-  # themes can be previewed at https://tinted-theming.github.io/base16-gallery/
+  # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
 
   # modules.themes.themeName = "gruvbox-dark-medium"; # ★ a classic
   # modules.themes.themeName = "darktooth"; # ★ like gruvbox but more purple
@@ -95,7 +95,12 @@
   # modules.themes.themeName = "oxocarbon-dark"; # ★ dark and vibrant
   # modules.themes.themeName = "pico"; # highkey ugly but maybe redeemable
   # modules.themes.themeName = "rose-pine-dawn"; # light and cozy
-  modules.themes.themeName = "summercamp"; # ★ earthy but vibrant
+  # modules.themes.themeName = "summercamp"; # ★ earthy but vibrant
+  # modules.themes.themeName = "tarot"; # very reddish purply
+
+  # modules.themes.themeName = "terracotta"; # earthy and bright
+  modules.themes.themeName = "terracotta-dark"; # earthy and dark
+  # modules.themes.themeName = "embers";
 
   # defaults (?)
   systemd.user.startServices = "sd-switch";
