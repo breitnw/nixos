@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, lib, ... }:
 
 # TODO organize plugin indices automatically
 
@@ -18,6 +18,17 @@ in {
       position = "p=8;x=640;y=786";
       position-locked = true;
       plugin-ids = [ 1 2 3 4 5 6 7 8 9 10 11 12 13 ];
+
+      # use gtk theme for background
+      background-style =
+        if builtins.isNull cfg.customPanelBackgroundColor then 0 else 1;
+      background-rgba = if builtins.isNull cfg.customPanelBackgroundColor then [
+        0
+        0
+        0
+        0
+      ] else
+        cfg.customPanelBackgroundColor;
     };
   };
   plugins = let

@@ -18,6 +18,8 @@ pkgs, inputs, ... }:
     ./de-support
   ];
 
+  programs.ladybird.enable = true;
+
   # required udev rules for platformio
   services.udev.packages = [ pkgs.platformio-core pkgs.openocd ];
 

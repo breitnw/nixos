@@ -23,6 +23,7 @@ in {
       tabs = {
         "padding[\"bottom\"]" = 4;
         "padding[\"top\"]" = 4;
+        position = "left";
       };
       statusbar = {
         "padding[\"bottom\"]" = 4;
@@ -42,8 +43,9 @@ in {
         "${vi.right}" = "move-to-next-char";
       };
       normal = let
+        rofi = "${pkgs.rofi}/bin/rofi -dmenu";
         spawn = ''
-          spawn --userscript qute-pass --username-target secret --username-pattern "login: (.+)"'';
+          spawn --userscript qute-pass -U secret -u "login: (.+)" -d "${rofi}"'';
       in {
         "${vi.left}" = "scroll left";
         "${vi.down}" = "scroll down";

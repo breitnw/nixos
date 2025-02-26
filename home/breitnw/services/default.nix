@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./mail ];
+  imports = [ ./mail ./git-sync.nix ];
 }

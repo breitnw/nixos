@@ -19,9 +19,8 @@
         package = pkgs.creep;
       };
       iconTheme = "buuf-icon-theme";
-      cursorTheme = "RunescapeCursors";
+      cursorTheme = "Default";
       windowManagerTheme = "Blackwall";
-      overrideDesktopTextColor = true;
 
       settings = {
         # import other modules for complex settings

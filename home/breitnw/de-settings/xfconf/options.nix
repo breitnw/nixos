@@ -25,11 +25,26 @@ in {
         description = "The xfwm4 theme to use";
         type = lib.types.str;
       };
-      overrideDesktopTextColor = lib.mkOption {
+      customDesktopTextColor = lib.mkOption {
         description = ''
-          Whether to override the default desktop text color configured in the GTK theme with
-          the foreground color (base05) from nix-colors
+          The default text color to use for the desktop.
+          - "theme": base05 of the nix-colors palette is used
+          - "original": the default xfdesktop text color is used
+          - listOf float: use the specified RGBA value
         '';
+        type = lib.types.oneOf [
+          (lib.types.enum [ "original" "theme" ])
+          (lib.types.listOf lib.types.float)
+        ];
+        default = "theme";
+      };
+      customPanelBackgroundColor = lib.mkOption {
+        description = ''
+          the custom (RGBA) background color to use for xfce-panel
+          - null: use the panel background for the base16 theme
+          - listOf float: use the specified RGBA value'';
+        type = lib.types.nullOr (lib.types.listOf lib.types.float);
+        default = null;
       };
       settings = lib.mkOption {
         default = { };
@@ -67,17 +82,19 @@ in {
           title_font = describeFont cfg.titleBarFont;
         };
         # configure desktop icon text color
-        # FIXME not sure if this works with XFCE 4.19
-        #       or xfce 4.20, for that matter
         xfce4-desktop.desktop-icons = {
-          use-custom-label-text-color = cfg.overrideDesktopTextColor;
-          # TODO does this still work?
-          label-text-color = let
-            hex = config.colorscheme.palette.base05;
-            rgb = inputs.nix-colors.lib.conversions.hexToRGB hex;
-            rgba = rgb ++ [ 255 ];
-            rgba_scaled = map (val: val / 255.0) rgba;
-          in rgba_scaled;
+          use-custom-label-text-color =
+            (cfg.customDesktopTextColor != "original");
+          label-text-color =
+            if (builtins.isString cfg.customDesktopTextColor) then
+              let
+                hex = config.colorscheme.palette.base05;
+                rgb = inputs.nix-colors.lib.conversions.hexToRGB hex;
+                rgba = rgb ++ [ 255 ];
+                rgba_scaled = map (val: val / 255.0) rgba;
+              in rgba_scaled
+            else
+              cfg.customDesktopTextColor;
         };
       };
 

@@ -47,6 +47,7 @@
       superTuxKart
       krita # paint
       reaper # daw
+      aseprite
       mate.atril # pdf reader
 
       # CLI PROGRAMS ================================
@@ -99,7 +100,7 @@
   # modules.themes.themeName = "tarot"; # very reddish purply
 
   # modules.themes.themeName = "terracotta"; # earthy and bright
-  modules.themes.themeName = "terracotta-dark"; # earthy and dark
+  modules.themes.themeName = "terracotta-dark"; # chocolatey and dark
   # modules.themes.themeName = "embers";
 
   # defaults (?)
