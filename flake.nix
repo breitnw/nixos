@@ -16,9 +16,16 @@
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
     let
       system = "aarch64-linux";
+      # overlay for unstable packages, under the "unstable" attribute
       overlay-unstable = final: prev: {
         unstable = nixpkgs-unstable.legacyPackages.${prev.system};
       };
+      # overlay for extra packages fetched from flakes
+      overlay-extra = final: prev:
+        with inputs; {
+          firefox-native-base16 =
+            firefox-native-base16.packages.${prev.system}.default;
+        };
     in {
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
 
@@ -39,7 +46,9 @@
           extraSpecialArgs = { inherit inputs; };
           modules = [
             # enable an overlay with unstable packages
-            ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+            ({ ... }: {
+              nixpkgs.overlays = [ overlay-unstable overlay-extra ];
+            })
             ./home/breitnw/home.nix
           ];
         };

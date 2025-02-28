@@ -43,11 +43,11 @@
       tauon # music player
       libreoffice
       vesktop # discord client
-      picard
-      superTuxKart
+      picard # music metadata editor
+      superTuxKart # epic gaming
       krita # paint
       reaper # daw
-      aseprite
+      aseprite # pixel art tool
       mate.atril # pdf reader
 
       # CLI PROGRAMS ================================
@@ -71,12 +71,12 @@
 
   # builtin programs
   programs.home-manager.enable = true;
-  # programs.firefox.enable = true;
 
   # custom modules
   modules.alacritty.enable = true;
   modules.mail.enable = true;
   modules.firefox.enable = true;
+  modules.qutebrowser.enable = true;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
@@ -90,14 +90,14 @@
   # modules.themes.themeName = "kanagawa"; # ★ blue with yellowed text
   # modules.themes.themeName = "kimber"; # nordish but more red
   # modules.themes.themeName = "mountain"; # ★ dark and moody
-  modules.themes.themeName = "oxocarbon-dark"; # ★ dark and vibrant
+  # modules.themes.themeName = "oxocarbon-dark"; # ★ dark and vibrant
   # modules.themes.themeName = "pico"; # highkey ugly but maybe redeemable
   # modules.themes.themeName = "rose-pine-dawn"; # light and cozy
   # modules.themes.themeName = "summercamp"; # ★ earthy but vibrant
   # modules.themes.themeName = "tarot"; # very reddish purply
 
   # modules.themes.themeName = "terracotta"; # earthy and bright
-  # modules.themes.themeName = "terracotta-dark"; # chocolatey and dark
+  modules.themes.themeName = "terracotta-dark"; # chocolatey and dark
   # modules.themes.themeName = "embers";
 
   # defaults (?)

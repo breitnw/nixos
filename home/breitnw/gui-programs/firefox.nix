@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 
 # https://github.com/GnRlLeclerc/firefox-native-base16/tree/master?tab=readme-ov-file
 # depends on Dynamic Base16 extension
@@ -23,8 +23,7 @@
     };
 
     # build firefox-native-base16 binary and launcher
-    fnb-pkg = inputs.firefox-native-base16.packages.aarch64-linux.default;
-    fnb-binary = "${fnb-pkg}/bin/firefox-native-base16";
+    fnb-binary = "${pkgs.firefox-native-base16}/bin/firefox-native-base16";
     fnb-launcher = pkgs.writeShellScript "firefox-native-base16-launcher" ''
       # Kill the binary when SIGTERM is received
       trap 'kill -SIGTERM $native_pid' SIGTERM
@@ -49,6 +48,11 @@
           "allowed_extensions": ["dynamic_base16@gnrl_leclerc.org"]
         }
       '';
+    # browserpass for password management
+    programs.browserpass = {
+      browsers = [ "firefox" ];
+      enable = true;
+    };
   };
 
 }
