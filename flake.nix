@@ -10,6 +10,7 @@
     };
     sops-nix.url = "github:Mic92/sops-nix";
     nix-colors.url = "github:misterio77/nix-colors";
+    firefox-native-base16.url = "github:GnRlLeclerc/firefox-native-base16";
   };
 
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:

@@ -15,4 +15,4 @@ To keep everything organized (especially in home-manager) I've settled on a few 
 - Multi-account gmail integration with [mu4e](https://github.com/emacsmirror/mu4e), [mbsync](https://github.com/gburd/isync), and [msmtp](https://github.com/marlam/msmtp), for use with [my doom emacs config](https://github.com/breitnw/doom)
 - Asahi linux support with [nixos-apple-silicon](https://github.com/tpwrules/nixos-apple-silicon), including touchbar support with [tiny-dfr](https://github.com/WhatAmISupposedToPutHere/tiny-dfr)
 - XFCE desktop environment support
-- Full theming support with [nix-colors](https://github.com/Misterio77/nix-colors), including automatic theme generation for GTK, emacs, alacritty, and qutebrowser
+- Full theming support with [nix-colors](https://github.com/Misterio77/nix-colors), including automatic theme generation for GTK, emacs, alacritty, qutebrowser, and firefox
