@@ -10,8 +10,7 @@ let
 in {
   # keybinds to (usually) launch apps with commands
   commands.custom = exo-commands // {
-    ${custom.emacs} = "emacsclient --create-frame --alternate-editor=''";
-    # ${custom.emacs} = "emacs";
+    ${custom.emacs} = "emacsclient --create-frame";
     ${custom.find-app} = "xfce4-appfinder";
   };
   # keybinds to navigate xfwm4

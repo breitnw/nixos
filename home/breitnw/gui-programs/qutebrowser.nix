@@ -16,31 +16,44 @@
       "${base16-qutebrowser-repo}/templates/default.mustache";
 
   in lib.mkIf config.modules.qutebrowser.enable {
+    # widevine support
+    # home.packages = with pkgs; [ unstable.widevine-cdm ];
+
     programs.qutebrowser = {
       enable = true;
       # I'm using unstable for now because the stable version has a rendering bug
       # where some bitmap fonts (including creep) aren't rendered
       package = pkgs.unstable.qutebrowser;
-      settings = {
-        fonts = with config.modules.de.xfconf; {
-          default_family = defaultFont.family;
-          prompts = "default_size default_family";
+      settings =
+        let describeFont = font: "${toString font.size}px ${font.family}";
+        in {
+          fonts = with config.modules.de.xfconf; {
+            default_family = defaultFont.family;
+            prompts = "default_size default_family";
+            tabs.selected = describeFont titleBarFont;
+            tabs.unselected = describeFont titleBarFont;
+          };
+          # TODO make helper to create python dict from attrset
+          tabs = {
+            "padding[\"bottom\"]" = 4;
+            "padding[\"top\"]" = 4;
+            position = "top";
+            max_width = 160;
+          };
+          statusbar = {
+            "padding[\"bottom\"]" = 4;
+            "padding[\"top\"]" = 4;
+            position = "bottom";
+          };
+          content.javascript.clipboard = "access";
+          zoom.default = "90%";
+          scrolling.bar = "when-searching";
+          hints.chars = "arstneiodh"; # colemak!
+          content.blocking = {
+            enabled = true;
+            method = "both";
+          };
         };
-        # TODO make helper to create python dict from attrset
-        tabs = {
-          "padding[\"bottom\"]" = 4;
-          "padding[\"top\"]" = 4;
-          position = "left";
-        };
-        statusbar = {
-          "padding[\"bottom\"]" = 4;
-          "padding[\"top\"]" = 4;
-        };
-        content.javascript.clipboard = "access";
-        zoom.default = "90%";
-        scrolling.bar = "when-searching";
-        hints.chars = "arstneiodh"; # colemak!
-      };
       keyBindings = with config.utils.keybinds; {
         # see :help bindings.default
         caret = {
@@ -83,8 +96,12 @@
       in ''
         config.source("${themeFile}")
         # load the selected tab foreground after the theme
-        c.colors.tabs.selected.even.fg = "#${config.colorscheme.palette.base0E}";
-        c.colors.tabs.selected.odd.fg = "#${config.colorscheme.palette.base0E}";
+        c.colors.tabs.even.bg = "#${config.colorscheme.palette.base01}";
+        c.colors.tabs.odd.bg = "#${config.colorscheme.palette.base02}";
+        c.colors.tabs.selected.even.bg = "#${config.colorscheme.palette.base0D}";
+        c.colors.tabs.selected.odd.bg = "#${config.colorscheme.palette.base0D}";
+        c.colors.tabs.selected.even.fg = "#${config.colorscheme.palette.base02}";
+        c.colors.tabs.selected.odd.fg = "#${config.colorscheme.palette.base02}";
       '';
     };
   };

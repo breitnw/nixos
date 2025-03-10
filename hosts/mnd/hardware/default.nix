@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 let
   # fetch asahi linux support modules from the nixos-apple-silicon github

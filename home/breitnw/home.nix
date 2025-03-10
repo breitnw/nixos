@@ -33,7 +33,6 @@
     homeDirectory = "/home/breitnw";
 
     sessionVariables = {
-      EDITOR = "emacs";
       FLAKE =
         "${config.home.homeDirectory}/Config/nixos"; # config directory for nh
     };
@@ -95,7 +94,6 @@
   # modules.themes.themeName = "rose-pine-dawn"; # light and cozy
   # modules.themes.themeName = "summercamp"; # ★ earthy but vibrant
   # modules.themes.themeName = "tarot"; # very reddish purply
-
   # modules.themes.themeName = "terracotta"; # earthy and bright
   modules.themes.themeName = "terracotta-dark"; # chocolatey and dark
   # modules.themes.themeName = "embers";

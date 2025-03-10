@@ -70,12 +70,20 @@ pkgs, inputs, ... }:
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # Configure keyboard to use colemak
+  # configure keyboard to use colemak
   services.xserver = {
     xkb = {
       layout = "us";
       variant = "colemak";
-      options = "caps:escape";
+      # options = "caps:escape";
+    };
+  };
+  # ... and to have overloaded control/esc behavior on caps lock
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings = { main = { capslock = "overload(control, esc)"; }; };
     };
   };
 
@@ -99,6 +107,7 @@ pkgs, inputs, ... }:
       "wheel" # Enable ‘sudo’ for the user.
       "networkmanager" # Allow the user to access the network manager
       "docker" # Provide access to the docker socket
+      "audio" # Needed for supercollider/tidal
     ];
   };
 
@@ -132,6 +141,11 @@ pkgs, inputs, ... }:
 
   # Enable the touch bar with tiny-dfr
   services.tiny-dfr.enable = true;
+
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 57110 ];
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

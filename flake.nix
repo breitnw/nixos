@@ -8,17 +8,31 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # secrets management
     sops-nix.url = "github:Mic92/sops-nix";
+    # system-wide theming
     nix-colors.url = "github:misterio77/nix-colors";
+    # theming for firefox
     firefox-native-base16.url = "github:GnRlLeclerc/firefox-native-base16";
+    # search for files (e.g., headers) in nixpkgs
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }@inputs:
+  outputs =
+    { nixpkgs, nixpkgs-unstable, home-manager, nix-index-database, ... }@inputs:
     let
       system = "aarch64-linux";
-      # overlay for unstable packages, under the "unstable" attribute
+      # overlay for unstable and unfree packages, under the "unstable" attribute
       overlay-unstable = final: prev: {
-        unstable = nixpkgs-unstable.legacyPackages.${prev.system};
+        # instantiate nixpkgs-unstable to allow unfree packages
+        unstable = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+          allowUnfreePredicate = _: true;
+        };
       };
       # overlay for extra packages fetched from flakes
       overlay-extra = final: prev:
@@ -36,6 +50,7 @@
             # enable an overlay with unstable packages
             # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
             ./hosts/mnd/configuration.nix
+            nix-index-database.nixosModules.nix-index
           ];
         };
       };

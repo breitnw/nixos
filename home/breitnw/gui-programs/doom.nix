@@ -24,9 +24,18 @@ in {
     };
   };
   config = {
+    services.emacs = {
+      # enable emacs daemon systemd service
+      enable = true;
+      # enable desktop item for emacs client
+      client.enable = true;
+      # client should be the default editor
+      defaultEditor = true;
+      # automatically start daemon when client is started
+      socketActivation.enable = true;
+    };
     programs.emacs = {
       enable = true;
-      package = pkgs.emacs30;
       extraPackages = epkgs: [
         epkgs.kurecolor # required by the color script
         epkgs.vterm
@@ -53,22 +62,7 @@ in {
           "(setq doom-theme '${cfg.theme})");
     };
 
-    # set environment variables for doom
-    home.sessionVariables = {
-      DOOMDIR = "${config.xdg.configHome}/doom";
-      EMACSDIR = "${config.xdg.configHome}/emacs";
-      DOOMLOCALDIR = "${config.xdg.dataHome}/doom";
-      DOOMPROFILELOADFILE = "${config.xdg.stateHome}/doom-profiles-load.el";
-    };
-
     # add doom binaries to PATH
     home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
-
-    # FIXME fetch doom emacs
-    # fetching sometimes has a bug (encountered when downgrading emacs version)
-    # xdg.configFile."emacs".source = builtins.fetchGit {
-    #   url = "https://github.com/doomemacs/doomemacs.git";
-    #   rev = "fca69c9849d3abcab0e8e1b1a17cf09298472715";
-    # };
   };
 }

@@ -17,5 +17,12 @@
     backend = "xrender";
     # don't show a shadow for the dock
     shadowExclude = [ "class_g = 'Xfce4-panel' && window_type = 'dock'" ];
+
+    # shadows are drawn wrong for menus, so disable them
+    wintypes = {
+      popup_menu = { shadow = false; };
+      dropdown_menu = { shadow = false; };
+      utility = { shadow = false; };
+    };
   };
 }
