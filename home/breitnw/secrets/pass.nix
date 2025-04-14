@@ -10,7 +10,5 @@
     pinentryPackage = pkgs.pinentry-qt;
   };
   # gui for viewing passwords
-  home.packages = [
-    pkgs.qtpass
-  ];
+  home.packages = [ pkgs.qtpass ];
 }

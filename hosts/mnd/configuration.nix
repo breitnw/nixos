@@ -16,12 +16,12 @@ pkgs, inputs, ... }:
     ./services
     # Desktop environment support
     ./de-support
+    # Audio devices
+    ./audio.nix
   ];
 
-  programs.ladybird.enable = true;
-
   # required udev rules for platformio
-  services.udev.packages = [ pkgs.platformio-core pkgs.openocd ];
+  services.udev.packages = [ pkgs.platformio-core.udev ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -75,27 +75,29 @@ pkgs, inputs, ... }:
     xkb = {
       layout = "us";
       variant = "colemak";
-      # options = "caps:escape";
+      options = "caps:escape";
     };
   };
+
+  # FIXME: we might not need this?
+  # services.avahi = {
+  #   enable = true;
+  #   nssmdns4 = true;
+  #   openFirewall = true;
+  # };
+
   # ... and to have overloaded control/esc behavior on caps lock
-  services.keyd = {
-    enable = true;
-    keyboards.default = {
-      ids = [ "*" ];
-      settings = { main = { capslock = "overload(control, esc)"; }; };
-    };
-  };
+  # FIXME: this kills the fn key i think
+  # services.keyd = {
+  #   enable = true;
+  #   keyboards.default = {
+  #     ids = [ "*" ];
+  #     settings = { main = { capslock = "overload(control, esc)"; }; };
+  #   };
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  # Enable sound.
-  # Pipewire is enabled in apple-silicon-support/modules/sound/default.nix
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # -- ENABLED BY DEFAULT in xfce
-  # services.libinput.enable = true;
 
   # Configure users
   users.mutableUsers = false;
@@ -106,32 +108,19 @@ pkgs, inputs, ... }:
     extraGroups = [
       "wheel" # Enable ‘sudo’ for the user.
       "networkmanager" # Allow the user to access the network manager
-      "docker" # Provide access to the docker socket
       "audio" # Needed for supercollider/tidal
+      "jackaudio" # Needed for services.jack (I think)
     ];
   };
 
-  # Enable docker
-  virtualisation.docker.enable = true;
-
   # Configure system packages
-  # STYLE: This should only contain packages necessary for commands/services run as root,
-  #  or for system recovery in an emergency. All other packages should be configured via
-  #  home-manager on a per-user basis
+  # STYLE: This should only contain packages necessary for commands/services
+  #  run as root, or for system recovery in an emergency. All other packages
+  #  should be configured via home-manager on a per-user basis
   environment.systemPackages = with pkgs; [ vim wget ];
 
   # ensure that nixpkgs path aligns with nixpkgs flake input
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh = {
@@ -142,6 +131,7 @@ pkgs, inputs, ... }:
   # Enable the touch bar with tiny-dfr
   services.tiny-dfr.enable = true;
 
+  # Open ports in the firewall
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 57110 ];
@@ -152,8 +142,10 @@ pkgs, inputs, ... }:
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
 
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  # This option defines the first version of NixOS you have installed on this
+  # particular machine, and is used to maintain compatibility with application
+  # data (e.g. databases) created on older NixOS versions. For more information,
+  # see `man configuration.nix` or
+  # https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11"; # Did you read the comment?
 }

@@ -19,15 +19,15 @@
         package = pkgs.creep;
       };
       iconTheme = "buuf-icon-theme";
-      cursorTheme = "Default";
+      cursorTheme = "RunescapeCursors";
       windowManagerTheme = "Blackwall";
 
       settings = {
         # import other modules for complex settings
         xfce4-panel = import ./panel.nix args;
         xfce4-keyboard-shortcuts = import ./shortcuts.nix args;
-        # basic icon/cursor theme and font settings. most of this stuff is offloaded to the
-        # theme section of the config
+        # basic icon/cursor theme and font settings. most of this stuff is
+        # offloaded to the theme section of the config
         xsettings = { Xft.DPI = 80; };
         # desktop appearance
         xfce4-desktop = {
@@ -36,6 +36,12 @@
             file-icons.show-removable = false;
             file-icons.show-filesystem = true;
           };
+        };
+        # display support. I use autorandr, so profiles should not be enabled
+        # when displays are connected/disconnected.
+        displays = {
+          AutoEnableProfiles = 0;
+          Notify = 0;
         };
         # window manager. I use xfwm4 (the default) since I like the theme options
         xfwm4.general = {

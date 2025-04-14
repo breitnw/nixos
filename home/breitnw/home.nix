@@ -45,9 +45,11 @@
       picard # music metadata editor
       superTuxKart # epic gaming
       krita # paint
+      blender # modeling
       reaper # daw
       aseprite # pixel art tool
       mate.atril # pdf reader
+      pinentry-qt
 
       # CLI PROGRAMS ================================
       neofetch
@@ -64,7 +66,9 @@
       texliveFull
       # ...school
       octaveFull # GNU Octave (with gui)
-      ccls # language server for C
+
+      # FONTS AND OTHER =============================
+      etBook
     ];
   };
 
@@ -89,13 +93,16 @@
   # modules.themes.themeName = "kanagawa"; # ★ blue with yellowed text
   # modules.themes.themeName = "kimber"; # nordish but more red
   # modules.themes.themeName = "mountain"; # ★ dark and moody
-  # modules.themes.themeName = "oxocarbon-dark"; # ★ dark and vibrant
+  modules.themes.themeName = "oxocarbon-dark"; # ★ dark and vibrant
   # modules.themes.themeName = "pico"; # highkey ugly but maybe redeemable
   # modules.themes.themeName = "rose-pine-dawn"; # light and cozy
+  # modules.themes.themeName = "horizon-light";
+  # modules.themes.themeName = "horizon-dark";
+  # modules.themes.themeName = "sagelight";
   # modules.themes.themeName = "summercamp"; # ★ earthy but vibrant
   # modules.themes.themeName = "tarot"; # very reddish purply
   # modules.themes.themeName = "terracotta"; # earthy and bright
-  modules.themes.themeName = "terracotta-dark"; # chocolatey and dark
+  # modules.themes.themeName = "terracotta-dark"; # ★ chocolatey and dark
   # modules.themes.themeName = "embers";
 
   # defaults (?)

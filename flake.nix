@@ -19,10 +19,15 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # apple silicon support modules
+    apple-silicon-support = {
+      url = "github:tpwrules/nixos-apple-silicon?ref=pull/284/head";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs =
-    { nixpkgs, nixpkgs-unstable, home-manager, nix-index-database, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nix-index-database
+    , apple-silicon-support, ... }@inputs:
     let
       system = "aarch64-linux";
       # overlay for unstable and unfree packages, under the "unstable" attribute
@@ -51,6 +56,7 @@
             # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
             ./hosts/mnd/configuration.nix
             nix-index-database.nixosModules.nix-index
+            apple-silicon-support.nixosModules.default
           ];
         };
       };

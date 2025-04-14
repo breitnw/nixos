@@ -28,7 +28,7 @@ in {
       # enable emacs daemon systemd service
       enable = true;
       # enable desktop item for emacs client
-      client.enable = true;
+      client = { enable = true; };
       # client should be the default editor
       defaultEditor = true;
       # automatically start daemon when client is started
@@ -36,14 +36,16 @@ in {
     };
     programs.emacs = {
       enable = true;
+      package = pkgs.emacs-pgtk; # fixes artifacting issues
       extraPackages = epkgs: [
         epkgs.kurecolor # required by the color script
         epkgs.vterm
       ];
       extraConfig =
-        # python (necessary for some treemacs features)
+        # add packages to emacs's execution path
         ''
           (add-to-list 'exec-path "${pkgs.python3}/bin/")
+          (add-to-list 'exec-path "${pkgs.ispell}/bin/")
         ''
         # color stuff
         + (if (isNull cfg.theme) then
