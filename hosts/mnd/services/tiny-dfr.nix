@@ -2,8 +2,7 @@
 
 { pkgs, lib, config, ... }:
 
-let
-  cfg = config.services.tiny-dfr;
+let cfg = config.services.tiny-dfr;
 in {
   options = {
     services.tiny-dfr = {
@@ -36,5 +35,9 @@ in {
         DynamicUser = false; # run as sudo
       };
     };
+    # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
+    environment.etc."tiny-dfr/config.toml".text = ''
+      MediaLayerDefault = true
+    '';
   };
 }

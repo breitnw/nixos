@@ -6,8 +6,6 @@
 #   to emacs, qutebrowser, vi, vim, etc.
 # - TODO customizations for generated GTK theme
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
-# - TODO it seems like cozette has a bunch of glyphs, so why are default
-#        nerd fonts being used?
 # - TODO fetch icon themes from git instead of depending on local state
 
 {
@@ -38,6 +36,8 @@
     };
 
     packages = with pkgs; [
+      zotero-nix-grafted
+
       # GUI PROGRAMS ================================
       tauon # music player
       libreoffice
@@ -80,6 +80,7 @@
   modules.mail.enable = true;
   modules.firefox.enable = true;
   modules.qutebrowser.enable = true;
+  modules.rclone.enable = false;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
@@ -93,7 +94,7 @@
   # modules.themes.themeName = "kanagawa"; # ★ blue with yellowed text
   # modules.themes.themeName = "kimber"; # nordish but more red
   # modules.themes.themeName = "mountain"; # ★ dark and moody
-  modules.themes.themeName = "oxocarbon-dark"; # ★ dark and vibrant
+  # modules.themes.themeName = "oxocarbon-dark"; # ★ dark and vibrant
   # modules.themes.themeName = "pico"; # highkey ugly but maybe redeemable
   # modules.themes.themeName = "rose-pine-dawn"; # light and cozy
   # modules.themes.themeName = "horizon-light";
@@ -104,6 +105,11 @@
   # modules.themes.themeName = "terracotta"; # earthy and bright
   # modules.themes.themeName = "terracotta-dark"; # ★ chocolatey and dark
   # modules.themes.themeName = "embers";
+  # modules.themes.themeName = "onedark";
+  # modules.themes.themeName = "stella"; # purple, pale-ish
+  # modules.themes.themeName = "eris"; # dark blue city lights
+  # modules.themes.themeName = "tokyo-night-dark";
+  modules.themes.themeName = "zenburn";
 
   # defaults (?)
   systemd.user.startServices = "sd-switch";

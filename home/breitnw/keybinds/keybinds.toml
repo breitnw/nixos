@@ -26,6 +26,7 @@ search-next    = "k" # search-prev is capitalized
 [xfce.custom]
 find-app = "<Super>space"
 emacs    = "<Super>e"
+ikhal    = "<Super>c"
 
 # xfwm4: automatically added to xfce configuration; exo application
 # name corresponding with option name

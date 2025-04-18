@@ -13,10 +13,12 @@
     fade = true;
     shadow = true;
     fadeDelta = 3;
-    # glx backend causes blank screen with only cursor
-    backend = "xrender";
+    backend = "glx";
     # don't show a shadow for the dock
-    shadowExclude = [ "class_g = 'Xfce4-panel' && window_type = 'dock'" ];
+    shadowExclude = [
+      "class_g = 'Xfce4-panel' && window_type = 'dock'"
+      "_GTK_FRAME_EXTENTS@:c"
+    ];
 
     # shadows are drawn wrong for menus, so disable them
     wintypes = {

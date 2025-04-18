@@ -24,6 +24,11 @@
       url = "github:tpwrules/nixos-apple-silicon?ref=pull/284/head";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # zotero built from source
+    zotero-nix = {
+      url = "github:camillemndn/zotero-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, nix-index-database
@@ -44,6 +49,7 @@
         with inputs; {
           firefox-native-base16 =
             firefox-native-base16.packages.${prev.system}.default;
+          zotero-nix = zotero-nix.packages.${prev.system}.default;
         };
     in {
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
