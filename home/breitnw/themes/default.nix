@@ -43,11 +43,20 @@ in {
     # we configure the GTK theme with the gtk attrset
     gtk.enable = true;
     # set the GTK theme according to the color scheme, unless it is overridden
+    # gtk.theme = if (isNull cfg.customGTKTheme) then {
+    #   package =
+    #     let nix-colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
+    #     in nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
+    #   name = config.colorScheme.slug;
+    # } else
+    #   cfg.customGTKTheme;
+    # TODO only generate the theme we care about
     gtk.theme = if (isNull cfg.customGTKTheme) then {
-      package =
-        let nix-colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
-        in nix-colors-lib.gtkThemeFromScheme { scheme = config.colorScheme; };
-      name = config.colorScheme.slug;
+      package = pkgs.greybird-with-accent config.colorscheme.palette.base0D;
+      name = if config.colorScheme.variant == "dark" then
+        "greybird-generated-dark"
+      else
+        "greybird-generated";
     } else
       cfg.customGTKTheme;
   };

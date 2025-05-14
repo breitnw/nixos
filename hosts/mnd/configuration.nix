@@ -80,15 +80,13 @@ pkgs, inputs, ... }:
   };
 
   # ... and to have overloaded control/esc behavior on caps lock
-  services.keyd = {
-    # FIXME: this kills the fn key i think
-    # FIXME: also, i think that it somehow messes with smooth scrolling in emacs
-    enable = true;
-    keyboards.default = {
-      ids = [ "*" ];
-      settings = { main = { capslock = "overload(control, esc)"; }; };
-    };
-  };
+  # services.keyd = {
+  #   enable = true;
+  #   keyboards.default = {
+  #     ids = [ "*" ];
+  #     settings = { main = { capslock = "overload(control, esc)"; }; };
+  #   };
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

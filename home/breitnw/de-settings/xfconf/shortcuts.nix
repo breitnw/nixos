@@ -13,6 +13,7 @@ in {
     ${custom.ikhal} = ''alacritty -o 'cursor.style="Beam"' -e ikhal'';
     ${custom.emacs} = "emacsclient --create-frame";
     ${custom.find-app} = "xfce4-appfinder";
+    ${custom.autorandr} = "autorandr --change";
   };
   # keybinds to navigate xfwm4
   xfwm4.custom = invertAttrs xfwm4;

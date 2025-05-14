@@ -8,12 +8,6 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # secrets management
-    sops-nix.url = "github:Mic92/sops-nix";
-    # system-wide theming
-    nix-colors.url = "github:misterio77/nix-colors";
-    # theming for firefox
-    firefox-native-base16.url = "github:GnRlLeclerc/firefox-native-base16";
     # search for files (e.g., headers) in nixpkgs
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -21,18 +15,28 @@
     };
     # apple silicon support modules
     apple-silicon-support = {
-      url = "github:tpwrules/nixos-apple-silicon?ref=pull/284/head";
+      url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    # secrets management
+    sops-nix.url = "github:Mic92/sops-nix";
+    # system-wide theming
+    nix-colors.url = "github:misterio77/nix-colors";
+    # theming for firefox
+    firefox-native-base16.url = "github:GnRlLeclerc/firefox-native-base16";
     # zotero built from source
-    zotero-nix = {
-      url = "github:camillemndn/zotero-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    zotero-nix.url = "github:camillemndn/zotero-nix";
+    # cozette built from source
+    cozette.url = "github:breitnw/cozette/math";
+    # greybird with custom accent support
+    greybird.url = "github:breitnw/Greybird/master";
+    # tiny-dfr build from source
+    tiny-dfr.url = "github:breitnw/tiny-dfr/master";
+    tiny-dfr.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, nix-index-database
-    , apple-silicon-support, ... }@inputs:
+    , apple-silicon-support, cozette, greybird, tiny-dfr, ... }@inputs:
     let
       system = "aarch64-linux";
       # overlay for unstable and unfree packages, under the "unstable" attribute
@@ -50,6 +54,10 @@
           firefox-native-base16 =
             firefox-native-base16.packages.${prev.system}.default;
           zotero-nix = zotero-nix.packages.${prev.system}.default;
+          cozette = cozette.packages.${prev.system}.default;
+          greybird-with-accent =
+            greybird.packages.${prev.system}.greybird-with-accent;
+          tiny-dfr = tiny-dfr.packages.${prev.system}.default;
         };
     in {
       formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
@@ -58,6 +66,7 @@
         mnd = nixpkgs-unstable.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
+            ({ ... }: { nixpkgs.overlays = [ overlay-extra ]; })
             # enable an overlay with unstable packages
             # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
             ./hosts/mnd/configuration.nix

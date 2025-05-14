@@ -46,9 +46,9 @@ in {
   };
   programs.khal = {
     enable = true;
-    package = pkgs.callPackage ./khal.nix { };
+    package = pkgs.unstable.khal;
     locale.dateformat = "%m-%d";
-    locale.timeformat = "%H:%M %p";
+    locale.timeformat = "%H:%M";
     locale.firstweekday = 6;
     settings = {
       default.highlight_event_days = true;

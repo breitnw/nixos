@@ -40,10 +40,11 @@
 
       # GUI PROGRAMS ================================
       tauon # music player
-      libreoffice
+      libreoffice-qt6
       vesktop # discord client
       picard # music metadata editor
       superTuxKart # epic gaming
+      prismlauncher # epic minecraft
       krita # paint
       blender # modeling
       reaper # daw
@@ -52,7 +53,7 @@
       pinentry-qt
 
       # CLI PROGRAMS ================================
-      neofetch
+      fastfetch
       unzip
       ripgrep
       bat
@@ -85,31 +86,37 @@
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
 
-  # modules.themes.themeName = "gruvbox-dark-medium"; # ★ a classic
-  # modules.themes.themeName = "darktooth"; # ★ like gruvbox but more purple
+  # dark themes
+  # modules.themes.themeName = "gruvbox-dark-medium"; # ⋆ a classic
+  # modules.themes.themeName = "darktooth"; # ⋆ like gruvbox but more purple
   # modules.themes.themeName = "catppuccin-macchiato"; # purple pastel
   # modules.themes.themeName = "darkmoss"; # cool blue-green
-  # modules.themes.themeName = "everforest-dark-hard"; # greenish and groovy
+  # modules.themes.themeName = "everforest"; # greenish and groovy
   # modules.themes.themeName = "gigavolt"; # dark and vibrant (purply)
-  # modules.themes.themeName = "kanagawa"; # ★ blue with yellowed text
+  # modules.themes.themeName = "kanagawa"; # ⋆ blue with yellowed text
   # modules.themes.themeName = "kimber"; # nordish but more red
-  # modules.themes.themeName = "mountain"; # ★ dark and moody
-  # modules.themes.themeName = "oxocarbon-dark"; # ★ dark and vibrant
+  # modules.themes.themeName = "mountain"; # ⋆ dark and moody
+  # modules.themes.themeName = "oxocarbon-dark"; # ⋆ dark and vibrant
   # modules.themes.themeName = "pico"; # highkey ugly but maybe redeemable
-  # modules.themes.themeName = "rose-pine-dawn"; # light and cozy
-  # modules.themes.themeName = "horizon-light";
   # modules.themes.themeName = "horizon-dark";
-  # modules.themes.themeName = "sagelight";
-  # modules.themes.themeName = "summercamp"; # ★ earthy but vibrant
+  # modules.themes.themeName = "summercamp"; # ⋆ earthy but vibrant
+  # modules.themes.themeName = "terracotta-dark"; # ⋆ chocolatey and dark
   # modules.themes.themeName = "tarot"; # very reddish purply
-  # modules.themes.themeName = "terracotta"; # earthy and bright
-  # modules.themes.themeName = "terracotta-dark"; # ★ chocolatey and dark
+  # modules.themes.themeName = "tokyo-night-dark";
+  # modules.themes.themeName = "zenburn";
   # modules.themes.themeName = "embers";
   # modules.themes.themeName = "onedark";
   # modules.themes.themeName = "stella"; # purple, pale-ish
   # modules.themes.themeName = "eris"; # dark blue city lights
-  # modules.themes.themeName = "tokyo-night-dark";
-  modules.themes.themeName = "zenburn";
+
+  # light themes
+  # modules.themes.themeName = "rose-pine-dawn"; # light and cozy
+  # modules.themes.themeName = "horizon-light";
+  # modules.themes.themeName = "sagelight";
+  # modules.themes.themeName = "terracotta"; # earthy and bright
+  # modules.themes.themeName = "ayu-light";
+  # modules.themes.themeName = "classic-light"; # basic and visible
+  modules.themes.themeName = "humanoid-light";
 
   # defaults (?)
   systemd.user.startServices = "sd-switch";

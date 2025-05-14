@@ -13,7 +13,8 @@ in {
     panel-1 = {
       inherit icon-size;
       length = 100;
-      size = 24;
+      size = 20;
+      border-width = 2;
       # is this right?
       position = "p=8;x=640;y=786";
       position-locked = true;

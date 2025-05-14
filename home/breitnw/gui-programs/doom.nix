@@ -41,23 +41,12 @@ in {
         epkgs.kurecolor # required by the color script
         epkgs.vterm
       ];
-      extraConfig =
-        # add packages to emacs's execution path
-        ''
-          (add-to-list 'exec-path "${pkgs.python3}/bin/")
-          (add-to-list 'exec-path "${pkgs.ispell}/bin/")
-          (add-to-list 'exec-path "${pkgs.fd}/bin/")
-        ''
-
-        # TODO ditaa
-        # (add-to-list '+org-babel-load-functions
-        #    (lambda (lang)
-        #      (when (string= lang "ditaa")
-        #        (setq org-ditaa-jar-path "${pkgs.ditaa}/lib/ditaa.jar"))))
-        # (org-babel-do-load-languages
-        # 'org-babel-load-languages
-        # '((ditaa . t))) ; this line activates ditaa
-
+      # add packages to emacs's execution path
+      extraConfig = ''
+        (add-to-list 'exec-path "${pkgs.python3}/bin/")
+        (add-to-list 'exec-path "${pkgs.ispell}/bin/")
+        (add-to-list 'exec-path "${pkgs.fd}/bin/")
+      ''
         # color stuff
         + (if (isNull cfg.theme) then
           let

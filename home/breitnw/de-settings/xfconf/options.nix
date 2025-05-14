@@ -36,7 +36,7 @@ in {
           (lib.types.enum [ "original" "theme" ])
           (lib.types.listOf lib.types.float)
         ];
-        default = "theme";
+        default = "original";
       };
       customPanelBackgroundColor = lib.mkOption {
         description = ''
@@ -68,7 +68,7 @@ in {
         xsettings = {
           Net = {
             IconThemeName = cfg.iconTheme;
-            ThemeName = config.modules.themes.themeName;
+            ThemeName = config.gtk.theme.name;
           };
           Gtk = {
             CursorThemeName = cfg.cursorTheme;
