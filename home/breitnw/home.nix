@@ -7,6 +7,10 @@
 # - TODO customizations for generated GTK theme
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
 # - TODO fetch icon themes from git instead of depending on local state
+# - TODO partition cozette with a feature flag or something
+# - TODO move sops spec to corresponding modules
+# - TODO new design pattern for nix/doom interop: do everything in doom config;
+#   only set variables in nix
 
 {
   imports = [
@@ -39,7 +43,6 @@
       zotero-nix-grafted
 
       # GUI PROGRAMS ================================
-      tauon # music player
       libreoffice-qt6
       vesktop # discord client
       picard # music metadata editor
@@ -62,7 +65,7 @@
       # ...nix
       nh # Nix helper
       unstable.nixd # Nix language server
-      nixfmt-classic
+      alejandra
       # ...latex
       texliveFull
       # ...school
@@ -87,36 +90,40 @@
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
 
   # dark themes
-  # modules.themes.themeName = "gruvbox-dark-medium"; # ⋆ a classic
-  # modules.themes.themeName = "darktooth"; # ⋆ like gruvbox but more purple
-  # modules.themes.themeName = "catppuccin-macchiato"; # purple pastel
-  # modules.themes.themeName = "darkmoss"; # cool blue-green
-  # modules.themes.themeName = "everforest"; # greenish and groovy
-  # modules.themes.themeName = "gigavolt"; # dark and vibrant (purply)
-  # modules.themes.themeName = "kanagawa"; # ⋆ blue with yellowed text
-  # modules.themes.themeName = "kimber"; # nordish but more red
-  # modules.themes.themeName = "mountain"; # ⋆ dark and moody
-  # modules.themes.themeName = "oxocarbon-dark"; # ⋆ dark and vibrant
-  # modules.themes.themeName = "pico"; # highkey ugly but maybe redeemable
-  # modules.themes.themeName = "horizon-dark";
-  # modules.themes.themeName = "summercamp"; # ⋆ earthy but vibrant
-  # modules.themes.themeName = "terracotta-dark"; # ⋆ chocolatey and dark
-  # modules.themes.themeName = "tarot"; # very reddish purply
-  # modules.themes.themeName = "tokyo-night-dark";
-  # modules.themes.themeName = "zenburn";
-  # modules.themes.themeName = "embers";
-  # modules.themes.themeName = "onedark";
-  # modules.themes.themeName = "stella"; # purple, pale-ish
-  # modules.themes.themeName = "eris"; # dark blue city lights
+  modules.themes = {
+    # themeName = "gruvbox-dark-medium";   # ⋆ a classic
+    # themeName = "darktooth";             # ⋆ gruvbox but more purply
+    # themeName = "catppuccin-macchiato";  # purple pastel
+    # themeName = "darkmoss";              # cool blue-green
+    # themeName = "everforest-dark-hard";  # greenish and groovy
+    # themeName = "gigavolt";              # dark, vibrant, and purply
+    # themeName = "kanagawa";              # ⋆ blue with yellowed text
+    # themeName = "kimber";                # nordish but more red
+    # themeName = "mountain";              # ⋆ dark and moody
+    # themeName = "oxocarbon-dark";        # ⋆ dark and vibrant
+    # themeName = "pico";                  # highkey ugly but maybe redeemable
+    # themeName = "horizon-dark";          # vaporwavey
+    # themeName = "summercamp";            # ⋆ earthy but vibrant
+    # themeName = "terracotta-dark";       # ⋆ chocolatey and dark
+    # themeName = "tarot";                 # very reddish purply
+    # themeName = "tokyo-night-dark";      # blue and purple
+    # themeName = "zenburn";               # ⋆ grey but in an endearing way
+    # themeName = "embers";                # who dimmed the lights
+    # themeName = "onedark";               # atom propaganda
+    # themeName = "stella";                # purple, pale-ish
+    # themeName = "eris";                  # dark blue city lights
+    themeName = "darcula";               # ⋆ jetbrains propaganda
 
-  # light themes
-  # modules.themes.themeName = "rose-pine-dawn"; # light and cozy
-  # modules.themes.themeName = "horizon-light";
-  # modules.themes.themeName = "sagelight";
-  # modules.themes.themeName = "terracotta"; # earthy and bright
-  # modules.themes.themeName = "ayu-light";
-  # modules.themes.themeName = "classic-light"; # basic and visible
-  modules.themes.themeName = "humanoid-light";
+    # light themes
+    # themeName = "rose-pine-dawn";        # cozy yellow and purple
+    # themeName = "horizon-light";         # vaporwavey
+    # themeName = "terracotta";            # earthy and bright
+    # themeName = "ayu-light";             # kinda pastel
+    # themeName = "sagelight";             # more pastel
+    # themeName = "classic-light";         # basic and visible
+    # themeName = "humanoid-light";        # basic, visible, a lil yellowed
+    # themeName = "gruvbox-light-medium";  # it's just gruvbox
+  };
 
   # defaults (?)
   systemd.user.startServices = "sd-switch";

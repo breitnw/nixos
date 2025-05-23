@@ -80,13 +80,13 @@ pkgs, inputs, ... }:
   };
 
   # ... and to have overloaded control/esc behavior on caps lock
-  # services.keyd = {
-  #   enable = true;
-  #   keyboards.default = {
-  #     ids = [ "*" ];
-  #     settings = { main = { capslock = "overload(control, esc)"; }; };
-  #   };
-  # };
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings = { main = { capslock = "overload(control, esc)"; }; };
+    };
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

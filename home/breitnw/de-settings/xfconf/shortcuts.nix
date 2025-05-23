@@ -10,7 +10,8 @@ let
 in {
   # keybinds to (usually) launch apps with commands
   commands.custom = exo-commands // {
-    ${custom.ikhal} = ''alacritty -o 'cursor.style="Beam"' -e ikhal'';
+    ${custom.calendar} = ''alacritty -o 'cursor.style="Beam"' -e ikhal'';
+    ${custom.music} = "alacritty -o 'window.dimensions.columns = 70' -o 'window.dimensions.lines=22' -e rmpc";
     ${custom.emacs} = "emacsclient --create-frame";
     ${custom.find-app} = "xfce4-appfinder";
     ${custom.autorandr} = "autorandr --change";

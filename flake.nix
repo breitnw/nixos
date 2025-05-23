@@ -27,12 +27,11 @@
     # zotero built from source
     zotero-nix.url = "github:camillemndn/zotero-nix";
     # cozette built from source
-    cozette.url = "github:breitnw/cozette/math";
+    cozette.url = "github:breitnw/cozette/media";
     # greybird with custom accent support
     greybird.url = "github:breitnw/Greybird/master";
-    # tiny-dfr build from source
-    tiny-dfr.url = "github:breitnw/tiny-dfr/master";
-    tiny-dfr.inputs.nixpkgs.follows = "nixpkgs";
+    # tiny-dfr built from source
+    tiny-dfr.url = "github:WhatAmISupposedToPutHere/tiny-dfr/master";
   };
 
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, nix-index-database

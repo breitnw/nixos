@@ -7,8 +7,8 @@ let
   cfg = config.modules.doom;
   # base16-doom provides the scheme itself
   base16-doom-repo = fetchGit {
-    url = "https://github.com/MArpogaus/base16-doom.git";
-    rev = "2618b791e738d04b89cd61ac76af75c5fd8d4cb1";
+    url = "https://github.com/breitnw/base16-doom.git";
+    rev = "6b6df69dc176b39cb86734e500e989fedf9304f7";
   };
   base16-doom = "${base16-doom-repo}/templates/default.mustache";
 

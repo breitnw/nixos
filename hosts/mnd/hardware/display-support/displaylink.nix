@@ -14,6 +14,7 @@ in {
   config = lib.mkIf cfg.enable {
     nixpkgs.config.allowUnfreePredicate = pkg:
       builtins.elem (lib.getName pkg) [ "displaylink" ];
-    services.xserver = { videoDrivers = [ "displaylink" "modesetting" ]; };
+    systemd.services.dlm.wantedBy = [ "multi-user.target" ];
+    services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
   };
 }

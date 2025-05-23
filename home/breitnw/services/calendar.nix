@@ -53,6 +53,7 @@ in {
     settings = {
       default.highlight_event_days = true;
       keybindings = with config.utils.keybinds; {
+        new = "c";
         left = vi.left;
         down = vi.down;
         up = vi.up;
