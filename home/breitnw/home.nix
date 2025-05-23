@@ -91,38 +91,38 @@
 
   # dark themes
   modules.themes = {
-    # themeName = "gruvbox-dark-medium";   # ⋆ a classic
-    # themeName = "darktooth";             # ⋆ gruvbox but more purply
-    # themeName = "catppuccin-macchiato";  # purple pastel
-    # themeName = "darkmoss";              # cool blue-green
-    # themeName = "everforest-dark-hard";  # greenish and groovy
-    # themeName = "gigavolt";              # dark, vibrant, and purply
-    # themeName = "kanagawa";              # ⋆ blue with yellowed text
-    # themeName = "kimber";                # nordish but more red
-    # themeName = "mountain";              # ⋆ dark and moody
-    # themeName = "oxocarbon-dark";        # ⋆ dark and vibrant
-    # themeName = "pico";                  # highkey ugly but maybe redeemable
-    # themeName = "horizon-dark";          # vaporwavey
-    # themeName = "summercamp";            # ⋆ earthy but vibrant
-    # themeName = "terracotta-dark";       # ⋆ chocolatey and dark
-    # themeName = "tarot";                 # very reddish purply
-    # themeName = "tokyo-night-dark";      # blue and purple
-    # themeName = "zenburn";               # ⋆ grey but in an endearing way
-    # themeName = "embers";                # who dimmed the lights
-    # themeName = "onedark";               # atom propaganda
-    # themeName = "stella";                # purple, pale-ish
-    # themeName = "eris";                  # dark blue city lights
-    themeName = "darcula";               # ⋆ jetbrains propaganda
+    # themeName = "eris"; #                    dark blue city lights
+    # themeName = "pico"; #                    highkey ugly but maybe redeemable
+    # themeName = "tarot"; #                   very reddish purply
+    # themeName = "kimber"; #                  nordish but more red
+    # themeName = "embers"; #                  who dimmed the lights
+    # themeName = "stella"; #                  purple, pale-ish
+    # themeName = "zenburn"; #               ⋆ grey but in an endearing way
+    # themeName = "onedark"; #                 atom propaganda
+    themeName = "darcula"; #               ⋆ jetbrains propaganda
+    # themeName = "darkmoss"; #                cool blue-green
+    # themeName = "gigavolt"; #                dark, vibrant, and purply
+    # themeName = "kanagawa"; #              ⋆ blue with yellowed text
+    # themeName = "mountain"; #              ⋆ dark and moody
+    # themeName = "darktooth"; #             ⋆ gruvbox but more purply
+    # themeName = "summercamp"; #            ⋆ earthy but vibrant
+    # themeName = "horizon-dark"; #            vaporwavey
+    # themeName = "oxocarbon-dark"; #        ⋆ dark and vibrant
+    # themeName = "terracotta-dark"; #       ⋆ chocolatey and dark
+    # themeName = "tokyo-night-dark"; #        blue and purple
+    # themeName = "gruvbox-dark-medium"; #   ⋆ a classic
+    # themeName = "catppuccin-macchiato"; #    purple pastel
+    # themeName = "everforest-dark-hard"; #    greenish and groovy
 
     # light themes
-    # themeName = "rose-pine-dawn";        # cozy yellow and purple
-    # themeName = "horizon-light";         # vaporwavey
-    # themeName = "terracotta";            # earthy and bright
-    # themeName = "ayu-light";             # kinda pastel
-    # themeName = "sagelight";             # more pastel
-    # themeName = "classic-light";         # basic and visible
-    # themeName = "humanoid-light";        # basic, visible, a lil yellowed
-    # themeName = "gruvbox-light-medium";  # it's just gruvbox
+    # themeName = "ayu-light"; #               kinda pastel
+    # themeName = "sagelight"; #               more pastel
+    # themeName = "terracotta"; #              earthy and bright
+    # themeName = "horizon-light"; #           vaporwavey
+    # themeName = "classic-light"; #           basic and visible
+    # themeName = "rose-pine-dawn"; #          cozy yellow and purple
+    # themeName = "humanoid-light"; #          basic, visible, a lil yellowed
+    # themeName = "gruvbox-light-medium"; #    it's just gruvbox
   };
 
   # defaults (?)
