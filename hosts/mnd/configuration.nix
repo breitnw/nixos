@@ -1,12 +1,12 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 {
-# config,
-pkgs, inputs, ... }:
-
-{
+  # config,
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan [built automatically]
     ./hardware-configuration.nix
@@ -21,14 +21,14 @@ pkgs, inputs, ... }:
   ];
 
   # required udev rules for platformio
-  services.udev.packages = [ pkgs.platformio-core.udev ];
+  services.udev.packages = [pkgs.platformio-core.udev];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
   # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Enable automatic optimization and garbage collection
   nix.gc = {
@@ -67,7 +67,7 @@ pkgs, inputs, ... }:
   xdg.portal = {
     enable = true;
     # gtk portal needed to make gtk apps happy
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 
   # configure keyboard to use colemak
@@ -83,8 +83,8 @@ pkgs, inputs, ... }:
   services.keyd = {
     enable = true;
     keyboards.default = {
-      ids = [ "*" ];
-      settings = { main = { capslock = "overload(control, esc)"; }; };
+      ids = ["*"];
+      settings = {main = {capslock = "overload(control, esc)";};};
     };
   };
 
@@ -94,8 +94,7 @@ pkgs, inputs, ... }:
   # Configure users
   users.mutableUsers = false;
   users.users.breitnw = {
-    hashedPassword =
-      "$y$j9T$sjn2BP/Vf7c/YuzYdQ/0K0$mq/EbgLp0/BLODW5uLM0f6agAeqrue65Nc25KUCM8XB";
+    hashedPassword = "$y$j9T$sjn2BP/Vf7c/YuzYdQ/0K0$mq/EbgLp0/BLODW5uLM0f6agAeqrue65Nc25KUCM8XB";
     isNormalUser = true;
     extraGroups = [
       "wheel" # Enable ‘sudo’ for the user.
@@ -109,15 +108,15 @@ pkgs, inputs, ... }:
   # STYLE: This should only contain packages necessary for commands/services
   #  run as root, or for system recovery in an emergency. All other packages
   #  should be configured via home-manager on a per-user basis
-  environment.systemPackages = with pkgs; [ vim wget ];
+  environment.systemPackages = with pkgs; [vim wget];
 
   # ensure that nixpkgs path aligns with nixpkgs flake input
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    settings = { PasswordAuthentication = false; };
+    settings = {PasswordAuthentication = false;};
   };
 
   # Enable the touch bar with tiny-dfr
@@ -126,7 +125,7 @@ pkgs, inputs, ... }:
   # Open ports in the firewall
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 57110 ];
+    allowedTCPPorts = [57110];
   };
 
   # Copy the NixOS configuration file and link it from the resulting system

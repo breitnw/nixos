@@ -1,8 +1,11 @@
-{ config, lib, pkgs, ... }:
-
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 # might want to look at https://github.com/sebnyberg/doomemacs-nix-example
 # for doom specific config
-
 let
   cfg = config.modules.doom;
   # base16-doom provides the scheme itself
@@ -11,7 +14,6 @@ let
     rev = "6b6df69dc176b39cb86734e500e989fedf9304f7";
   };
   base16-doom = "${base16-doom-repo}/templates/default.mustache";
-
 in {
   options = {
     modules.doom = {
@@ -28,7 +30,7 @@ in {
       # enable emacs daemon systemd service
       enable = true;
       # enable desktop item for emacs client
-      client = { enable = true; };
+      client = {enable = true;};
       # client should be the default editor
       defaultEditor = true;
       # automatically start daemon when client is started
@@ -36,35 +38,41 @@ in {
     };
     programs.emacs = {
       enable = true;
-      package = pkgs.emacs-pgtk; # fixes artifacting issues
+      # fixes artifacting (although it seems to be less bad now)
+      # I'm like 90% sure artifacting is a vblank issue; check back here if
+      # vsync is ever supported
+      package = pkgs.emacs-pgtk;
       extraPackages = epkgs: [
         epkgs.kurecolor # required by the color script
         epkgs.vterm
       ];
       # add packages to emacs's execution path
-      extraConfig = ''
-        (add-to-list 'exec-path "${pkgs.python3}/bin/")
-        (add-to-list 'exec-path "${pkgs.ispell}/bin/")
-        (add-to-list 'exec-path "${pkgs.fd}/bin/")
-      ''
+      extraConfig =
+        ''
+          (add-to-list 'exec-path "${pkgs.python3}/bin/")
+          (add-to-list 'exec-path "${pkgs.ispell}/bin/")
+          (add-to-list 'exec-path "${pkgs.fd}/bin/")
+        ''
         # color stuff
-        + (if (isNull cfg.theme) then
-          let
+        + (
+          if (isNull cfg.theme)
+          then let
             themeDir = pkgs.writeTextFile {
               name = "doom-base16-theme.el";
               destination = "/doom-base16-theme.el";
-              text = config.utils.mustache.eval-base16
+              text =
+                config.utils.mustache.eval-base16
                 (builtins.readFile base16-doom);
             };
           in ''
             (add-to-list 'custom-theme-load-path "${themeDir}")
             (setq doom-theme 'doom-base16)
           ''
-        else
-          "(setq doom-theme '${cfg.theme})");
+          else "(setq doom-theme '${cfg.theme})"
+        );
     };
 
     # add doom binaries to PATH
-    home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
+    home.sessionPath = ["${config.xdg.configHome}/emacs/bin"];
   };
 }

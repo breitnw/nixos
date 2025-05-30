@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   userName = "breitnw";
   remote = "https://cal.mndco11age.xyz";
   calendars = {
@@ -28,25 +31,26 @@ let
 in {
   accounts.calendar = {
     basePath = "Calendar";
-    accounts = builtins.mapAttrs (name: value: {
-      inherit name;
-      remote = {
-        type = "caldav";
-        inherit userName;
-        passwordCommand =
-          [ "cat" config.sops.secrets."accounts/caldav/${userName}".path ];
-        url = "${remote}/${userName}/${value.id}/";
-      };
-      khal = {
-        enable = true;
-        inherit (value) color;
-      };
-      vdirsyncer = { enable = true; };
-    }) calendars;
+    accounts =
+      builtins.mapAttrs (name: value: {
+        inherit name;
+        remote = {
+          type = "caldav";
+          inherit userName;
+          passwordCommand = ["cat" config.sops.secrets."accounts/caldav/${userName}".path];
+          url = "${remote}/${userName}/${value.id}/";
+        };
+        khal = {
+          enable = true;
+          inherit (value) color;
+        };
+        vdirsyncer = {enable = true;};
+      })
+      calendars;
   };
   programs.khal = {
     enable = true;
-    package = pkgs.unstable.khal;
+    package = pkgs.khal;
     locale.dateformat = "%m-%d";
     locale.timeformat = "%H:%M";
     locale.firstweekday = 6;
@@ -60,16 +64,11 @@ in {
         right = vi.right;
       };
       palette = {
-        "edit" =
-          "white, dark gray, default, white, '#${config.colorscheme.palette.base01}'";
-        "edit focus" =
-          "white, dark gray, default, white, '#${config.colorscheme.palette.base02}'";
-        "button" =
-          "white, dark green, default, default, '#${config.colorscheme.palette.base03}'";
-        "button focused" =
-          "white, light green, default, default, '#${config.colorscheme.palette.base04}'";
-        "editbx" =
-          "white, light green, default, default, '#${config.colorscheme.palette.base04}'";
+        "edit" = "white, dark gray, default, white, '#${config.colorscheme.palette.base01}'";
+        "edit focus" = "white, dark gray, default, white, '#${config.colorscheme.palette.base02}'";
+        "button" = "white, dark green, default, default, '#${config.colorscheme.palette.base03}'";
+        "button focused" = "white, light green, default, default, '#${config.colorscheme.palette.base04}'";
+        "editbx" = "white, light green, default, default, '#${config.colorscheme.palette.base04}'";
       };
     };
   };

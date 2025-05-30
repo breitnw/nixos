@@ -1,6 +1,9 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
 # other options: lib, options, specialArgs
-
 # TASKS
 # - TODO configure vi keybinds globally and then apply them
 #   to emacs, qutebrowser, vi, vim, etc.
@@ -11,7 +14,6 @@
 # - TODO move sops spec to corresponding modules
 # - TODO new design pattern for nix/doom interop: do everything in doom config;
 #   only set variables in nix
-
 {
   imports = [
     ./cli-programs
@@ -35,8 +37,7 @@
     homeDirectory = "/home/breitnw";
 
     sessionVariables = {
-      FLAKE =
-        "${config.home.homeDirectory}/Config/nixos"; # config directory for nh
+      NH_FLAKE = "${config.home.homeDirectory}/Config/nixos"; # config directory for nh
     };
 
     packages = with pkgs; [
@@ -49,6 +50,7 @@
       superTuxKart # epic gaming
       prismlauncher # epic minecraft
       krita # paint
+      gimp # image editing
       blender # modeling
       reaper # daw
       aseprite # pixel art tool
@@ -60,11 +62,12 @@
       unzip
       ripgrep
       bat
+      killall
 
       # languages and tools -------------------------
       # ...nix
       nh # Nix helper
-      unstable.nixd # Nix language server
+      nixd # Nix language server
       alejandra
       # ...latex
       texliveFull
@@ -73,6 +76,7 @@
 
       # FONTS AND OTHER =============================
       etBook
+      ocs-url
     ];
   };
 
@@ -99,7 +103,7 @@
     # themeName = "stella"; #                  purple, pale-ish
     # themeName = "zenburn"; #               ⋆ grey but in an endearing way
     # themeName = "onedark"; #                 atom propaganda
-    themeName = "darcula"; #               ⋆ jetbrains propaganda
+    # themeName = "darcula"; #               ⋆ jetbrains propaganda
     # themeName = "darkmoss"; #                cool blue-green
     # themeName = "gigavolt"; #                dark, vibrant, and purply
     # themeName = "kanagawa"; #              ⋆ blue with yellowed text
@@ -122,7 +126,7 @@
     # themeName = "classic-light"; #           basic and visible
     # themeName = "rose-pine-dawn"; #          cozy yellow and purple
     # themeName = "humanoid-light"; #          basic, visible, a lil yellowed
-    # themeName = "gruvbox-light-medium"; #    it's just gruvbox
+    themeName = "solarized-light-v2"; #    ⋆ very much yellowed
   };
 
   # defaults (?)

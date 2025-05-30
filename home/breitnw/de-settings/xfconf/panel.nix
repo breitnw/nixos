@@ -1,35 +1,41 @@
-{ config, lib, ... }:
-
+{
+  config,
+  lib,
+  ...
+}:
 # TODO organize plugin indices automatically
-
 let
   icon-size = 16;
   describeFont = font: "${font.family} ${font.weight} ${toString font.size}";
   cfg = config.modules.de.xfconf;
 in {
   panels = {
-    VALUE = [ 1 ];
+    VALUE = [1];
     dark-mode = config.colorScheme.variant == "dark";
     panel-1 = {
       inherit icon-size;
       length = 100;
       size = 20;
-      border-width = 2;
+      border-width = 4;
       # is this right?
       position = "p=8;x=640;y=786";
       position-locked = true;
-      plugin-ids = [ 1 2 3 4 5 6 7 8 9 10 11 12 13 ];
+      plugin-ids = [1 2 3 4 5 6 7 8 9 10 11 12 13];
 
       # use gtk theme for background
       background-style =
-        if builtins.isNull cfg.customPanelBackgroundColor then 0 else 1;
-      background-rgba = if builtins.isNull cfg.customPanelBackgroundColor then [
-        0
-        0
-        0
-        0
-      ] else
-        cfg.customPanelBackgroundColor;
+        if builtins.isNull cfg.customPanelBackgroundColor
+        then 0
+        else 1;
+      background-rgba =
+        if builtins.isNull cfg.customPanelBackgroundColor
+        then [
+          0
+          0
+          0
+          0
+        ]
+        else cfg.customPanelBackgroundColor;
     };
   };
   plugins = let

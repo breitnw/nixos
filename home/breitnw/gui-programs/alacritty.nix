@@ -1,6 +1,9 @@
-{ pkgs, lib, config, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   cfg = config.modules.alacritty;
   # base16-alacritty provides the mustache template for
   # the color scheme
@@ -9,7 +12,6 @@ let
     rev = "c95c200b3af739708455a03b5d185d3d2d263c6e";
   };
   base16-alacritty = "${base16-alacritty-repo}/templates/default-256.mustache";
-
 in {
   options = {
     modules.alacritty = {
@@ -27,7 +29,7 @@ in {
             name = "base16.toml";
             text = config.utils.mustache.eval-base16 (builtins.readFile base16-alacritty);
           };
-        in [ themeFile ];
+        in [themeFile];
         window = {
           padding = {
             x = 6;
@@ -46,7 +48,7 @@ in {
           builtin_box_drawing = false;
         };
         cursor.style.shape = "Block";
-        terminal.shell = "fish";
+        terminal.shell = "zsh";
       };
     };
   };

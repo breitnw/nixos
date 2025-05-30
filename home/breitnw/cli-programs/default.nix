@@ -1,9 +1,7 @@
-{ ... }:
-
-{
+{...}: {
   imports = [
+    ./zsh.nix
     ./git.nix
-    ./fish.nix
     ./direnv.nix
   ];
 }

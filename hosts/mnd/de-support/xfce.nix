@@ -1,7 +1,10 @@
 # XFCE and all the fixins
-{ lib, pkgs, config, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}: let
   cfg = config.desktops.xfce;
   default = config.desktops.default == "xfce";
 in {
@@ -12,12 +15,12 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # use xfce 4.20!
-    # nixpkgs.overlays = [ (final: prev: { xfce = final.unstable.xfce; }) ];
     # enable xserver
     services.xserver = {
       enable = true;
+      # enableTearFree = true; # Doesn't work
       desktopManager.xfce.enable = true;
+      excludePackages = [pkgs.xterm];
     };
     # enable xfconf (required by home-manager)
     programs.xfconf.enable = true;

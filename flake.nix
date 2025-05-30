@@ -2,10 +2,10 @@
   description = "breitnw's nixos config";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # search for files (e.g., headers) in nixpkgs
@@ -34,59 +34,68 @@
     tiny-dfr.url = "github:WhatAmISupposedToPutHere/tiny-dfr/master";
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, nix-index-database
-    , apple-silicon-support, cozette, greybird, tiny-dfr, ... }@inputs:
-    let
-      system = "aarch64-linux";
-      # overlay for unstable and unfree packages, under the "unstable" attribute
-      overlay-unstable = final: prev: {
-        # instantiate nixpkgs-unstable to allow unfree packages
-        unstable = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-          allowUnfreePredicate = _: true;
-        };
-      };
-      # overlay for extra packages fetched from flakes
-      overlay-extra = final: prev:
-        with inputs; {
-          firefox-native-base16 =
-            firefox-native-base16.packages.${prev.system}.default;
-          zotero-nix = zotero-nix.packages.${prev.system}.default;
-          cozette = cozette.packages.${prev.system}.default;
-          greybird-with-accent =
-            greybird.packages.${prev.system}.greybird-with-accent;
-          tiny-dfr = tiny-dfr.packages.${prev.system}.default;
-        };
-    in {
-      formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
-
-      nixosConfigurations = {
-        mnd = nixpkgs-unstable.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            ({ ... }: { nixpkgs.overlays = [ overlay-extra ]; })
-            # enable an overlay with unstable packages
-            # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-            ./hosts/mnd/configuration.nix
-            nix-index-database.nixosModules.nix-index
-            apple-silicon-support.nixosModules.default
-          ];
-        };
-      };
-
-      homeConfigurations = {
-        "breitnw@mnd" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.${system};
-          extraSpecialArgs = { inherit inputs; };
-          modules = [
-            # enable an overlay with unstable packages
-            ({ ... }: {
-              nixpkgs.overlays = [ overlay-unstable overlay-extra ];
-            })
-            ./home/breitnw/home.nix
-          ];
-        };
+  outputs = {
+    nixpkgs,
+    nixpkgs-unstable,
+    home-manager,
+    nix-index-database,
+    apple-silicon-support,
+    cozette,
+    greybird,
+    tiny-dfr,
+    ...
+  } @ inputs: let
+    system = "aarch64-linux";
+    # overlay for unstable and unfree packages, under the "unstable" attribute
+    overlay-unstable = final: prev: {
+      # instantiate nixpkgs-unstable to allow unfree packages
+      unstable = import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+        allowUnfreePredicate = _: true;
       };
     };
+    # overlay for extra packages fetched from flakes
+    overlay-extra = final: prev:
+      with inputs; {
+        firefox-native-base16 =
+          firefox-native-base16.packages.${prev.system}.default;
+        zotero-nix = zotero-nix.packages.${prev.system}.default;
+        cozette = cozette.packages.${prev.system}.default;
+        greybird-with-accent =
+          greybird.packages.${prev.system}.greybird-with-accent;
+        tiny-dfr = tiny-dfr.packages.${prev.system}.default;
+        zen-browser = zen-browser.packages.${prev.system}.default;
+      };
+  in {
+    formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+
+    nixosConfigurations = {
+      mnd = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ({...}: {nixpkgs.overlays = [overlay-extra];})
+          # enable an overlay with unstable packages
+          # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
+          ./hosts/mnd/configuration.nix
+          nix-index-database.nixosModules.nix-index
+          apple-silicon-support.nixosModules.default
+        ];
+      };
+    };
+
+    homeConfigurations = {
+      "breitnw@mnd" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          # enable an overlay with unstable packages
+          ({...}: {
+            nixpkgs.overlays = [overlay-unstable overlay-extra];
+          })
+          ./home/breitnw/home.nix
+        ];
+      };
+    };
+  };
 }

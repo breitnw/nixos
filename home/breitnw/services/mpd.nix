@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
+{pkgs, ...}:
 # TODO move rmpc config to nix
-
 {
   services.mpd = {
     enable = true;
@@ -9,15 +7,16 @@
     # pulseaudio seems to be necessary to not blow out my eardrums
     extraConfig = ''
       audio_output {
-      type    "pulse"
-      name    "My MPD PulseAudio Output"
-      #server  "localhost"   # optional
-      #sink    "alsa_output" # optional
-      }
+        type    "pulse"
+        name    "My MPD PulseAudio Output"
+        #server  "localhost"   # optional
+        #sink    "alsa_output" # optional
+        }
+      bind_to_address "/tmp/mpd_socket"
     '';
   };
   home.packages = with pkgs; [
-    unstable.rmpc
+    rmpc
     ueberzugpp
   ];
 }

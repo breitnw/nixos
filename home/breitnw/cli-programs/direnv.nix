@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   programs = {
     direnv = {
       enable = true;
@@ -10,6 +8,5 @@
     };
 
     bash.enable = true; # so that home-manager can manage bash
-    fish.enable = true; # ... etc
   };
 }
