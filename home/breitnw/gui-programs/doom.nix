@@ -49,6 +49,7 @@ in {
       # add packages to emacs's execution path
       extraConfig =
         ''
+          (setq flake-path "${config.home.sessionVariables.NH_FLAKE}")
           (add-to-list 'exec-path "${pkgs.python3}/bin/")
           (add-to-list 'exec-path "${pkgs.ispell}/bin/")
           (add-to-list 'exec-path "${pkgs.fd}/bin/")
