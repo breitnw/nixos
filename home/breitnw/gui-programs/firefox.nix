@@ -1,12 +1,16 @@
-{ config, pkgs, lib, ... }:
-
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 # https://github.com/GnRlLeclerc/firefox-native-base16/tree/master?tab=readme-ov-file
 # depends on Dynamic Base16 extension
-
 {
   options = {
     modules.firefox = {
-      enable = lib.mkEnableOption
+      enable =
+        lib.mkEnableOption
         "whether or not to enable firefox (and theming support)";
     };
   };
@@ -33,13 +37,12 @@
       native_pid=$!
       wait $native_pid
     '';
-
-  in lib.mkIf config.modules.firefox.enable {
-    # actually enable firefox
-    programs.firefox.enable = true;
-    # write manifest to tell firefox where the launcher is
-    home.file.".mozilla/native-messaging-hosts/firefox_native_base16.json".text =
-      ''
+  in
+    lib.mkIf config.modules.firefox.enable {
+      # actually enable firefox
+      programs.firefox.enable = true;
+      # write manifest to tell firefox where the launcher is
+      home.file.".mozilla/native-messaging-hosts/firefox_native_base16.json".text = ''
         {
           "name": "firefox_native_base16",
           "description": "Native messaging application to dynamically communicate base16 colorschemes to Firefox",
@@ -48,10 +51,10 @@
           "allowed_extensions": ["dynamic_base16@gnrl_leclerc.org"]
         }
       '';
-    # browserpass for password management
-    programs.browserpass = {
-      browsers = [ "firefox" ];
-      enable = true;
+      # browserpass for password management
+      programs.browserpass = {
+        browsers = ["firefox"];
+        enable = true;
+      };
     };
-  };
 }

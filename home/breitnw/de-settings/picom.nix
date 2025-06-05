@@ -11,7 +11,8 @@
     shadow = true;
     fadeDelta = 3;
     backend = "glx";
-    # don't show a shadow for the dock
+
+    # don't show a shadow for the dock or windows with weird frames
     shadowExclude = [
       "class_g = 'Xfce4-panel' && window_type = 'dock'"
       "_GTK_FRAME_EXTENTS@:c"
@@ -19,9 +20,10 @@
 
     # shadows are drawn wrong for menus, so disable them
     wintypes = {
-      popup_menu = {shadow = false;};
-      dropdown_menu = {shadow = false;};
-      utility = {shadow = false;};
+      popup_menu.shadow = false;
+      dropdown_menu.shadow = false;
+      utility.shadow = false;
+      notification.shadow = false;
     };
     settings = {
       blur = {
@@ -29,6 +31,7 @@
         size = 5;
         deviation = 3.0;
       };
+      use-damage = true;
     };
   };
 }

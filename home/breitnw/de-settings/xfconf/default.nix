@@ -1,6 +1,4 @@
-{ pkgs, ... }@args:
-
-{
+{pkgs, ...} @ args: {
   imports = [
     ./options.nix # my XFCE options module
   ];
@@ -28,7 +26,7 @@
         xfce4-keyboard-shortcuts = import ./shortcuts.nix args;
         # basic icon/cursor theme and font settings. most of this stuff is
         # offloaded to the theme section of the config
-        xsettings = { Xft.DPI = 80; };
+        xsettings = {Xft.DPI = 80;};
         # desktop appearance
         xfce4-desktop = {
           desktop-icons = {

@@ -60,6 +60,8 @@
   desktops.xfce.enable = true;
   desktops.kde.enable = false;
 
+  programs.ladybird.enable = true;
+
   # from https://discourse.nixos.org/t/xdg-desktop-portal-gtk-desktop-collision/35063
   # xdg desktop portals expose d-bus interfaces for xdg file access
   # are needed by some containerized apps like firefox.

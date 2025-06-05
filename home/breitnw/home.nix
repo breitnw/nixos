@@ -103,7 +103,7 @@
     # themeName = "stella"; #                  purple, pale-ish
     # themeName = "zenburn"; #               ⋆ grey but in an endearing way
     # themeName = "onedark"; #                 atom propaganda
-    # themeName = "darcula"; #               ⋆ jetbrains propaganda
+    themeName = "darcula"; #               ⋆ jetbrains propaganda
     # themeName = "darkmoss"; #                cool blue-green
     # themeName = "gigavolt"; #                dark, vibrant, and purply
     # themeName = "kanagawa"; #              ⋆ blue with yellowed text
@@ -126,7 +126,7 @@
     # themeName = "classic-light"; #           basic and visible
     # themeName = "rose-pine-dawn"; #          cozy yellow and purple
     # themeName = "humanoid-light"; #          basic, visible, a lil yellowed
-    themeName = "solarized-light-v2"; #    ⋆ very much yellowed
+    # themeName = "solarized-light-v2"; #    ⋆ very much yellowed
   };
 
   # defaults (?)
