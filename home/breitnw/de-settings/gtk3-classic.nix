@@ -1,14 +1,10 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+pkgs: let
   # This is a straight copy from upstream (which deprecated this function), as
   # I don't see another way of doing this
   readPathsFromFile = rootPath: file: let
-    lines = lib.splitString "\n" (builtins.readFile file);
+    lines = pkgs.lib.splitString "\n" (builtins.readFile file);
     removeComments =
-      lib.filter (line: line != "" && !(lib.hasPrefix "#" line));
+      pkgs.lib.filter (line: line != "" && !(pkgs.lib.hasPrefix "#" line));
     relativePaths = removeComments lines;
     absolutePaths = map (path: rootPath + "/${path}") relativePaths;
   in
@@ -23,13 +19,13 @@
           owner = "lah7";
           repo = "gtk3-classic";
           rev = old.version;
-          sha256 = "sha256-eTm+lf3tcL0b4lLQDpNzy1px0H8YVnV0b/QWDKHUK90=";
+          sha256 = "sha256-85F8iLyWdBKMfyXYpyHXFYlvptCEQ6FDQ9YXnKSlgKU=";
         };
         quiltSeries = name: src:
           readPathsFromFile (builtins.path {
             path = src;
             name = name + "-patches";
-            filter = path: type: (type == "regular") && (lib.hasSuffix ".patch" path);
+            filter = path: type: (type == "regular") && (pkgs.lib.hasSuffix ".patch" path);
           }) (src + "/series");
       in (quiltSeries "gtk3-classic" classic));
   });

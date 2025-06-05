@@ -68,7 +68,7 @@
         zen-browser = zen-browser.packages.${prev.system}.default;
       };
   in {
-    formatter = nixpkgs.legacyPackages.${system}.nixpkgs-fmt;
+    formatter = nixpkgs.legacyPackages.${system}.alejandra;
 
     nixosConfigurations = {
       mnd = nixpkgs.lib.nixosSystem {
