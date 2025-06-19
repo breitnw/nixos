@@ -14,7 +14,6 @@
 # - TODO move sops spec to corresponding modules
 # - TODO new design pattern for nix/doom interop: do everything in doom config;
 #   only set variables in nix
-# - TODO flag to toggle zotero, since the gtk3-classic dependency is hefty
 {
   imports = [
     ./cli-programs
@@ -42,8 +41,6 @@
     };
 
     packages = with pkgs; [
-      zotero-nix-grafted
-
       # GUI PROGRAMS ================================
       libreoffice-qt6
       vesktop # discord client
@@ -90,8 +87,9 @@
   modules.alacritty.enable = true;
   modules.mail.enable = true;
   modules.firefox.enable = true;
-  modules.qutebrowser.enable = true;
+  modules.qutebrowser.enable = false;
   modules.rclone.enable = false;
+  modules.zotero.enable = false;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
@@ -106,7 +104,7 @@
     # themeName = "stella"; #                  purple, pale-ish
     # themeName = "zenburn"; #               ⋆ grey but in an endearing way
     # themeName = "onedark"; #                 atom propaganda
-    themeName = "darcula"; #               ⋆ jetbrains propaganda
+    # themeName = "darcula"; #               ⋆ jetbrains propaganda
     # themeName = "darkmoss"; #                cool blue-green
     # themeName = "gigavolt"; #                dark, vibrant, and purply
     # themeName = "kanagawa"; #              ⋆ blue with yellowed text
@@ -129,7 +127,7 @@
     # themeName = "classic-light"; #           basic and visible
     # themeName = "rose-pine-dawn"; #          cozy yellow and purple
     # themeName = "humanoid-light"; #          basic, visible, a lil yellowed
-    # themeName = "solarized-light-v2"; #    ⋆ very much yellowed
+    themeName = "solarized-light-v2"; #    ⋆ very much yellowed
   };
 
   # defaults (?)
