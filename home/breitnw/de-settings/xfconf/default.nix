@@ -30,7 +30,7 @@
         # desktop appearance
         xfce4-desktop = {
           desktop-icons = {
-            icon-size = 60;
+            icon-size = 48;
             file-icons.show-removable = false;
             file-icons.show-filesystem = true;
           };

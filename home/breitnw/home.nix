@@ -7,13 +7,14 @@
 # TASKS
 # - TODO configure vi keybinds globally and then apply them
 #   to emacs, qutebrowser, vi, vim, etc.
-# - TODO customizations for generated GTK theme
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
 # - TODO fetch icon themes from git instead of depending on local state
-# - TODO partition cozette with a feature flag or something
+# - TODO partition cozette with a feature flag or something so that i'm not
+#   forced to use low-DPI displays into eternity
 # - TODO move sops spec to corresponding modules
 # - TODO new design pattern for nix/doom interop: do everything in doom config;
 #   only set variables in nix
+# - TODO flag to toggle zotero, since the gtk3-classic dependency is hefty
 {
   imports = [
     ./cli-programs
@@ -50,12 +51,14 @@
       superTuxKart # epic gaming
       prismlauncher # epic minecraft
       krita # paint
-      gimp # image editing
+      drawing # basic image editing
+      gimp # advanced image editing
       blender # modeling
       reaper # daw
       aseprite # pixel art tool
       mate.atril # pdf reader
       pinentry-qt
+      qbittorrent
 
       # CLI PROGRAMS ================================
       fastfetch
