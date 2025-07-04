@@ -9,7 +9,7 @@
 #   to emacs, qutebrowser, vi, vim, etc.
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
 # - TODO fetch icon themes from git instead of depending on local state
-# - TODO partition cozette with a feature flag or something so that i'm not
+# - TODO partition bitmap fonts with a feature flag or something so that i'm not
 #   forced to use low-DPI displays into eternity
 # - TODO move sops spec to corresponding modules
 # - TODO new design pattern for nix/doom interop: do everything in doom config;
@@ -118,6 +118,7 @@
     # themeName = "gruvbox-dark-medium"; #   ⋆ a classic
     # themeName = "catppuccin-macchiato"; #    purple pastel
     # themeName = "everforest-dark-hard"; #    greenish and groovy
+    themeName = "everforest";
 
     # light themes
     # themeName = "ayu-light"; #               kinda pastel
@@ -127,7 +128,7 @@
     # themeName = "classic-light"; #           basic and visible
     # themeName = "rose-pine-dawn"; #          cozy yellow and purple
     # themeName = "humanoid-light"; #          basic, visible, a lil yellowed
-    themeName = "solarized-light-v2"; #    ⋆ very much yellowed
+    # themeName = "solarized-light-v2"; #    ⋆ very much yellowed
   };
 
   # defaults (?)

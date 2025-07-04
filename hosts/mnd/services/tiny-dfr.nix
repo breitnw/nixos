@@ -20,38 +20,9 @@ in {
     };
   };
   config = lib.mkIf cfg.enable {
-    systemd.services."tiny-dfr" = {
-      description = "Touchbar daemon";
-      wantedBy = ["multi-user.target"];
-      after = [
-        "systemd-user-sessions.service"
-        "getty@tty1.service"
-        "plymouth-quit.service"
-        "systemd-logind.service"
-      ];
+    systemd.packages = [cfg.package];
+    services.udev.packages = [cfg.package];
 
-      restartIfChanged = false;
-
-      serviceConfig = {
-        # should automatically be interpolated, installing tiny-dfr
-        ExecStart = "${cfg.package}/bin/tiny-dfr";
-        Restart = "always";
-
-        NoNewPrivileges = true;
-        ProtectSystem = "strict";
-        ProtectHome = true;
-        PrivateTmp = true;
-        PrivateIPC = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = "strict";
-        RestrictAddressFamilies = ["AF_UNIX" "AF_NETLINK"];
-        RestrictNamespaces = true;
-        RestrictSUIDSGID = true;
-        DynamicUser = false; # run as sudo
-      };
-    };
     # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
     environment.etc."tiny-dfr/config.toml".text = ''
       MediaLayerDefault = true

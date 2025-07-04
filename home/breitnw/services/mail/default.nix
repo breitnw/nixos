@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   imports = [
     ./options.nix
   ];
@@ -11,7 +9,7 @@
         gmail = true;
         mainAddress = "NicholasBreitling2027@u.northwestern.edu";
         makeMainAddressContext = false;
-        aliases = [ "breitnw@u.northwestern.edu" ];
+        aliases = ["breitnw@u.northwestern.edu"];
         realName = "Nick Breitling";
       };
       "Personal" = {

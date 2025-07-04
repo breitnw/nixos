@@ -41,19 +41,20 @@ in {
       # fixes artifacting (although it seems to be less bad now)
       # I'm like 90% sure artifacting is a vblank issue; check back here if
       # vsync is ever supported
-      package = pkgs.emacs-pgtk;
+      # package = pkgs.emacs-pgtk;
+      package = pkgs.emacs;
       extraPackages = epkgs: [
         epkgs.kurecolor # required by the color script
         epkgs.vterm
+
+        pkgs.emacs-lsp-booster
+        pkgs.python3
+        pkgs.ispell
+        pkgs.fd
       ];
-      # add packages to emacs's execution path
       extraConfig =
-        ''
-          (setq flake-path "${config.home.sessionVariables.NH_FLAKE}")
-          (add-to-list 'exec-path "${pkgs.python3}/bin/")
-          (add-to-list 'exec-path "${pkgs.ispell}/bin/")
-          (add-to-list 'exec-path "${pkgs.fd}/bin/")
-        ''
+        # configure FLAKE_PATH for nixd LSP
+        "(setq flake-path \"${config.home.sessionVariables.NH_FLAKE}\")"
         # color stuff
         + (
           if (isNull cfg.theme)
