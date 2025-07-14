@@ -18,22 +18,11 @@ in {
     # enable xserver
     services.xserver = {
       enable = true;
-      # enableTearFree = true; # Doesn't work
       desktopManager.xfce.enable = true;
       excludePackages = [pkgs.xterm];
     };
     # enable xfconf (required by home-manager)
     programs.xfconf.enable = true;
-    # configure xfce as the default session
-    services.displayManager.defaultSession = lib.mkIf default "xfce";
-    services.displayManager.ly = {
-      enable = true;
-      settings = {
-        clock = "%I:%M %p";
-        xinitrc = "null";
-        sleep_cmd = "${pkgs.systemd}/bin/systemctl suspend";
-      };
-    };
     # It doesn't appear XFCE has a bluetooth GUI, so blueman provides this
     services.blueman.enable = true;
     # XFCE-specific packages

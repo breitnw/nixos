@@ -36,21 +36,50 @@ in {
       # automatically start daemon when client is started
       socketActivation.enable = true;
     };
+    # NOTE No idea why these can't be placed in emacs.extraPackages, it was
+    # working fine before. It seems Emacs couldn't find fd or emacs-lsp-booster,
+    # even though (executable-find) was working. This fixes the issue but obv
+    # it's not optimal
+    home.packages = [
+      pkgs.emacs-lsp-booster
+      pkgs.python3
+      pkgs.ispell
+      pkgs.fd
+    ];
     programs.emacs = {
       enable = true;
       # fixes artifacting (although it seems to be less bad now)
       # I'm like 90% sure artifacting is a vblank issue; check back here if
       # vsync is ever supported
-      # package = pkgs.emacs-pgtk;
-      package = pkgs.emacs;
+      package = pkgs.emacs-pgtk;
+      # package = pkgs.emacs;
       extraPackages = epkgs: [
         epkgs.kurecolor # required by the color script
         epkgs.vterm
-
-        pkgs.emacs-lsp-booster
-        pkgs.python3
-        pkgs.ispell
-        pkgs.fd
+        # epkgs.tree-sitter-langs
+        # (epkgs.treesit-grammars.with-grammars (grammars:
+        #   with grammars; [
+        #     tree-sitter-rust
+        #     tree-sitter-zig
+        #     tree-sitter-yaml
+        #     tree-sitter-wgsl
+        #     tree-sitter-toml
+        #     tree-sitter-python
+        #     tree-sitter-nix
+        #     tree-sitter-make
+        #     tree-sitter-latex
+        #     tree-sitter-json
+        #     tree-sitter-javascript
+        #     tree-sitter-java
+        #     tree-sitter-html
+        #     tree-sitter-haskell
+        #     tree-sitter-glsl
+        #     tree-sitter-elisp
+        #     tree-sitter-css
+        #     tree-sitter-cpp
+        #     tree-sitter-c
+        #     tree-sitter-bibtex
+        #   ]))
       ];
       extraConfig =
         # configure FLAKE_PATH for nixd LSP

@@ -6,5 +6,5 @@
 # settings for the desktop environment, window manager,
 # compositor... y'know, the works.
 {
-  imports = [./xfconf ./gtk3-classic ./picom.nix];
+  imports = [./xfce ./sway ./gtk3-classic];
 }

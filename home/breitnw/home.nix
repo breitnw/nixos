@@ -16,10 +16,9 @@
 #   only set variables in nix
 {
   imports = [
-    ./cli-programs
-    ./gui-programs
+    ./programs
     ./services
-    ./de-settings
+    ./desktops
     ./themes
     ./secrets
     ./keybinds
@@ -76,7 +75,6 @@
 
       # FONTS AND OTHER =============================
       etBook
-      ocs-url
     ];
   };
 
@@ -87,9 +85,10 @@
   modules.alacritty.enable = true;
   modules.mail.enable = true;
   modules.firefox.enable = true;
-  modules.qutebrowser.enable = false;
+  modules.qutebrowser.enable = true;
   modules.rclone.enable = false;
   modules.zotero.enable = false;
+  modules.sway.enable = true;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
@@ -104,12 +103,13 @@
     # themeName = "stella"; #                  purple, pale-ish
     # themeName = "zenburn"; #               ⋆ grey but in an endearing way
     # themeName = "onedark"; #                 atom propaganda
-    # themeName = "darcula"; #               ⋆ jetbrains propaganda
+    themeName = "darcula"; #               ⋆ jetbrains propaganda
     # themeName = "darkmoss"; #                cool blue-green
     # themeName = "gigavolt"; #                dark, vibrant, and purply
     # themeName = "kanagawa"; #              ⋆ blue with yellowed text
     # themeName = "mountain"; #              ⋆ dark and moody
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
+    # themeName = "everforest"; #              greenish and groovy
     # themeName = "summercamp"; #            ⋆ earthy but vibrant
     # themeName = "horizon-dark"; #            vaporwavey
     # themeName = "oxocarbon-dark"; #        ⋆ dark and vibrant
@@ -117,10 +117,9 @@
     # themeName = "tokyo-night-dark"; #        blue and purple
     # themeName = "gruvbox-dark-medium"; #   ⋆ a classic
     # themeName = "catppuccin-macchiato"; #    purple pastel
-    # themeName = "everforest-dark-hard"; #    greenish and groovy
-    themeName = "everforest";
 
     # light themes
+    # themeName = "earl-grey"; #               the coziest to ever do it
     # themeName = "ayu-light"; #               kinda pastel
     # themeName = "sagelight"; #               more pastel
     # themeName = "terracotta"; #              earthy and bright

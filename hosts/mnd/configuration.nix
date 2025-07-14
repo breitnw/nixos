@@ -10,14 +10,14 @@
   imports = [
     # Include the results of the hardware scan [built automatically]
     ./hardware-configuration.nix
-    # Apple silicon hardware support
-    ./hardware
-    # Systemd services to be run as root
-    ./services
-    # Desktop environment support
-    ./de-support
-    # Audio devices
-    ./audio.nix
+    # Apple silicon support
+    ./kernel
+    # Input devices, such as the keyboard and touchbar
+    ./input
+    # Output devices, such as displays and audio devices
+    ./output
+    # Desktop environment and display manager
+    ./desktops
   ];
 
   # required udev rules for platformio
@@ -45,22 +45,11 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  # External display support with DisplayLink
-  hardware.displaylink.enable = false;
-
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
   # Select internationalisation properties.
   console.useXkbConfig = true; # use xkb.options in tty.
-
-  # Enable the X11 windowing system and configure XFCE
-  # Enable xfce (TODO use an enum?)
-  desktops.default = "xfce";
-  desktops.xfce.enable = true;
-  desktops.kde.enable = false;
-
-  programs.ladybird.enable = true;
 
   # from https://discourse.nixos.org/t/xdg-desktop-portal-gtk-desktop-collision/35063
   # xdg desktop portals expose d-bus interfaces for xdg file access
@@ -70,24 +59,6 @@
     enable = true;
     # gtk portal needed to make gtk apps happy
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
-
-  # configure keyboard to use colemak
-  services.xserver = {
-    xkb = {
-      layout = "us";
-      variant = "colemak";
-      options = "caps:escape";
-    };
-  };
-
-  # ... and to have overloaded control/esc behavior on caps lock
-  services.keyd = {
-    enable = true;
-    keyboards.default = {
-      ids = ["*"];
-      settings = {main = {capslock = "overload(control, esc)";};};
-    };
   };
 
   # Enable CUPS to print documents.
@@ -120,9 +91,6 @@
     enable = true;
     settings = {PasswordAuthentication = false;};
   };
-
-  # Enable the touch bar with tiny-dfr
-  services.tiny-dfr.enable = true;
 
   # Open ports in the firewall
   networking.firewall = {

@@ -1,5 +1,6 @@
 {...}: {
   imports = [
-    ./tiny-dfr.nix
+    ./xfconf
+    ./picom.nix
   ];
 }

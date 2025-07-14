@@ -5,10 +5,10 @@
   config,
   ...
 }: let
-  cfg = config.services.tiny-dfr;
+  cfg = config.modules.input.tiny-dfr;
 in {
   options = {
-    services.tiny-dfr = {
+    modules.input.tiny-dfr = {
       enable = lib.mkEnableOption "Enable tiny-dfr service";
 
       package = lib.mkOption {

@@ -1,8 +1,4 @@
-{ config, ... }:
-
-{
-  imports = [ ./display-support ];
-
+{...}: {
   config = {
     # Configure the peripheral firmware directory
     # The original can be found at /boot/asahi/
