@@ -6,8 +6,6 @@
 }: let
   cfg = config.modules.input.evremap;
   format = pkgs.formats.toml {};
-  settings = map (profile: lib.attrsets.filterAttrs (n: v: v != null) profile) cfg.profiles;
-  configFiles = map (profile: format.generate "evremap-${profile.device_name}.toml" profile) settings;
 
   key =
     lib.types.strMatching "(BTN|KEY)_[[:upper:][:digit:]_]+"
@@ -49,7 +47,7 @@ in {
     enable = lib.mkEnableOption "evremap, a keyboard input remapper for Linux/Wayland systems";
 
     profiles = lib.mkOption {
-      type = lib.types.listOf (lib.types.submodule {
+      type = lib.types.attrsOf (lib.types.submodule {
         freeformType = format.type;
 
         options = {
@@ -125,55 +123,64 @@ in {
 
     hardware.uinput.enable = true;
 
-    systemd.services.evremap = {
-      description = "evremap - keyboard input remapper";
-      wantedBy = ["multi-user.target"];
+    systemd.services =
+      lib.mapAttrs'
+      (name: profile: let
+        settings = lib.attrsets.filterAttrs (n: v: v != null) profile;
+        configFile = format.generate "evremap-${name}.toml" settings;
+      in {
+        name = "evremap-${name}";
+        value = {
+          description = "evremap - keyboard input remapper";
+          wantedBy = ["multi-user.target"];
 
-      serviceConfig = {
-        ExecStart = lib.concatLines (map (configFile: "${lib.getExe pkgs.evremap} remap ${configFile}") configFiles);
+          serviceConfig = {
+            ExecStart = "${lib.getExe pkgs.evremap} remap ${configFile} --wait-for-device";
 
-        DynamicUser = true;
-        User = "evremap";
-        SupplementaryGroups = [
-          config.users.groups.input.name
-          config.users.groups.uinput.name
-        ];
-        Restart = "on-failure";
-        RestartSec = 5;
-        TimeoutSec = 20;
+            DynamicUser = true;
+            User = "evremap";
+            SupplementaryGroups = [
+              config.users.groups.input.name
+              config.users.groups.uinput.name
+            ];
+            Restart = "on-failure";
+            RestartSec = 5;
+            TimeoutSec = 20;
 
-        # Hardening
-        ProtectClock = true;
-        ProtectKernelLogs = true;
-        ProtectControlGroups = true;
-        ProtectKernelModules = true;
-        ProtectHostname = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        ProtectHome = true;
-        ProcSubset = "pid";
+            # Hardening
+            ProtectClock = true;
+            ProtectKernelLogs = true;
+            ProtectControlGroups = true;
+            ProtectKernelModules = true;
+            ProtectHostname = true;
+            ProtectKernelTunables = true;
+            ProtectProc = "invisible";
+            ProtectHome = true;
+            ProcSubset = "pid";
 
-        PrivateTmp = true;
-        PrivateNetwork = true;
-        PrivateUsers = true;
+            PrivateTmp = true;
+            PrivateNetwork = true;
+            PrivateUsers = true;
 
-        RestrictRealtime = true;
-        RestrictNamespaces = true;
-        RestrictAddressFamilies = "none";
+            RestrictRealtime = true;
+            RestrictNamespaces = true;
+            RestrictAddressFamilies = "none";
 
-        MemoryDenyWriteExecute = true;
-        LockPersonality = true;
-        IPAddressDeny = "any";
-        AmbientCapabilities = "";
-        CapabilityBoundingSet = "";
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@resources"
-          "~@privileged"
-        ];
-        UMask = "0027";
-      };
-    };
+            MemoryDenyWriteExecute = true;
+            LockPersonality = true;
+            IPAddressDeny = "any";
+            AmbientCapabilities = "";
+            CapabilityBoundingSet = "";
+            SystemCallArchitectures = "native";
+            SystemCallFilter = [
+              "@system-service"
+              "~@resources"
+              "~@privileged"
+            ];
+            UMask = "0027";
+          };
+        };
+      })
+      cfg.profiles;
   };
 }
