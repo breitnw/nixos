@@ -17,10 +17,6 @@
     modules.input.evremap = {
       enable = true;
       profiles = let
-        devices = [
-          "CMM.Studio Saka68"
-          "Apple SPI Keyboard"
-        ];
         dual_role = [
           {
             input = "KEY_CAPSLOCK";
@@ -28,10 +24,16 @@
             hold = ["KEY_LEFTCTRL"];
           }
         ];
-      in (map (device_name: {
-          inherit device_name dual_role;
-        })
-        devices);
+      in {
+        internal = {
+          device_name = "Apple SPI Keyboard";
+          inherit dual_role;
+        };
+        external = {
+          device_name = "CMM.Studio Saka68";
+          inherit dual_role;
+        };
+      };
     };
 
     # enable tiny-dfr, a touchbar daemon
