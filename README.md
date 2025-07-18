@@ -11,8 +11,9 @@ To keep everything organized (especially in home-manager) I've settled on a few 
 - For modules that define a lot of options, a file named `options.nix` should be created to handle these options' declaration and use. Meanwhile, the same directory's `default.nix` should import `options.nix` and configure said options. The `xfce` and `mail` modules demonstrate this pattern. 
 
 ## features
-- Secrets management with [sops-nix](https://github.com/Mic92/sops-nix)
 - Multi-account gmail integration with [mu4e](https://github.com/emacsmirror/mu4e), [mbsync](https://github.com/gburd/isync), and [msmtp](https://github.com/marlam/msmtp), for use with [my doom emacs config](https://github.com/breitnw/doom)
-- Asahi linux support with [nixos-apple-silicon](https://github.com/tpwrules/nixos-apple-silicon), including touchbar support with [tiny-dfr](https://github.com/WhatAmISupposedToPutHere/tiny-dfr)
-- XFCE desktop environment support
-- Full theming support with [nix-colors](https://github.com/Misterio77/nix-colors), including automatic theme generation for GTK, emacs, alacritty, qutebrowser, and firefox
+- Calendar integration with [khal](https://github.com/pimutils/khal)
+- Asahi linux support with [nixos-apple-silicon](https://github.com/tpwrules/nixos-apple-silicon), including touchbar functionality thanks to [tiny-dfr](https://github.com/WhatAmISupposedToPutHere/tiny-dfr)
+- XFCE and Sway environments, each with custom theme generation based on [nix-colors](https://github.com/Misterio77/nix-colors). Themes are also generated for certain apps, including emacs, alacritty, qutebrowser, and firefox
+- Global TOML keybind configuration for compatibility with various layouts (this one is a bit of a work in progress!)
+- Secrets management with [sops-nix](https://github.com/Mic92/sops-nix)
