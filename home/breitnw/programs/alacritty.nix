@@ -23,6 +23,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.alacritty = {
       enable = true;
+      package = pkgs.unstable.alacritty-graphics;
       settings = {
         general.import = let
           themeFile = pkgs.writeTextFile {

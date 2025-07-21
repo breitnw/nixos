@@ -17,6 +17,5 @@
   };
   home.packages = with pkgs; [
     rmpc
-    ueberzugpp
   ];
 }
