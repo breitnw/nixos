@@ -21,7 +21,8 @@
     # secrets management
     sops-nix.url = "github:Mic92/sops-nix";
     # system-wide theming
-    nix-colors.url = "github:misterio77/nix-colors";
+    nix-colors.url = "github:misterio77/nix-colors"; # palettes
+    nix-rice.url = "github:bertof/nix-rice"; # utils
     # theming for firefox
     firefox-native-base16.url = "github:GnRlLeclerc/firefox-native-base16";
     # zotero built from source

@@ -74,6 +74,8 @@
       "networkmanager" # Allow the user to access the network manager
       "audio" # Needed for supercollider/tidal
       "jackaudio" # Needed for services.jack (I think)
+      "video"
+      "input" # above needed for brightnessctl
     ];
   };
 

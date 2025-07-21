@@ -1,7 +1,11 @@
-{ config, lib, inputs, pkgs, ... }:
-
-let cfg = config.modules.themes;
-
+{
+  config,
+  lib,
+  inputs,
+  pkgs,
+  ...
+}: let
+  cfg = config.modules.themes;
 in {
   imports = [
     inputs.nix-colors.homeManagerModules.default
@@ -13,7 +17,7 @@ in {
   options = {
     modules.themes = {
       themeName =
-        lib.mkOption { description = "The base16 system theme to use"; };
+        lib.mkOption {description = "The base16 system theme to use";};
       customGTKTheme = lib.mkOption {
         description = ''
           The custom GTK theme to use. If null, a materia GTK theme is automatically
@@ -22,8 +26,8 @@ in {
         default = null;
         type = lib.types.nullOr (lib.types.submodule {
           options = {
-            name = lib.mkOption { type = lib.types.str; };
-            package = lib.mkOption { type = lib.types.package; };
+            name = lib.mkOption {type = lib.types.str;};
+            package = lib.mkOption {type = lib.types.package;};
           };
         });
       };
@@ -32,12 +36,13 @@ in {
           An attribute set of custom color schemes to add (in addition to default base16 schemes)
         '';
         type = lib.types.attrsOf lib.types.attrs;
-        default = { };
+        default = {};
       };
     };
   };
 
-  config = let schemes = inputs.nix-colors.colorSchemes // cfg.customSchemes;
+  config = let
+    schemes = inputs.nix-colors.colorSchemes // cfg.customSchemes;
   in {
     colorScheme = schemes."${cfg.themeName}";
     # we configure the GTK theme with the gtk attrset
@@ -51,13 +56,15 @@ in {
     # } else
     #   cfg.customGTKTheme;
     # TODO only generate the theme we care about
-    gtk.theme = if (isNull cfg.customGTKTheme) then {
-      package = pkgs.greybird-with-accent config.colorscheme.palette.base0D;
-      name = if config.colorScheme.variant == "dark" then
-        "greybird-generated-dark"
-      else
-        "greybird-generated";
-    } else
-      cfg.customGTKTheme;
+    gtk.theme =
+      if (isNull cfg.customGTKTheme)
+      then {
+        package = pkgs.greybird-with-accent config.colorscheme.palette.base0D;
+        name =
+          if config.colorScheme.variant == "dark"
+          then "greybird-generated-dark"
+          else "greybird-generated";
+      }
+      else cfg.customGTKTheme;
   };
 }
