@@ -8,6 +8,7 @@
     ./parole.nix
     ./qutebrowser.nix
     ./zotero.nix
-    ./zsh.nix
+    ./fastfetch
+    ./zsh
   ];
 }

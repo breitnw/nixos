@@ -1,14 +1,24 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
+    initContent = lib.mkOrder 1500 ''
+      fastfetch
+    '';
     autosuggestion.enable = true;
+    autosuggestion.strategy = [
+      "history"
+      "completion"
+    ];
     shellAliases = {
       open = "xdg-open";
     };
     oh-my-zsh = {
       enable = true;
-      # theme = "daveverwer";
       theme = "custom";
       plugins = [
         "git"

@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }:
 # other options: lib, options, specialArgs
@@ -57,7 +58,6 @@
       qbittorrent
 
       # CLI PROGRAMS ================================
-      fastfetch
       unzip
       ripgrep
       bat
@@ -75,6 +75,7 @@
 
       # FONTS AND OTHER =============================
       etBook
+      cascadia-code
     ];
   };
 
@@ -103,10 +104,10 @@
     # themeName = "stella"; #                  purple, pale-ish
     # themeName = "zenburn"; #               ⋆ grey but in an endearing way
     # themeName = "onedark"; #                 atom propaganda
-    themeName = "darcula"; #               ⋆ jetbrains propaganda
+    # themeName = "darcula"; #               ⋆ jetbrains propaganda
     # themeName = "darkmoss"; #                cool blue-green
     # themeName = "gigavolt"; #                dark, vibrant, and purply
-    # themeName = "kanagawa"; #              ⋆ blue with yellowed text
+    themeName = "kanagawa"; #              ⋆ blue with yellowed text
     # themeName = "mountain"; #              ⋆ dark and moody
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
     # themeName = "everforest"; #              greenish and groovy

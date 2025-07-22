@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   options = {
@@ -11,11 +12,7 @@
   };
   config = let
     # base16-qutebrowser provides the scheme
-    base16-qutebrowser-repo = fetchGit {
-      url = "https://github.com/tinted-theming/base16-qutebrowser.git";
-      rev = "f93ee127436820c2f109a1eaa5a463cd7101da9e";
-    };
-    base16-qutebrowser = "${base16-qutebrowser-repo}/templates/default.mustache";
+    base16-qutebrowser = "${inputs.base16-qutebrowser}/templates/default.mustache";
   in
     lib.mkIf config.modules.qutebrowser.enable {
       programs.qutebrowser = {

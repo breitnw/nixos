@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -12,15 +13,12 @@
       enable =
         lib.mkEnableOption
         "whether or not to enable firefox (and theming support)";
+      package = pkgs.unstable.firefox;
     };
   };
   config = let
     # download and fill in mustache template
-    fnb-repo = fetchGit {
-      url = "https://github.com/GnRlLeclerc/firefox-native-base16.git";
-      rev = "6f2d7e4142975f10234bd43d6870c0e85d0650ac";
-    };
-    fnb-template = "${fnb-repo}/template.mustache";
+    fnb-template = "${inputs.firefox-native-base16}/template.mustache";
     fnb-theme-file = pkgs.writeTextFile {
       name = "fnb-base16.toml";
       text = config.utils.mustache.eval-base16 (builtins.readFile fnb-template);

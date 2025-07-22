@@ -2,16 +2,13 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   cfg = config.modules.alacritty;
   # base16-alacritty provides the mustache template for
   # the color scheme
-  base16-alacritty-repo = fetchGit {
-    url = "https://github.com/aarowill/base16-alacritty.git";
-    rev = "c95c200b3af739708455a03b5d185d3d2d263c6e";
-  };
-  base16-alacritty = "${base16-alacritty-repo}/templates/default-256.mustache";
+  base16-alacritty = "${inputs.base16-alacritty}/templates/default-256.mustache";
 in {
   options = {
     modules.alacritty = {
