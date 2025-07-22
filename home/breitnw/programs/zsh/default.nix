@@ -1,15 +1,21 @@
 {pkgs, ...}: {
   programs.zsh = {
     enable = true;
-    # autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    autosuggestion.enable = true;
+    shellAliases = {
+      open = "xdg-open";
+    };
     oh-my-zsh = {
       enable = true;
-      theme = "daveverwer";
+      # theme = "daveverwer";
+      theme = "custom";
       plugins = [
         "git"
         "sudo"
         "extract"
       ];
+      custom = "${./zsh_custom}";
     };
     plugins = [
       {
@@ -20,25 +26,6 @@
           repo = "zsh-nix-shell";
           rev = "v0.8.0";
           sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
-        };
-      }
-      {
-        # will source zsh-autosuggestions.plugin.zsh
-        name = "zsh-autosuggestions";
-        src = pkgs.fetchFromGitHub {
-          owner = "zsh-users";
-          repo = "zsh-autosuggestions";
-          rev = "v0.4.0";
-          sha256 = "0z6i9wjjklb4lvr7zjhbphibsyx51psv50gm07mbb0kj9058j6kc";
-        };
-      }
-      {
-        name = "zsh-syntax-highlighting";
-        src = pkgs.fetchFromGitHub {
-          owner = "zsh-users";
-          repo = "zsh-syntax-highlighting";
-          rev = "0.8.0";
-          sha256 = "sha256-iJdWopZwHpSyYl5/FQXEW7gl/SrKaYDEtTH9cGP7iPo=";
         };
       }
       {
