@@ -79,7 +79,7 @@
     lix,
     cozette,
     greybird,
-    tiny-dfr,
+    # tiny-dfr,
     ...
   } @ inputs: let
     system = "aarch64-linux";
@@ -102,7 +102,6 @@
         greybird-with-accent =
           greybird.packages.${prev.system}.greybird-with-accent;
         tiny-dfr = tiny-dfr.packages.${prev.system}.default;
-        zen-browser = zen-browser.packages.${prev.system}.default;
       };
   in {
     formatter = nixpkgs.legacyPackages.${system}.alejandra;

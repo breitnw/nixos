@@ -24,7 +24,7 @@
 
     # Configure the enabled desktop environments
     desktops.xfce.enable = true;
-    desktops.sway.enable = true;
+    desktops.sway.enable = false;
   };
 
   imports = [

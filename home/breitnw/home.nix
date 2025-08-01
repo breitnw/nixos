@@ -1,7 +1,6 @@
 {
   pkgs,
   config,
-  lib,
   ...
 }:
 # other options: lib, options, specialArgs
@@ -76,6 +75,7 @@
       # FONTS AND OTHER =============================
       etBook
       cascadia-code
+      scientifica
     ];
   };
 
@@ -86,10 +86,10 @@
   modules.alacritty.enable = true;
   modules.mail.enable = true;
   modules.firefox.enable = true;
-  modules.qutebrowser.enable = true;
+  modules.qutebrowser.enable = false;
   modules.rclone.enable = false;
   modules.zotero.enable = false;
-  modules.sway.enable = true;
+  modules.sway.enable = false;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
@@ -107,8 +107,9 @@
     # themeName = "darcula"; #               ⋆ jetbrains propaganda
     # themeName = "darkmoss"; #                cool blue-green
     # themeName = "gigavolt"; #                dark, vibrant, and purply
-    themeName = "kanagawa"; #              ⋆ blue with yellowed text
+    # themeName = "kanagawa"; #              ⋆ blue with yellowed text
     # themeName = "mountain"; #              ⋆ dark and moody
+    themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
     # themeName = "everforest"; #              greenish and groovy
     # themeName = "summercamp"; #            ⋆ earthy but vibrant

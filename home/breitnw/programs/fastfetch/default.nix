@@ -7,9 +7,9 @@
     enable = true;
     settings = {
       logo = {
-        source = ./images/2.jpg;
+        source = ./images/6.jpg;
         type = "sixel";
-        height = 15;
+        height = 14;
         padding = {
           right = 1;
         };
@@ -55,7 +55,7 @@
         (paddedModule "host")
         # (paddedModule "display")
         (paddedModule "os")
-        (paddedModule "kernel")
+        # (paddedModule "kernel")
         (paddedModule "de")
         (paddedModule "shell")
         (paddedModule "terminal")

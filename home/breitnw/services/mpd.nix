@@ -16,6 +16,6 @@
     '';
   };
   home.packages = with pkgs; [
-    rmpc
+    unstable.rmpc
   ];
 }

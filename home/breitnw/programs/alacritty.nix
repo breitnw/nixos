@@ -35,7 +35,7 @@ in {
           };
           dimensions = {
             columns = 60;
-            lines = 20;
+            lines = 17;
           };
         };
         font = {
@@ -46,7 +46,13 @@ in {
           builtin_box_drawing = false;
         };
         cursor.style.shape = "Block";
-        terminal.shell = "zsh";
+        terminal.shell = {
+          program = "zsh";
+          args = [
+            "-c"
+            "fastfetch && exec zsh"
+          ];
+        };
       };
     };
   };

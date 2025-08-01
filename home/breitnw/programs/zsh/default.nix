@@ -6,9 +6,11 @@
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
-    initContent = lib.mkOrder 1500 ''
-      fastfetch
-    '';
+    # initContent = lib.mkOrder 1500 ''
+    #   if [[ $TERM == "alacritty" ]]; then
+    #     fastfetch
+    #   fi
+    # '';
     autosuggestion.enable = true;
     autosuggestion.strategy = [
       "history"
@@ -24,6 +26,8 @@
         "git"
         "sudo"
         "extract"
+        "colemak"
+        "colored-man-pages"
       ];
       custom = "${./zsh_custom}";
     };

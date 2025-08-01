@@ -15,6 +15,7 @@
     # don't show a shadow for the dock or windows with weird frames
     shadowExclude = [
       "class_g = 'Xfce4-panel' && window_type = 'dock'"
+      "class_g = 'Xfwm4'" # task switcher
       "class_g = 'Xfce4-screenshooter'"
       "_GTK_FRAME_EXTENTS@:c"
     ];
@@ -27,19 +28,17 @@
       notification.shadow = false;
     };
     settings = {
-      blur = {
-        method = "gaussian";
-        size = 5;
-        deviation = 3.0;
-      };
-      blur-background-exclude = [
-        "class_g = 'Xfce4-notifyd'"
-        "class_g = 'Xfce4-screenshooter'"
-        "_GTK_FRAME_EXTENTS@:c"
-      ];
+      # blur = {
+      #   method = "gaussian";
+      #   size = 5;
+      #   deviation = 3.0;
+      # };
+      # blur-background-exclude = [
+      #   "class_g = 'Xfce4-notifyd'"
+      #   "class_g = 'Xfce4-screenshooter'"
+      #   "_GTK_FRAME_EXTENTS@:c"
+      # ];
       use-damage = true;
-      # glx-no-stencil = true;
-      # force-win-blend = true;
     };
   };
 }
