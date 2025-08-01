@@ -1,5 +1,3 @@
-{ ... }:
-
-{
-  imports = [ ./mpd.nix ./mail ./git-sync.nix ./rclone.nix ./calendar.nix ];
+{...}: {
+  imports = [./mail ./music ./git-sync.nix ./rclone.nix ./calendar.nix];
 }
