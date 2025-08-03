@@ -1,3 +1,9 @@
+prompt_hmrice() {
+  RICING=$(hmrice status | grep RICING)
+  if [[ -n $RICING ]]; then
+    echo -n "%{$fg[red]%}[RICING]%{$reset_color%} "
+  fi
+}
 
 # nix-shell: currently running nix-shell
 prompt_nix_shell() {
@@ -8,14 +14,14 @@ prompt_nix_shell() {
       for package in $packages; do
         package_names+=" ${package##*.}"
       done
-      echo -n " %{$fg[green]%}[$package_names ]%{$reset_color%}"
+      echo -n "%{$fg[green]%}[$package_names ]%{$reset_color%}"
     elif [[ -n $name ]]; then
       local cleanName=${name#interactive-}
       cleanName=${cleanName#lorri-keep-env-hack-}
       cleanName=${cleanName%-environment}
       echo -n "%{$fg[magenta]%}[ $cleanName ]%{$reset_color%}"
     else # The nix-shell plugin isn't installed or failed in some way
-      echo -n " %{$fg[red]%}nix-shell []%{$reset_color%}"
+      echo -n "%{$fg[red]%}nix-shell []%{$reset_color%}"
     fi
   fi
 }
@@ -23,7 +29,7 @@ prompt_nix_shell() {
 # Copied and modified from the oh-my-zsh theme from geoffgarside
 # Red server name, green cwd, blue git status
 
-PROMPT='%{$fg[red]%}%m%{$reset_color%}:%{$fg[green]%}%c%{$reset_color%}$(git_prompt_info) %(!.#.$) '
+PROMPT='$(prompt_hmrice)%{$fg[red]%}%m%{$reset_color%}:%{$fg[green]%}%c%{$reset_color%}$(git_prompt_info) %(!.#.$) '
 RPROMPT='$(prompt_nix_shell)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg[blue]%}("

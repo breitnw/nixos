@@ -46,6 +46,8 @@
     cozette.url = "github:breitnw/cozette/dev";
     # greybird with custom accent support
     greybird.url = "github:breitnw/Greybird/master";
+    # temporarily convert symlinks to real files
+    hm-ricing-mode.url = "github:breitnw/hm-ricing-mode";
 
     # NON-FLAKE ================================================================
     # I prefer flake inputs over fetchGit, since fetchGit hits the network every
@@ -79,7 +81,7 @@
     lix,
     cozette,
     greybird,
-    # tiny-dfr,
+    hm-ricing-mode,
     ...
   } @ inputs: let
     system = "aarch64-linux";
@@ -116,7 +118,7 @@
           ./hosts/mnd/configuration.nix
           nix-index-database.nixosModules.nix-index
           apple-silicon-support.nixosModules.default
-          lix.nixosModules.default
+          # lix.nixosModules.default
         ];
       };
     };
@@ -131,6 +133,7 @@
             nixpkgs.overlays = [overlay-unstable overlay-extra];
           })
           ./home/breitnw/home.nix
+          hm-ricing-mode.homeManagerModules.hm-ricing-mode
         ];
       };
     };
