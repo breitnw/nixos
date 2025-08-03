@@ -85,6 +85,14 @@
     ),
     song_table_format: [
         (
+            prop: (
+                kind: Sticker("favorited"),
+                default: (kind: Text(" ")),
+                style: (fg: "yellow")
+            ),
+            width: "1",
+        ),
+        (
             prop: (kind: Property(Artist), style: (fg: "dark_gray"),
                 default: (kind: Text("Unknown"), style: (fg: "red"))
             ),
@@ -100,7 +108,7 @@
             prop: (kind: Property(Album), style: (fg: "dark_gray"),
                 default: (kind: Text("Unknown Album"), style: (fg: "red"))
             ),
-            width_percent: 30,
+            width_percent: 20,
         ),
         (
             prop: (kind: Property(Duration), style: (fg: "dark_gray"),
@@ -189,27 +197,18 @@
                         default: (kind: Text("Unknown Album"))
                     )
                 ],
-                right: [
-                    // (kind: Text("Volume: "), style: (fg: "blue")),
-                    // (kind: Property(Status(Volume)), style: (fg: "blue")),
-                    // (kind: Text("%"), style: (fg: "blue")),
-                ]
             ),
         ],
     ),
     browser_song_format: [
         (
             kind: Group([
-                    (kind: Property(Track)),
-                    (kind: Text(" ")),
-                ])
+                (kind: Property(Track)),
+                (kind: Text(" ")),
+            ])
         ),
         (
-            kind: Group([
-                    (kind: Property(Artist)),
-                    (kind: Text(" - ")),
-                    (kind: Property(Title)),
-                ]),
+            kind: Property(Title),
             default: (kind: Property(Filename))
         ),
     ],

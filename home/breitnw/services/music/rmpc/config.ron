@@ -44,6 +44,9 @@
             "~":       ShowHelp,
             "I":       ShowCurrentSongInfo,
             "O":       ShowOutputs,
+            "f":       ExternalCommand (
+                command: ["@rmpc-toggle-favorite@"]
+            ),
         },
         navigation: {
             "e":       Up,
