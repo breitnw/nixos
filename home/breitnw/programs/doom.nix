@@ -38,10 +38,10 @@ in {
     # even though (executable-find) was working. This fixes the issue but obv
     # it's not optimal
     home.packages = [
-      pkgs.emacs-lsp-booster
-      pkgs.python3
-      pkgs.ispell
-      pkgs.fd
+      # pkgs.emacs-lsp-booster
+      # pkgs.python3
+      # pkgs.ispell
+      # pkgs.fd
     ];
     programs.emacs = {
       enable = true;
@@ -53,30 +53,11 @@ in {
       extraPackages = epkgs: [
         epkgs.kurecolor # required by the color script
         epkgs.vterm
-        # epkgs.tree-sitter-langs
-        # (epkgs.treesit-grammars.with-grammars (grammars:
-        #   with grammars; [
-        #     tree-sitter-rust
-        #     tree-sitter-zig
-        #     tree-sitter-yaml
-        #     tree-sitter-wgsl
-        #     tree-sitter-toml
-        #     tree-sitter-python
-        #     tree-sitter-nix
-        #     tree-sitter-make
-        #     tree-sitter-latex
-        #     tree-sitter-json
-        #     tree-sitter-javascript
-        #     tree-sitter-java
-        #     tree-sitter-html
-        #     tree-sitter-haskell
-        #     tree-sitter-glsl
-        #     tree-sitter-elisp
-        #     tree-sitter-css
-        #     tree-sitter-cpp
-        #     tree-sitter-c
-        #     tree-sitter-bibtex
-        #   ]))
+
+        pkgs.emacs-lsp-booster
+        pkgs.python3
+        pkgs.ispell
+        pkgs.fd
       ];
       extraConfig =
         # configure FLAKE_PATH for nixd LSP

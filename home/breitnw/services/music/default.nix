@@ -1,4 +1,8 @@
-{pkgs, ...}:
+{
+  pkgs,
+  config,
+  ...
+}:
 # TODO use a program like mpdpopm or mpdfav for favorites
 {
   services.mpd = {
@@ -17,6 +21,17 @@
   };
   home.packages = [
     pkgs.unstable.rmpc
+
+    # try to raise the rmpc window if one exists before creating a new one,
+    # since I tend to the command to open it a lot
+    (pkgs.writeShellScriptBin "launch-rmpc" ''
+      RMPC=$(${pkgs.wmctrl}/bin/wmctrl -l -x | awk -F " " '{print $3}' | grep rmpc)
+      if [[ -n $RMPC ]]; then
+        ${pkgs.wmctrl}/bin/wmctrl -x -a rmpc.rmpc
+      else
+        ${config.programs.alacritty.package}/bin/alacritty --title rmpc --class rmpc -e rmpc
+      fi
+    '')
   ];
   # the rmpc module in home-manager doesn't have the themes directory :(
   xdg.configFile = let
