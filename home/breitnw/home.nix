@@ -41,7 +41,7 @@
 
     packages = with pkgs; [
       # GUI PROGRAMS ================================
-      libreoffice-qt6
+      libreoffice-qt6 # work :(
       vesktop # discord client
       picard # music metadata editor
       superTuxKart # epic gaming
@@ -50,11 +50,11 @@
       drawing # basic image editing
       gimp # advanced image editing
       blender # modeling
-      reaper # daw
       aseprite # pixel art tool
       mate.atril # pdf reader
-      pinentry-qt
-      qbittorrent
+      pinentry-qt # password prompt for gpg
+      qbittorrent # dw about it
+      nicotine-plus # dw about this one either
 
       # CLI PROGRAMS ================================
       unzip

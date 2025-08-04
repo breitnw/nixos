@@ -6,7 +6,7 @@
   password: None,
   theme: Some("default"),
   cache_dir: Some("~/.cache/rmpc/"),
-  on_song_change: None,
+  on_song_change: ["@rmpc-notify@"],
   volume_step: 5,
   scrolloff: 0,
   wrap_navigation: false,
