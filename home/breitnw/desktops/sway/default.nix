@@ -32,6 +32,7 @@
             inner = 10;
             outer = 5;
           };
+          window.border = 2;
           defaultWorkspace = "workspace number 1";
           modifier = "Mod4"; # super
           terminal = "alacritty";

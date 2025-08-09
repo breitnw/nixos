@@ -49,6 +49,7 @@
       krita # paint
       drawing # basic image editing
       gimp # advanced image editing
+      kicad # pcb editor
       blender # modeling
       aseprite # pixel art tool
       mate.atril # pdf reader
@@ -61,6 +62,8 @@
       ripgrep
       bat
       killall
+      fzf
+      ffmpeg
 
       # languages and tools -------------------------
       # ...nix
@@ -74,7 +77,7 @@
 
       # FONTS AND OTHER =============================
       etBook
-      cascadia-code
+      # cascadia-code
       scientifica
     ];
   };
@@ -89,7 +92,7 @@
   modules.qutebrowser.enable = false;
   modules.rclone.enable = false;
   modules.zotero.enable = false;
-  modules.sway.enable = false;
+  modules.sway.enable = true;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
@@ -122,6 +125,7 @@
 
     # light themes
     # themeName = "earl-grey"; #               the coziest to ever do it
+    # themeName = "flatwhite"; #               why is it highlighted? idk
     # themeName = "ayu-light"; #               kinda pastel
     # themeName = "sagelight"; #               more pastel
     # themeName = "terracotta"; #              earthy and bright

@@ -33,15 +33,12 @@ in {
       # automatically start daemon when client is started
       socketActivation.enable = true;
     };
-    # NOTE No idea why these can't be placed in emacs.extraPackages, it was
+    # NOTE No idea why this can't be placed in emacs.extraPackages, it was
     # working fine before. It seems Emacs couldn't find fd or emacs-lsp-booster,
     # even though (executable-find) was working. This fixes the issue but obv
     # it's not optimal
     home.packages = [
-      # pkgs.emacs-lsp-booster
-      # pkgs.python3
-      # pkgs.ispell
-      # pkgs.fd
+      pkgs.fd
     ];
     programs.emacs = {
       enable = true;
@@ -57,7 +54,6 @@ in {
         pkgs.emacs-lsp-booster
         pkgs.python3
         pkgs.ispell
-        pkgs.fd
       ];
       extraConfig =
         # configure FLAKE_PATH for nixd LSP

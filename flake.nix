@@ -43,11 +43,11 @@
     # theming for firefox
     firefox-native-base16.url = "github:GnRlLeclerc/firefox-native-base16";
     # cozette built from source
-    cozette.url = "github:breitnw/cozette/dev";
+    cozette.url = "github:breitnw/cozette/dev-updated";
     # greybird with custom accent support
     greybird.url = "github:breitnw/Greybird/master";
     # temporarily convert symlinks to real files
-    hm-ricing-mode.url = "github:breitnw/hm-ricing-mode";
+    hm-ricing-mode.url = "github:mipmip/hm-ricing-mode";
 
     # NON-FLAKE ================================================================
     # I prefer flake inputs over fetchGit, since fetchGit hits the network every
