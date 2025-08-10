@@ -8,20 +8,9 @@
 # A bridge between my configuration and the xfconf home-manager module
 let
   cfg = config.modules.de.xfconf;
-  font = lib.types.submodule {
-    options = {
-      family = lib.mkOption {type = lib.types.str;};
-      weight = lib.mkOption {type = lib.types.str;};
-      size = lib.mkOption {type = lib.types.int;};
-      package = lib.mkOption {type = lib.types.package;};
-    };
-  };
-  describeFont = font: "${font.family} ${font.weight} ${toString font.size}";
 in {
   options = {
     modules.de.xfconf = {
-      defaultFont = lib.mkOption {type = font;};
-      titleBarFont = lib.mkOption {type = font;};
       windowManagerTheme = lib.mkOption {
         description = "The xfwm4 theme to use";
         type = lib.types.str;
@@ -55,27 +44,16 @@ in {
   };
 
   config = {
-    # enabling fontconfig should regenerate cache when new font packages are added
-    fonts.fontconfig.enable = true;
-    home.packages = [cfg.defaultFont.package cfg.titleBarFont.package];
-
     xfconf.enable = true;
     xfconf.settings = let
+      describeFont = config.utils.fonts.describeFont;
       # some settings are configured by other options (not directly configurable), so
       # configure them here instead of default.nix
       generatedSettings = {
-        # set the themes and fonts
-        # ... for xfce
-        xsettings = {
-          Gtk = {
-            FontName = describeFont cfg.defaultFont;
-            MonospaceFontName = describeFont cfg.defaultFont;
-          };
-        };
-        # ... and for xfwm4
+        # set the themes and fonts for xfwm4
         xfwm4.general = {
           theme = cfg.windowManagerTheme;
-          title_font = describeFont cfg.titleBarFont;
+          title_font = describeFont config.utils.fonts.secondary;
         };
         # configure desktop icon text color
         xfce4-desktop.desktop-icons = {

@@ -38,11 +38,14 @@ in {
             lines = 17;
           };
         };
-        font = {
+        font = let
+          monospace = config.utils.fonts.monospace;
+        in {
           normal = {
-            family = "Cozette";
-            style = "Medium";
+            inherit (monospace) family;
+            style = monospace.weight;
           };
+          inherit (monospace) size;
           builtin_box_drawing = false;
         };
         cursor.style.shape = "Block";

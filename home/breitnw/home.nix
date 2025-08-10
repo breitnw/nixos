@@ -8,8 +8,6 @@
 # - TODO configure vi keybinds globally and then apply them
 #   to emacs, qutebrowser, vi, vim, etc.
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
-# - TODO partition bitmap fonts with a feature flag or something so that i'm not
-#   forced to use low-DPI displays into eternity
 # - TODO move sops spec to corresponding modules
 # - TODO new design pattern for nix/doom interop: do everything in doom config;
 #   only set variables in nix

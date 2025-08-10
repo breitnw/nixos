@@ -7,30 +7,7 @@
     ./options.nix # my XFCE options module
   ];
   config = {
-    # TODO should this be moved somewhere else? maybe a "gtk" module
-    # Might also want to move gtk theme generation here
-    gtk = {
-      enable = true;
-      iconTheme = {
-        package = inputs.buuf-icon-theme.packages.${pkgs.system}.default;
-        name = "buuf-icon-theme";
-      };
-      cursorTheme.name = "Default";
-    };
     modules.de.xfconf = {
-      defaultFont = {
-        family = "Cozette";
-        weight = "Medium";
-        size = 13;
-        package = pkgs.cozette;
-      };
-      titleBarFont = {
-        family = "creep";
-        weight = "Bold";
-        size = 12;
-        package = pkgs.creep;
-      };
-
       windowManagerTheme = "Waza";
 
       settings = {

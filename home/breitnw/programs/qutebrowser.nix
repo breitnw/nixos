@@ -23,11 +23,11 @@
         settings = let
           describeFont = font: "${toString font.size}px ${font.family}";
         in {
-          fonts = with config.modules.de.xfconf; {
-            default_family = defaultFont.family;
+          fonts = {
+            default_family = config.utils.fonts.primary.family;
             prompts = "default_size default_family";
-            tabs.selected = describeFont titleBarFont;
-            tabs.unselected = describeFont titleBarFont;
+            tabs.selected = describeFont config.utils.fonts.secondary;
+            tabs.unselected = describeFont config.utils.fonts.secondary;
           };
           # TODO make helper to create python dict from attrset
           tabs = {
