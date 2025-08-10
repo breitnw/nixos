@@ -8,7 +8,6 @@
 # - TODO configure vi keybinds globally and then apply them
 #   to emacs, qutebrowser, vi, vim, etc.
 # - TODO reload emacs theme as soon as config is regenerated (somehow)
-# - TODO fetch icon themes from git instead of depending on local state
 # - TODO partition bitmap fonts with a feature flag or something so that i'm not
 #   forced to use low-DPI displays into eternity
 # - TODO move sops spec to corresponding modules
@@ -112,10 +111,10 @@
     # themeName = "gigavolt"; #                dark, vibrant, and purply
     # themeName = "kanagawa"; #              ⋆ blue with yellowed text
     # themeName = "mountain"; #              ⋆ dark and moody
-    themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
+    # themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
     # themeName = "everforest"; #              greenish and groovy
-    # themeName = "summercamp"; #            ⋆ earthy but vibrant
+    themeName = "summercamp"; #            ⋆ earthy but vibrant
     # themeName = "horizon-dark"; #            vaporwavey
     # themeName = "oxocarbon-dark"; #        ⋆ dark and vibrant
     # themeName = "terracotta-dark"; #       ⋆ chocolatey and dark
@@ -133,7 +132,7 @@
     # themeName = "classic-light"; #           basic and visible
     # themeName = "rose-pine-dawn"; #          cozy yellow and purple
     # themeName = "humanoid-light"; #          basic, visible, a lil yellowed
-    # themeName = "solarized-light-v2"; #    ⋆ very much yellowed
+    # themeName = "solarized-light"; #       ⋆ very much yellowed
   };
 
   # defaults (?)

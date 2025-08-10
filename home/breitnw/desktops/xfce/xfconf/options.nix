@@ -22,8 +22,6 @@ in {
     modules.de.xfconf = {
       defaultFont = lib.mkOption {type = font;};
       titleBarFont = lib.mkOption {type = font;};
-      iconTheme = lib.mkOption {type = lib.types.str;};
-      cursorTheme = lib.mkOption {type = lib.types.str;};
       windowManagerTheme = lib.mkOption {
         description = "The xfwm4 theme to use";
         type = lib.types.str;
@@ -69,12 +67,7 @@ in {
         # set the themes and fonts
         # ... for xfce
         xsettings = {
-          Net = {
-            IconThemeName = cfg.iconTheme;
-            ThemeName = config.gtk.theme.name;
-          };
           Gtk = {
-            CursorThemeName = cfg.cursorTheme;
             FontName = describeFont cfg.defaultFont;
             MonospaceFontName = describeFont cfg.defaultFont;
           };

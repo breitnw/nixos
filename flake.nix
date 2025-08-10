@@ -15,11 +15,6 @@
       url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    # lix, since it seems to have better logging & performance
-    lix = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.93.2-1.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     # PROGRAMS AND UTILS =======================================================
 
@@ -48,6 +43,8 @@
     greybird.url = "github:breitnw/Greybird/master";
     # temporarily convert symlinks to real files
     hm-ricing-mode.url = "github:mipmip/hm-ricing-mode";
+    # flakified icon theme
+    buuf-icon-theme.url = "github:breitnw/buuf-gnome";
 
     # NON-FLAKE ================================================================
     # I prefer flake inputs over fetchGit, since fetchGit hits the network every
@@ -78,7 +75,6 @@
     home-manager,
     nix-index-database,
     apple-silicon-support,
-    lix,
     cozette,
     greybird,
     hm-ricing-mode,

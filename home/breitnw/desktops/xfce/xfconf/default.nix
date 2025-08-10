@@ -1,8 +1,22 @@
-{pkgs, ...} @ args: {
+{
+  pkgs,
+  inputs,
+  ...
+} @ args: {
   imports = [
     ./options.nix # my XFCE options module
   ];
   config = {
+    # TODO should this be moved somewhere else? maybe a "gtk" module
+    # Might also want to move gtk theme generation here
+    gtk = {
+      enable = true;
+      iconTheme = {
+        package = inputs.buuf-icon-theme.packages.${pkgs.system}.default;
+        name = "buuf-icon-theme";
+      };
+      cursorTheme.name = "Default";
+    };
     modules.de.xfconf = {
       defaultFont = {
         family = "Cozette";
@@ -16,8 +30,7 @@
         size = 12;
         package = pkgs.creep;
       };
-      iconTheme = "buuf-icon-theme";
-      cursorTheme = "Default";
+
       windowManagerTheme = "Waza";
 
       settings = {
