@@ -6,7 +6,7 @@
 # TODO organize plugin indices automatically
 let
   icon-size = 16;
-  describeFont = font: "${font.family} ${font.weight} ${toString font.size}";
+  describeFont = config.utils.fonts.describeFont;
   cfg = config.modules.de.xfconf;
 in {
   panels = {
@@ -75,7 +75,7 @@ in {
       VALUE = "clock";
       digital-layout = 3;
       digital-time-format = "%I:%M %p";
-      digital-time-font = describeFont cfg.defaultFont;
+      digital-time-font = describeFont config.utils.fonts.primary;
     };
     plugin-11 = sep;
     plugin-12 = "actions";
