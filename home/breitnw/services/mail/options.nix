@@ -1,16 +1,18 @@
-{ pkgs, config, lib, ... }:
-
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 # This file will handle ALL mail configuration, including mu4e config for emacs.
 # No manual emacs configuration is necessary.
-
 # The following modules are enabled and configured:
 # - mu, for indexing the maildir
 # - mu4e, for viewing mail in emacs
 # - msmtp, for sending mail
 # - mbsync, for fetching mail
-
-let cfg = config.modules.mail;
-
+let
+  cfg = config.modules.mail;
 in {
   options = {
     modules.mail = {
@@ -37,8 +39,7 @@ in {
                 type = types.bool;
               };
               mainAddress = mkOption {
-                description =
-                  "The main email address for this account (not an alias)";
+                description = "The main email address for this account (not an alias)";
                 type = types.str;
               };
               makeMainAddressContext = mkOption {
@@ -60,7 +61,7 @@ in {
                   context is generated for each alias in this list.
                 '';
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
               };
               realName = mkOption {
                 description = "My real name, to use in signatures and such";
@@ -73,8 +74,23 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    # it doesn't appear that the mailwatch plugin can be configured with nix,
+    # since it complains if it doesn't have write access to the config file.
+    # is there any way to disable these messages?
+    home.packages = [
+      # TODO enable only if xfce is enabled
+      pkgs.xfce.xfce4-mailwatch-plugin
+    ];
+
     # enable mbsync to sync messages
     programs.mbsync.enable = true;
+
+    # automatically sync mail every so often
+    services.mbsync = {
+      enable = true;
+      frequency = "*:0/5";
+      postExec = "${pkgs.mu}/bin/mu index";
+    };
 
     # enable mu to index maildir
     programs.mu.enable = true;
@@ -85,7 +101,7 @@ in {
     # enable mu4e (emacs mail viewer)
     # mu doesn't install mu4e by default now, and installing the doom
     # module doesn't either. This seems to be the only thing that works
-    programs.emacs.extraPackages = epkgs: [ epkgs.mu4e ];
+    programs.emacs.extraPackages = epkgs: [epkgs.mu4e];
 
     programs.emacs.extraConfig = let
       # the package set used by this emacs install
@@ -99,107 +115,112 @@ in {
       '';
 
       # the contexts for mu4e to load
-      contexts = lib.concatMapAttrs (name: value:
-        let
-          addresses =
-            (lib.optional (value.makeMainAddressContext) value.mainAddress)
-            ++ value.aliases;
-        in lib.genAttrs addresses (address:
-          if builtins.length addresses == 1 then
-            name
-          else
-            "${name} [${address}]")) cfg.accounts;
+      contexts = lib.concatMapAttrs (name: value: let
+        addresses =
+          (lib.optional (value.makeMainAddressContext) value.mainAddress)
+          ++ value.aliases;
+      in
+        lib.genAttrs addresses (address:
+          if builtins.length addresses == 1
+          then name
+          else "${name} [${address}]"))
+      cfg.accounts;
 
       # expression to define the contexts for mu4e to load (one for each
       # alias and main address, as desired). uses the address as the key,
       # and the name of the context as the value
-      contexts_expr = "(defvar mail-accounts '(" + lib.concatStringsSep " "
+      contexts_expr =
+        "(defvar mail-accounts '("
+        + lib.concatStringsSep " "
         (lib.mapAttrsToList (name: value: ''("${value}" . "${name}")'')
-          contexts) + "))";
+          contexts)
+        + "))";
 
       # expression to load mu4e variables
       load_expr = ''
         (load "${./mail.el}")
       '';
-
-    in load_path_expr + contexts_expr + load_expr;
+    in
+      load_path_expr + contexts_expr + load_expr;
 
     # configure email accounts
     accounts.email = {
       maildirBasePath = "${config.home.homeDirectory}/Mail";
 
-      accounts = lib.attrsets.mapAttrs (name: value: {
-        inherit (value) primary aliases realName;
-        # the key is the (non-alias) address
-        address = value.mainAddress;
-        # the location of the password in sops is "accounts/email/{address}", where {address}
-        # is the address field above
-        passwordCommand = "cat ${
+      accounts =
+        lib.attrsets.mapAttrs (name: value: {
+          inherit (value) primary aliases realName;
+          # the key is the (non-alias) address
+          address = value.mainAddress;
+          # the location of the password in sops is "accounts/email/{address}", where {address}
+          # is the address field above
+          passwordCommand = "cat ${
             config.sops.secrets."accounts/email/${value.mainAddress}".path
           }";
-        # handles userName, imap.host, and imap.port
-        flavor = lib.mkIf value.gmail "gmail.com";
+          # handles userName, imap.host, and imap.port
+          flavor = lib.mkIf value.gmail "gmail.com";
 
-        # the default gmail folders are always in the same place
-        # TODO add spam folder?
-        folders = {
-          inbox = "Inbox";
-          drafts = "Drafts";
-          sent = "Sent";
-          trash = "Trash";
-        };
+          # the default gmail folders are always in the same place
+          # TODO add spam folder?
+          folders = {
+            inbox = "Inbox";
+            drafts = "Drafts";
+            sent = "Sent";
+            trash = "Trash";
+          };
 
-        # apps...
-        # for viewing mail
-        mu.enable = true;
+          # apps...
+          # for viewing mail
+          mu.enable = true;
 
-        # for sending mail
-        msmtp.enable = true;
+          # for sending mail
+          msmtp.enable = true;
 
-        # for receiving mail
-        mbsync = {
-          enable = true;
-          create = "both"; # sync mailbox creations
-          expunge = "both"; # sync message expunges (permanent deletion)
-          remove = "both"; # sync mailbox deletions
-          groups = lib.mkIf value.gmail {
-            # filed messages
-            "Filed".channels."All" = {
-              patterns = [ "*" "![Gmail]*" "!INBOX" ];
-              nearPattern = "Filed/";
-              extraConfig.Create = "near";
-            };
-            # default gmail folders
-            "Gmail".channels = {
-              "Inbox" = {
-                farPattern = "INBOX";
-                nearPattern = "Inbox";
+          # for receiving mail
+          mbsync = {
+            enable = true;
+            create = "both"; # sync mailbox creations
+            expunge = "both"; # sync message expunges (permanent deletion)
+            remove = "both"; # sync mailbox deletions
+            groups = lib.mkIf value.gmail {
+              # filed messages
+              "Filed".channels."All" = {
+                patterns = ["*" "![Gmail]*" "!INBOX"];
+                nearPattern = "Filed/";
                 extraConfig.Create = "near";
               };
-              "Drafts" = {
-                farPattern = "[Gmail]/Drafts";
-                nearPattern = "Drafts";
-                extraConfig.Create = "near";
-              };
-              "Sent" = {
-                farPattern = "[Gmail]/Sent Mail";
-                nearPattern = "Sent";
-                extraConfig.Create = "near";
-              };
-              "Trash" = {
-                farPattern = "[Gmail]/Trash";
-                nearPattern = "Trash";
-                extraConfig.Create = "near";
-              };
-              "Spam" = {
-                farPattern = "[Gmail]/Spam";
-                nearPattern = "Spam";
-                extraConfig.Create = "near";
+              # default gmail folders
+              "Gmail".channels = {
+                "Inbox" = {
+                  farPattern = "INBOX";
+                  nearPattern = "Inbox";
+                  extraConfig.Create = "near";
+                };
+                "Drafts" = {
+                  farPattern = "[Gmail]/Drafts";
+                  nearPattern = "Drafts";
+                  extraConfig.Create = "near";
+                };
+                "Sent" = {
+                  farPattern = "[Gmail]/Sent Mail";
+                  nearPattern = "Sent";
+                  extraConfig.Create = "near";
+                };
+                "Trash" = {
+                  farPattern = "[Gmail]/Trash";
+                  nearPattern = "Trash";
+                  extraConfig.Create = "near";
+                };
+                "Spam" = {
+                  farPattern = "[Gmail]/Spam";
+                  nearPattern = "Spam";
+                  extraConfig.Create = "near";
+                };
               };
             };
           };
-        };
-      }) cfg.accounts;
+        })
+        cfg.accounts;
     };
   };
 }

@@ -187,6 +187,6 @@
       };
 
       # FIXME i don't think mako actually does anything :(
-      services.mako.enable = true;
+      # services.mako.enable = true;
     };
 }

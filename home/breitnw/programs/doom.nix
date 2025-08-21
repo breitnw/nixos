@@ -45,8 +45,8 @@ in {
       # fixes artifacting (although it seems to be less bad now)
       # I'm like 90% sure artifacting is a vblank issue; check back here if
       # vsync is ever supported
-      package = pkgs.emacs-pgtk;
-      # package = pkgs.emacs;
+      # package = pkgs.emacs-pgtk;
+      package = pkgs.emacs;
       extraPackages = epkgs: [
         epkgs.kurecolor # required by the color script
         epkgs.vterm

@@ -109,10 +109,10 @@
     # themeName = "gigavolt"; #                dark, vibrant, and purply
     # themeName = "kanagawa"; #              ⋆ blue with yellowed text
     # themeName = "mountain"; #              ⋆ dark and moody
-    # themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
+    themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
     # themeName = "everforest"; #              greenish and groovy
-    themeName = "summercamp"; #            ⋆ earthy but vibrant
+    # themeName = "summercamp"; #            ⋆ earthy but vibrant
     # themeName = "horizon-dark"; #            vaporwavey
     # themeName = "oxocarbon-dark"; #        ⋆ dark and vibrant
     # themeName = "terracotta-dark"; #       ⋆ chocolatey and dark

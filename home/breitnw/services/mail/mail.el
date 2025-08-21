@@ -56,7 +56,7 @@
   (setq message-sendmail-envelope-from 'header)
 
   ;; refresh mail every 5 minutes
-  (setq mu4e-update-interval (* 5 60)
+  (setq mu4e-update-interval nil
         mu4e-get-mail-command "mbsync -a"
         mu4e-root-maildir "~/Mail")
 

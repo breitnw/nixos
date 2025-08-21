@@ -63,13 +63,14 @@ in {
       inherit icon-size;
       square-icons = true;
     };
-    plugin-6 = {
+    plugin-6 = "power-manager-plugin";
+    plugin-7 = {
       VALUE = "pulseaudio";
       enable-keyboard-shortcuts = true;
       show-notifications = true;
     };
-    plugin-7 = "power-manager-plugin";
-    plugin-8 = "notification-plugin";
+    # plugin-8 = "notification-plugin";
+    plugin-8 = "mailwatch";
     plugin-9 = sep;
     plugin-10 = {
       VALUE = "clock";
