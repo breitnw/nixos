@@ -7,7 +7,8 @@
 {
   services.mpd = {
     enable = true;
-    musicDirectory = "~/Music/";
+    # congrats, you found my music stash :P
+    musicDirectory = "https://copyparty.mndco11age.xyz/public/music/";
     # pulseaudio seems to be necessary to not blow out my eardrums
     extraConfig = ''
       audio_output {
@@ -21,6 +22,7 @@
   };
   home.packages = [
     pkgs.unstable.rmpc
+    pkgs.yt-dlp
 
     # try to raise the rmpc window if one exists before creating a new one,
     # since I tend to the command to open it a lot

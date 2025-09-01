@@ -108,7 +108,7 @@
       mnd = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ({...}: {nixpkgs.overlays = [overlay-extra];})
+          ({...}: {nixpkgs.overlays = [overlay-unstable overlay-extra];})
           # enable an overlay with unstable packages
           # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./hosts/mnd/configuration.nix

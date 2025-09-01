@@ -1,37 +1,48 @@
-{ pkgs, config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}: {
   options = {
     modules.rclone = {
       enable = lib.mkEnableOption "Whether to enable the rclone service";
     };
   };
   config = lib.mkIf config.modules.rclone.enable {
-    home.packages = [ pkgs.rclone ];
-    sops.templates."rclone.conf" = {
-      content = ''
-        [WebDAV]
-        type = webdav
-        url = https://dav.mndco11age.xyz
-        vendor = other
-        user = breitnw
-        pass = ${config.sops.placeholder."accounts/webdav/breitnw"}
-      '';
-    };
-
-    systemd.user.services.rclone = {
-      Unit = {
-        Description = "Automatic mounting of WebDAV share with rclone";
-        After = [ "network-online.target" ];
+    programs.rclone = {
+      enable = true;
+      remotes.copyparty = {
+        config = {
+          type = "webdav";
+          url = "https://copyparty.mndco11age.xyz";
+          vendor = "owncloud";
+          pacer_min_sleep = "0.01ms";
+          user = "breitnw";
+        };
+        secrets = {
+          pass = config.sops.secrets."accounts/copyparty/breitnw".path;
+        };
+        mounts = {
+          "private/org" = {
+            enable = true;
+            options = {
+              vfs-cache-mode = "full";
+              dir-cache-time = "1m";
+              # these are the settings recommended by copyparty
+              # vfs-cache-mode = "writes";
+              # dir-cache-time = "5s";
+            };
+            mountPoint = "${config.home.homeDirectory}/Documents/org";
+          };
+          # "music" = {
+          #   enable = true;
+          #   options = {
+          #     vfs-cache-mode = "full";
+          #   };
+          #   mountPoint = "${config.home.homeDirectory}/Music";
+          # };
+        };
       };
-      Service = {
-        Type = "notify";
-        ExecStartPre = "/usr/bin/env mkdir -p %h/WebDAV";
-        ExecStart = ''
-          ${pkgs.rclone}/bin/rclone mount WebDAV:/ /home/breitnw/WebDAV/ --config="${
-            config.sops.templates."rclone.conf".path
-          }" --vfs-cache-mode full --allow-non-empty'';
-        ExecStop = "/bin/fusermount -u %h/WebDAV/%i";
-      };
-      Install.WantedBy = [ "default.target" ];
     };
   };
 }

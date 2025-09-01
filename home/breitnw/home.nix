@@ -87,7 +87,7 @@
   modules.mail.enable = true;
   modules.firefox.enable = true;
   modules.qutebrowser.enable = false;
-  modules.rclone.enable = false;
+  modules.rclone.enable = true;
   modules.zotero.enable = false;
   modules.sway.enable = true;
 
