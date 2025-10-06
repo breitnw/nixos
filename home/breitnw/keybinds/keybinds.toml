@@ -28,7 +28,8 @@ find-app  = "<Super>space"
 emacs     = "<Super>e"
 calendar  = "<Super>c"
 music     = "<Super>m"
-autorandr = "<Super>a"
+autorandr = "<Super>r"
+agenda    = "<Super>a"
 
 # xfwm4: automatically added to xfce configuration; exo application
 # name corresponding with option name

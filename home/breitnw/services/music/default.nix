@@ -22,7 +22,6 @@
   };
   home.packages = [
     pkgs.unstable.rmpc
-    pkgs.yt-dlp
 
     # try to raise the rmpc window if one exists before creating a new one,
     # since I tend to the command to open it a lot

@@ -155,8 +155,13 @@
             ),
             // album art
             (
-              size: "10",
+              size: "8",
               pane: Pane(AlbumArt),
+            ),
+            // spacer
+            (
+              size: "1",
+              pane: Pane(Property(content: [(kind: Text(" "))])),
             ),
             // player data
             (

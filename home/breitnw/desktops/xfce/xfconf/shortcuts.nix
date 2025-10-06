@@ -18,6 +18,7 @@ in {
       ${custom.calendar} = "alacritty -o 'cursor.style=\"Beam\"' -e ikhal";
       ${custom.music} = "launch-rmpc";
       ${custom.emacs} = "emacsclient --create-frame";
+      ${custom.agenda} = "emacsclient --create-frame -e \"(org-agenda-list)\"";
       # ${custom.emacs} = "emacs";
       ${custom.find-app} = "xfce4-appfinder";
       ${custom.autorandr} = "autorandr --change";

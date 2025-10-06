@@ -39,6 +39,8 @@
     firefox-native-base16.url = "github:GnRlLeclerc/firefox-native-base16";
     # cozette built from source
     cozette.url = "github:breitnw/cozette/dev-updated";
+    # cozette with modifications for use of glyphs with terminus
+    bitmap-glyphs-12.url = "github:breitnw/bitmap-glyphs-12";
     # greybird with custom accent support
     greybird.url = "github:breitnw/Greybird/master";
     # temporarily convert symlinks to real files
@@ -75,7 +77,7 @@
     home-manager,
     nix-index-database,
     apple-silicon-support,
-    cozette,
+    bitmap-glyphs-12,
     greybird,
     hm-ricing-mode,
     ...
@@ -97,9 +99,17 @@
           firefox-native-base16.packages.${prev.system}.default;
         zotero-nix = zotero-nix.packages.${prev.system}.default;
         cozette = cozette.packages.${prev.system}.default;
+        bitmap-glyphs-12 = bitmap-glyphs-12.packages.${prev.system}.default;
         greybird-with-accent =
           greybird.packages.${prev.system}.greybird-with-accent;
         tiny-dfr = tiny-dfr.packages.${prev.system}.default;
+        # virglrenderer = prev.virglrenderer.overrideAttrs (old: {
+        #   src = final.fetchurl {
+        #     url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
+        #     hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
+        #   };
+        #   mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
+        # });
       };
   in {
     formatter = nixpkgs.legacyPackages.${system}.alejandra;

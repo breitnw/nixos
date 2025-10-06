@@ -19,11 +19,13 @@
   ;; add bookmark for all inboxes
   (setq mu4e-bookmarks
         `((:name "All inboxes"
-           :query ,(mapconcat
-                    (lambda (account)
-                      (format "maildir:/%s/Inbox" (car account)))
-                    mail-accounts
-                    " OR ")
+           :query ,(format
+                    "(%s) AND NOT flag:trashed"
+                    (mapconcat
+                     (lambda (account)
+                       (format "maildir:/%s/Inbox" (car account)))
+                     mail-accounts
+                     " OR "))
            :key ?i)
           (:name "Unread messages"
            :query "flag:unread AND NOT flag:trashed"

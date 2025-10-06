@@ -83,7 +83,12 @@
   # STYLE: This should only contain packages necessary for commands/services
   #  run as root, or for system recovery in an emergency. All other packages
   #  should be configured via home-manager on a per-user basis
-  environment.systemPackages = with pkgs; [vim wget];
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    # muvm
+    # fex
+  ];
 
   # ensure that nixpkgs path aligns with nixpkgs flake input
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];

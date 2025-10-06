@@ -104,15 +104,15 @@
       border_type: None,
       pane: Pane(Queue),
     ),
-    (
-      name: "Directories",
-      border_type: None,
-      pane: Pane(Directories),
-    ),
+    // (
+    //   name: "Directories",
+    //   border_type: None,
+    //   pane: Pane(Directories),
+    // ),
     (
       name: "Artists",
       border_type: None,
-      pane: Pane(Artists),
+      pane: Pane(AlbumArtists),
     ),
     (
       name: "Albums",

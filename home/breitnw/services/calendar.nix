@@ -9,7 +9,7 @@
   calendars = {
     classes = {
       id = "05c1abae-04ae-7c3c-6424-dbcb66b4e9a4";
-      color = "dark green";
+      color = "dark blue";
     };
     clubs = {
       id = "3dcdba38-60a3-3005-4243-93fcec8ce978";
@@ -26,6 +26,10 @@
     volunteering = {
       id = "e011c882-cbb6-2b85-ae30-b554980a2a58";
       color = "dark magenta";
+    };
+    work = {
+      id = "3dcdba38-60a3-3005-4243-93fcec8ce978";
+      color = "dark green";
     };
   };
 in {

@@ -34,19 +34,9 @@ in {
             y = 6;
           };
           dimensions = {
-            columns = 60;
+            columns = 55;
             lines = 17;
           };
-        };
-        font = let
-          monospace = config.utils.fonts.monospace;
-        in {
-          normal = {
-            inherit (monospace) family;
-            style = monospace.weight;
-          };
-          inherit (monospace) size;
-          builtin_box_drawing = false;
         };
         cursor.style.shape = "Block";
         terminal.shell = {

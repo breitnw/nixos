@@ -26,6 +26,8 @@ in {
       secondary = lib.mkOption {type = font;};
       # for coding and stuff
       monospace = lib.mkOption {type = font;};
+      # for symbols while coding
+      symbols = lib.mkOption {type = font;};
     };
   };
 
@@ -35,9 +37,9 @@ in {
       describeFont = font: "${font.family} ${font.weight} ${toString font.size}";
 
       primary = {
-        family = "Cozette";
+        family = "Terminus";
         weight = "Regular";
-        size = 13;
+        size = 11;
         package = pkgs.cozette;
       };
       secondary = {
@@ -47,20 +49,33 @@ in {
         package = pkgs.creep;
       };
       monospace = {
-        family = "Cozette";
+        family = "Terminus";
         weight = "Regular";
-        size = 13;
-        package = pkgs.cozette;
+        size = 11;
+        package = pkgs.terminus_font;
+      };
+      symbols = {
+        family = "BitmapGlyphs";
+        weight = "Regular";
+        size = 11;
+        package = pkgs.bitmap-glyphs-12;
       };
     };
 
     # enabling fontconfig should regenerate cache when new font packages are added
     fonts.fontconfig.enable = true;
 
+    # for terminal and such, prefer monospace font followed by symbol font
+    fonts.fontconfig.defaultFonts.monospace = [
+      cfg.monospace.family
+      cfg.symbols.family
+    ];
+
     home.packages = [
       cfg.primary.package
       cfg.secondary.package
       cfg.monospace.package
+      cfg.symbols.package
     ];
   };
 }

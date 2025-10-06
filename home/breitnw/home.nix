@@ -53,6 +53,9 @@
       pinentry-qt # password prompt for gpg
       qbittorrent # dw about it
       nicotine-plus # dw about this one either
+      (lmms.overrideAttrs {
+        meta.platforms = ["aarch64-linux"];
+      })
 
       # CLI PROGRAMS ================================
       unzip
@@ -61,6 +64,7 @@
       killall
       fzf
       ffmpeg
+      unstable.yt-dlp
 
       # languages and tools -------------------------
       # ...nix
@@ -74,8 +78,6 @@
 
       # FONTS AND OTHER =============================
       etBook
-      # cascadia-code
-      scientifica
     ];
   };
 
@@ -109,8 +111,10 @@
     # themeName = "gigavolt"; #                dark, vibrant, and purply
     # themeName = "kanagawa"; #              ⋆ blue with yellowed text
     # themeName = "mountain"; #              ⋆ dark and moody
-    themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
+    # themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
+    # themeName = "treehouse"; #               summercamp but less vibrant
+    themeName = "elemental";
     # themeName = "everforest"; #              greenish and groovy
     # themeName = "summercamp"; #            ⋆ earthy but vibrant
     # themeName = "horizon-dark"; #            vaporwavey
@@ -121,6 +125,7 @@
     # themeName = "catppuccin-macchiato"; #    purple pastel
 
     # light themes
+    # themeName = "dirtysea"; #                  greeeen and gray
     # themeName = "earl-grey"; #               the coziest to ever do it
     # themeName = "flatwhite"; #               why is it highlighted? idk
     # themeName = "ayu-light"; #               kinda pastel

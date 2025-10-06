@@ -176,6 +176,10 @@ in {
           # for sending mail
           msmtp.enable = true;
 
+          neomutt = {
+            enable = true;
+          };
+
           # for receiving mail
           mbsync = {
             enable = true;
