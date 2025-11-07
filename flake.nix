@@ -41,9 +41,10 @@
     cozette.url = "github:breitnw/cozette/dev-updated";
     # cozette with modifications for use of glyphs with terminus
     bitmap-glyphs-12.url = "github:breitnw/bitmap-glyphs-12";
+    bitmap-glyphs-12.inputs.cozette.follows = "cozette";
     # greybird with custom accent support
     greybird.url = "github:breitnw/Greybird/master";
-    # temporarily convert symlinks to real files
+    # temporarily convert symlinks to real files⦂arstei
     hm-ricing-mode.url = "github:mipmip/hm-ricing-mode";
     # flakified icon theme
     buuf-icon-theme.url = "github:breitnw/buuf-gnome";
@@ -115,7 +116,7 @@
     formatter = nixpkgs.legacyPackages.${system}.alejandra;
 
     nixosConfigurations = {
-      mnd = nixpkgs.lib.nixosSystem {
+      mnd = nixpkgs-unstable.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
           ({...}: {nixpkgs.overlays = [overlay-unstable overlay-extra];})

@@ -1,3 +1,3 @@
 {...}: {
-  modules.de.xfconf.customDesktopTextColor = [1.0 1.0 1.0 1.0];
+  modules.de.xfconf.desktopTextColor = [1.0 1.0 1.0 1.0];
 }

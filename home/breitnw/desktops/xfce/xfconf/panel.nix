@@ -22,20 +22,23 @@ in {
       position-locked = true;
       plugin-ids = [1 2 3 4 5 6 7 8 9 10 11 12 13];
 
+      enter-opacity = cfg.panelOpacity;
+      leave-opacity = cfg.panelOpacity;
+
       # use gtk theme for background
       background-style =
-        if builtins.isNull cfg.customPanelBackgroundColor
+        if builtins.isNull cfg.panelBackgroundColor
         then 0
         else 1;
       background-rgba =
-        if builtins.isNull cfg.customPanelBackgroundColor
+        if builtins.isNull cfg.panelBackgroundColor
         then [
           0
           0
           0
           0
         ]
-        else cfg.customPanelBackgroundColor;
+        else cfg.panelBackgroundColor;
     };
   };
   plugins = let
@@ -52,8 +55,8 @@ in {
   in {
     plugin-1 = {
       VALUE = "tasklist";
-      include-all-workspaces = true;
-      grouping = 1;
+      include-all-workspaces = false;
+      grouping = false;
     };
     plugin-2 = sep-expand;
     plugin-3 = "pager";

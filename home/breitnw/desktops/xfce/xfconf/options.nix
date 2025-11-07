@@ -15,7 +15,7 @@ in {
         description = "The xfwm4 theme to use";
         type = lib.types.str;
       };
-      customDesktopTextColor = lib.mkOption {
+      desktopTextColor = lib.mkOption {
         description = ''
           The default text color to use for the desktop.
           - "theme": base05 of the nix-colors palette is used
@@ -28,13 +28,18 @@ in {
         ];
         default = "original";
       };
-      customPanelBackgroundColor = lib.mkOption {
+      panelBackgroundColor = lib.mkOption {
         description = ''
           the custom (RGBA) background color to use for xfce-panel
-          - null: use the panel background for the base16 theme
+          - null: use the default panel background
           - listOf float: use the specified RGBA value'';
         type = lib.types.nullOr (lib.types.listOf lib.types.float);
         default = null;
+      };
+      panelOpacity = lib.mkOption {
+        description = "the opacity of the panel, as a percentage";
+        type = lib.types.int;
+        default = 100;
       };
       settings = lib.mkOption {
         default = {};
@@ -58,9 +63,9 @@ in {
         # configure desktop icon text color
         xfce4-desktop.desktop-icons = {
           use-custom-label-text-color =
-            cfg.customDesktopTextColor != "original";
+            cfg.desktopTextColor != "original";
           label-text-color =
-            if (builtins.isString cfg.customDesktopTextColor)
+            if (builtins.isString cfg.desktopTextColor)
             then let
               hex = config.colorscheme.palette.base05;
               rgb = inputs.nix-colors.lib.conversions.hexToRGB hex;
@@ -68,7 +73,7 @@ in {
               rgba_scaled = map (val: val / 255.0) rgba;
             in
               rgba_scaled
-            else cfg.customDesktopTextColor;
+            else cfg.desktopTextColor;
         };
       };
 
