@@ -26,20 +26,20 @@
             eDP-1 = "--CONNECTED-BUT-EDID-UNAVAILABLE--eDP-1";
           };
           config = {
+            eDP-1 = {
+              crtc = 0;
+              mode = "2560x1600";
+              position = "0x241";
+              rate = "60.00";
+              filter = "nearest";
+              transform = [[0.5 0.0 0.0] [0.0 0.5 0.0] [0.0 0.0 1.0]];
+            };
             DVI-I-1-1 = {
               primary = true;
               crtc = 1;
               mode = "2560x1440";
-              position = "0x0";
+              position = "1280x0";
               rate = "59.95";
-            };
-            eDP-1 = {
-              crtc = 0;
-              mode = "2560x1600";
-              position = "2560x207";
-              rate = "60.00";
-              filter = "nearest";
-              transform = [[0.5 0.0 0.0] [0.0 0.5 0.0] [0.0 0.0 1.0]];
             };
           };
         };
