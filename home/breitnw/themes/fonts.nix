@@ -40,7 +40,7 @@ in {
         family = "Terminus";
         weight = "Regular";
         size = 11;
-        package = pkgs.cozette;
+        package = pkgs.terminus_font;
       };
       secondary = {
         family = "creep";
@@ -50,15 +50,19 @@ in {
       };
       monospace = {
         family = "Terminus";
+        # family = "JetBrainsMono Nerd Font";
         weight = "Regular";
         size = 11;
         package = pkgs.terminus_font;
+        # package = pkgs.nerd-fonts.jetbrains-mono;
       };
       symbols = {
         family = "BitmapGlyphs";
+        # family = "JetBrainsMono Nerd Font";
         weight = "Regular";
         size = 11;
         package = pkgs.bitmap-glyphs-12;
+        # package = pkgs.nerd-fonts.jetbrains-mono;
       };
     };
 
