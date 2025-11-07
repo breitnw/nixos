@@ -28,7 +28,7 @@
       color = "dark magenta";
     };
     work = {
-      id = "3dcdba38-60a3-3005-4243-93fcec8ce978";
+      id = "9305c794-f3dc-0e8d-bccf-94901cfa056e";
       color = "dark green";
     };
   };
