@@ -48,6 +48,8 @@
     hm-ricing-mode.url = "github:mipmip/hm-ricing-mode";
     # flakified icon theme
     buuf-icon-theme.url = "github:breitnw/buuf-gnome";
+    # niri window manager
+    niri-flake.url = "github:sodiboo/niri-flake";
 
     # NON-FLAKE ================================================================
     # I prefer flake inputs over fetchGit, since fetchGit hits the network every
@@ -81,6 +83,7 @@
     bitmap-glyphs-12,
     greybird,
     hm-ricing-mode,
+    niri-flake,
     ...
   } @ inputs: let
     system = "aarch64-linux";
@@ -141,6 +144,7 @@
           })
           ./home/breitnw/home.nix
           hm-ricing-mode.homeManagerModules.hm-ricing-mode
+          niri-flake.homeModules.niri
         ];
       };
     };

@@ -48,14 +48,15 @@ in {
       # fixes artifacting (although it seems to be less bad now)
       # I'm like 90% sure artifacting is a vblank issue; check back here if
       # vsync is ever supported
-      # package = pkgs.emacs-pgtk;
-      package = pkgs.emacs;
+      package = pkgs.unstable.emacs-pgtk;
+      # package = pkgs.unstable.emacs;
       extraPackages = epkgs: [
         epkgs.kurecolor # required by the color script
         epkgs.vterm
         epkgs.tree-sitter-langs
         (epkgs.treesit-grammars.with-grammars (grammars:
           with grammars; [
+            tree-sitter-ocaml
             tree-sitter-rust
             tree-sitter-zig
             tree-sitter-yaml

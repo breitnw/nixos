@@ -80,8 +80,8 @@
       # FONTS AND OTHER =============================
       etBook
       times-newer-roman
-      # nerd-fonts.hack
-      # (pkgs.callPackage ./themes/proggyvector.nix {})
+      nerd-fonts.hack
+      (pkgs.callPackage ./themes/proggyvector.nix {})
     ];
   };
 

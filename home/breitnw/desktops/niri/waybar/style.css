@@ -1,0 +1,142 @@
+
+* {
+    border: none;
+    min-height: 0;
+    font-family: "ProggyVector";
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: -0.5px;
+    padding: 0px;
+    margin: 1px;
+}
+
+window#waybar {
+    background-color: transparent
+}
+
+window#waybar > box {
+    margin: 0;
+    padding: 1px;
+    background: linear-gradient(0deg, @base00 40%, @base00-darker 85%, @base00 100%);
+    border: 1px solid black;
+}
+
+tooltip {
+    background-color: @base00;
+    font-size: 2px;
+    color: @base05;
+}
+
+tooltip label {
+    margin: 2px;
+}
+
+window#waybar.empty #window {
+    font-size: 0px;
+    background-color: transparent;
+}
+
+#mpris,
+#clock,
+#temperature,
+#cava,
+#tray,
+#cpu,
+#backlight,
+#memory,
+#battery,
+#network,
+#idle_inhibitor,
+#wireplumber {
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+#image {
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+
+#workspaces button {
+    all: initial;
+    color: @base05;
+    padding: 0 4px;
+}
+
+#workspaces button.active {
+    color: @base0D;
+}
+
+#workspaces button.urgent {
+    color: @base0A;
+}
+
+#taskbar button,
+#image,
+#idle_inhibitor,
+#temperature,
+#window,
+#cpu,
+#mpris,
+#backlight,
+#memory,
+#network,
+#wireplumber,
+#clock,
+#tray,
+#battery
+{
+    background: linear-gradient(0deg, @base00 15%, @base01 90%, @base02 100%);
+    color: @base05;
+    border: 1px solid @base00-darker;
+}
+#custom-arrow-left {
+    /* background: linear-gradient(0deg, @base00 0%, @base01 90%, @base02 100%); */
+    color: @base05;
+    font-size: large;
+    /* border: 1px solid @base00-darker; */
+    /* border-radius: px; */
+    margin-right: 5px;
+}
+#clock, #tray {
+    color: @base05;
+}
+
+#cava {
+    background-color: @base00;
+    color: @base05;
+    padding-right: 0px;
+    padding-left: 6px;
+}
+
+#taskbar button {
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 1px;
+    padding-bottom: 0px;
+}
+
+#taskbar button.active {
+    border: 1px solid @base0D;
+    color: @base0D;
+}
+
+#temperature.critical,
+#cpu.critical,
+#memory.critical {
+    color: @base0D;
+}
+
+#battery.warning,
+#battery.critical,
+#battery.urgent {
+    color: @base0D;
+}
+
+#window {
+    min-width: 20px;
+}
+
+#cava {
+    min-width: 20px;
+}

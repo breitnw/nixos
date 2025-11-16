@@ -22,6 +22,7 @@ in {
       enable = true;
       package = pkgs.unstable.alacritty-graphics;
       settings = {
+        font.size = config.utils.fonts.active.monospace.size;
         general.import = let
           themeFile = pkgs.writeTextFile {
             name = "base16.toml";

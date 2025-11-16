@@ -58,7 +58,7 @@ in {
         # set the themes and fonts for xfwm4
         xfwm4.general = {
           theme = cfg.windowManagerTheme;
-          title_font = describeFont config.utils.fonts.secondary;
+          title_font = describeFont config.utils.fonts.active.secondary;
         };
         # configure desktop icon text color
         xfce4-desktop.desktop-icons = {

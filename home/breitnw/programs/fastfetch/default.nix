@@ -17,8 +17,8 @@
       name = "crop.jpg";
       # this works but it kinda sucks
       crop = aspect: image: "${pkgs.runCommand name {} ''
-        mkdir $out
-      ${pkgs.imagemagick}/bin/magick ${image} -gravity center -crop ${aspect} $out/${name}
+          mkdir $out
+        ${pkgs.imagemagick}/bin/magick ${image} -gravity center -crop ${aspect} $out/${name}
       ''}/crop.jpg";
     in {
       enable = true;
@@ -39,9 +39,9 @@
         modules = let
           keyPadding = 8;
           pad = name:
-          name
-          + (lib.strings.replicate (keyPadding - builtins.stringLength name)
-            " ");
+            name
+            + (lib.strings.replicate (keyPadding - builtins.stringLength name)
+              " ");
           paddedModule = name: {
             type = name;
             key = pad name;
@@ -73,7 +73,13 @@
           # (paddedModule "display")
           (paddedModule "os")
           # (paddedModule "kernel")
-          (paddedModule "de")
+          # print the desktop environment if we're on xorg, and the window manager
+          # if we're on wayland
+          (
+            if config.modules.desktops.primary_display_server == "xorg"
+            then (paddedModule "de")
+            else (paddedModule "wm")
+          )
           (paddedModule "shell")
           (paddedModule "terminal")
           # (paddedModule "icons")

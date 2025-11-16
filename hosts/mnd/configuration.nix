@@ -27,6 +27,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
 
+  boot.binfmt.emulatedSystems = ["x86_64-linux"];
+  # virtualisation.docker.enable = true;
+  # virtualisation.docker.extraOptions = "--experimental"; # for buildx
+
   # Enable flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -76,6 +80,7 @@
       "jackaudio" # Needed for services.jack (I think)
       "video"
       "input" # above needed for brightnessctl
+      "docker"
     ];
   };
 
@@ -88,6 +93,7 @@
     wget
     # muvm
     # fex
+    qemu
   ];
 
   # ensure that nixpkgs path aligns with nixpkgs flake input

@@ -23,8 +23,7 @@
       base0F = "#4b1407";
     };
   };
-  modules.fastfetch.image = ../../programs/fastfetch/images/7.jpg;
-  modules.de.xfconf.panelBackgroundColor = [ 0.0 0.0 0.0 0.0 ];
-  modules.de.xfconf.panelOpacity = 75;
-
+  modules.fastfetch.image = ../../programs/fastfetch/images/9.jpg;
+  # modules.de.xfconf.panelBackgroundColor = [ 0.0 0.0 0.0 0.0 ];
+  # modules.de.xfconf.panelOpacity = 75;
 }

@@ -15,6 +15,6 @@ To keep everything organized (especially in home-manager) I've settled on a few 
 - Calendar integration with [khal](https://github.com/pimutils/khal)
 - Asahi linux support with [nixos-apple-silicon](https://github.com/tpwrules/nixos-apple-silicon), including touchbar functionality thanks to [tiny-dfr](https://github.com/WhatAmISupposedToPutHere/tiny-dfr)
 - A custom zsh prompt displaying nix-shell and hm-ricing-mode status
-- XFCE and Sway environments, each with custom theme generation based on [nix-colors](https://github.com/Misterio77/nix-colors). Themes are also generated for certain apps, including emacs, alacritty, qutebrowser, and firefox
+- XFCE, Niri, and Sway environments, each with custom theme generation based on [nix-colors](https://github.com/Misterio77/nix-colors). Themes are also generated for certain apps, including emacs, alacritty, qutebrowser, and firefox
 - Global TOML keybind configuration for compatibility with various layouts (this one is a bit of a work in progress!)
 - Secrets management with [sops-nix](https://github.com/Mic92/sops-nix)

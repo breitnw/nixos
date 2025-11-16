@@ -24,10 +24,10 @@
           describeFont = font: "${toString font.size}px ${font.family}";
         in {
           fonts = {
-            default_family = config.utils.fonts.primary.family;
+            default_family = config.utils.fonts.active.primary.family;
             prompts = "default_size default_family";
-            tabs.selected = describeFont config.utils.fonts.secondary;
-            tabs.unselected = describeFont config.utils.fonts.secondary;
+            tabs.selected = describeFont config.utils.fonts.active.secondary;
+            tabs.unselected = describeFont config.utils.fonts.active.secondary;
           };
           # TODO make helper to create python dict from attrset
           tabs = {

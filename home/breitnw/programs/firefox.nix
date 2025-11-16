@@ -21,7 +21,20 @@
     fnb-template = "${inputs.firefox-native-base16}/template.mustache";
     fnb-theme-file = pkgs.writeTextFile {
       name = "fnb-base16.toml";
-      text = config.utils.mustache.eval-base16 (builtins.readFile fnb-template);
+      text =
+        config.utils.mustache.eval-base16-with-palette
+        (with inputs.nix-rice.lib.nix-rice;
+          config.colorScheme.palette
+          // {
+            base00 =
+              color.toRgbShortHex (color.darken 6
+                (color.hexToRgba "#${config.colorscheme.palette.base00}"));
+            base01 = config.colorscheme.palette.base00;
+            base02 =
+              color.toRgbShortHex (color.darken 6
+                (color.hexToRgba "#${config.colorscheme.palette.base00}"));
+          })
+        (builtins.readFile fnb-template);
     };
 
     # build firefox-native-base16 binary and launcher

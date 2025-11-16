@@ -79,7 +79,7 @@ in {
       VALUE = "clock";
       digital-layout = 3;
       digital-time-format = "%I:%M %p";
-      digital-time-font = describeFont config.utils.fonts.primary;
+      digital-time-font = describeFont config.utils.fonts.active.primary;
     };
     plugin-11 = sep;
     plugin-12 = "actions";

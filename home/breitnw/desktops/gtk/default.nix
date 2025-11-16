@@ -51,7 +51,7 @@ in {
         else cfg.customGTKTheme;
 
       font = let
-        primary = config.utils.fonts.primary;
+        primary = config.utils.fonts.active.primary;
       in {
         inherit (primary) package size;
         name = primary.family;

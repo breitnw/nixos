@@ -15,13 +15,16 @@ in {
       eval-base16 = lib.mkOption {
         description = "a function to fill a mustache template based on the nix-colors palette";
       };
+      eval-base16-with-palette = lib.mkOption {
+        description = "a function to fill a mustache template based on the nix-colors palette";
+      };
     };
   };
 
   config = {
-    utils.mustache = {
+    utils.mustache = rec {
       eval = import "${inputs.nix-mustache}/mustache" {inherit lib;};
-      eval-base16 = template:
+      eval-base16-with-palette = palette: template:
         cfg.eval {
           inherit template;
           view =
@@ -29,8 +32,9 @@ in {
               name = "${name}-hex";
               value = value;
             })
-            config.colorScheme.palette;
+            palette;
         };
+      eval-base16 = eval-base16-with-palette config.colorScheme.palette;
     };
   };
 }
