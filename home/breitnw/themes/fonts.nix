@@ -74,10 +74,10 @@ in {
 
       wayland = {
         primary = {
-          family = "Terminus";
+          family = "ProggyVector";
           weight = "Regular";
-          size = 11;
-          package = pkgs.terminus_font;
+          size = 9; # points
+          package = pkgs.callPackage ./proggyvector.nix {};
         };
         secondary = {
           family = "creep";
@@ -88,7 +88,7 @@ in {
         monospace = {
           family = "ProggyVector";
           weight = "Regular";
-          size = 8.6; # points
+          size = 9; # points
           package = pkgs.callPackage ./proggyvector.nix {};
         };
         symbols = {

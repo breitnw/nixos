@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     install -D -m 644 ProggyVector/*.ttf -t "$out/share/fonts/truetype"
+    install -D -m 644 ProggyVector/*.otf -t "$out/share/fonts/opentype"
 
     runHook postInstall
   '';

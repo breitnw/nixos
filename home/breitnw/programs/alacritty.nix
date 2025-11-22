@@ -20,7 +20,7 @@ in {
   config = lib.mkIf cfg.enable {
     programs.alacritty = {
       enable = true;
-      package = pkgs.unstable.alacritty-graphics;
+      package = pkgs.alacritty-graphics;
       settings = {
         font.size = config.utils.fonts.active.monospace.size;
         general.import = let

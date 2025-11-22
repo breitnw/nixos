@@ -33,7 +33,7 @@ in {
     gtk = {
       enable = true;
       iconTheme = {
-        package = inputs.buuf-icon-theme.packages.${pkgs.system}.default;
+        package = inputs.buuf-icon-theme.packages.${pkgs.stdenv.hostPlatform.system}.default;
         name = "buuf-icon-theme";
       };
       cursorTheme.name = "Default";

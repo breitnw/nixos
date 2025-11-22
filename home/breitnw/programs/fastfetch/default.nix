@@ -7,7 +7,7 @@
   options = {
     modules.fastfetch = {
       image = lib.mkOption {
-        default = ./images/4.jpg;
+        default = ./images/10.jpg;
         type = lib.types.path;
       };
     };

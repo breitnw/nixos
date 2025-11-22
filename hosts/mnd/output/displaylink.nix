@@ -19,8 +19,5 @@ in {
       builtins.elem (lib.getName pkg) ["displaylink"];
     systemd.services.dlm.wantedBy = ["multi-user.target"];
     services.xserver.videoDrivers = ["displaylink"];
-    # services.xserver.deviceSection = ''
-    #   Option "AsyncFlipSecondaries" "true"
-    # '';
   };
 }

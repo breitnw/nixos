@@ -13,7 +13,7 @@
       enable =
         lib.mkEnableOption
         "whether or not to enable firefox (and theming support)";
-      package = pkgs.unstable.firefox;
+      package = pkgs.firefox;
     };
   };
   config = let
@@ -50,6 +50,11 @@
     '';
   in
     lib.mkIf config.modules.firefox.enable {
+      home.sessionVariables = {
+        # enable smooth scrolling on X11
+        # TODO enable this, but not on wayland
+        # MOZ_USE_XINPUT2 = 1;
+      };
       # actually enable firefox
       programs.firefox.enable = true;
       # write manifest to tell firefox where the launcher is

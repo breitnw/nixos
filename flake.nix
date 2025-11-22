@@ -4,16 +4,15 @@
   inputs = {
     # CORE (packages, system, etc) =============================================
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     # apple silicon support modules
     apple-silicon-support = {
       url = "github:tpwrules/nixos-apple-silicon";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # PROGRAMS AND UTILS =======================================================
@@ -23,7 +22,7 @@
     # search for files (e.g., headers) in nixpkgs
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     # tiny-dfr built from source
     tiny-dfr.url = "github:WhatAmISupposedToPutHere/tiny-dfr/master";
@@ -44,12 +43,13 @@
     bitmap-glyphs-12.inputs.cozette.follows = "cozette";
     # greybird with custom accent support
     greybird.url = "github:breitnw/Greybird/master";
-    # temporarily convert symlinks to real files⦂arstei
-    hm-ricing-mode.url = "github:mipmip/hm-ricing-mode";
+    # temporarily convert symlinks to real files
+    hm-ricing-mode.url = "github:Markus328/hm-ricing-mode/fix-hm-module";
     # flakified icon theme
     buuf-icon-theme.url = "github:breitnw/buuf-gnome";
     # niri window manager
     niri-flake.url = "github:sodiboo/niri-flake";
+    niri-flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     # NON-FLAKE ================================================================
     # I prefer flake inputs over fetchGit, since fetchGit hits the network every
@@ -88,14 +88,14 @@
   } @ inputs: let
     system = "aarch64-linux";
     # overlay for unstable and unfree packages, under the "unstable" attribute
-    overlay-unstable = final: prev: {
-      # instantiate nixpkgs-unstable to allow unfree packages
-      unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-        allowUnfreePredicate = _: true;
-      };
-    };
+    # overlay-unstable = final: prev: {
+    #   # instantiate nixpkgs-unstable to allow unfree packages
+    #   unstable = import nixpkgs-unstable {
+    #     inherit system;
+    #     config.allowUnfree = true;
+    #     allowUnfreePredicate = _: true;
+    #   };
+    # };
     # overlay for extra packages fetched from flakes
     overlay-extra = final: prev:
       with inputs; {
@@ -106,7 +106,6 @@
         bitmap-glyphs-12 = bitmap-glyphs-12.packages.${prev.system}.default;
         greybird-with-accent =
           greybird.packages.${prev.system}.greybird-with-accent;
-        tiny-dfr = tiny-dfr.packages.${prev.system}.default;
         # virglrenderer = prev.virglrenderer.overrideAttrs (old: {
         #   src = final.fetchurl {
         #     url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
@@ -122,25 +121,38 @@
       mnd = nixpkgs-unstable.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-          ({...}: {nixpkgs.overlays = [overlay-unstable overlay-extra];})
+          ({...}: {
+            nixpkgs.overlays = [
+              overlay-extra
+              inputs.niri-flake.overlays.niri
+            ];
+          })
           # enable an overlay with unstable packages
           # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
           ./hosts/mnd/configuration.nix
           nix-index-database.nixosModules.nix-index
           apple-silicon-support.nixosModules.default
-          # lix.nixosModules.default
         ];
       };
     };
 
     homeConfigurations = {
       "breitnw@mnd" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = nixpkgs-unstable.legacyPackages.${system};
         extraSpecialArgs = {inherit inputs;};
         modules = [
           # enable an overlay with unstable packages
           ({...}: {
-            nixpkgs.overlays = [overlay-unstable overlay-extra];
+            # nixpkgs = {
+            #   # pkgs = nixpkgs-unstable.legacyPackages.${system};
+            #   # useGlobalPkgs = true;
+            #   # useSystemPackages = true;
+            # };
+            nixpkgs.overlays = [
+              # overlay-unstable
+              overlay-extra
+              inputs.niri-flake.overlays.niri
+            ];
           })
           ./home/breitnw/home.nix
           hm-ricing-mode.homeManagerModules.hm-ricing-mode

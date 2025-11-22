@@ -5,6 +5,10 @@
 }:
 # Desktop environment support modules
 {
+  options = {
+    desktops.xorg.enable = lib.mkEnableOption "whether to enable x.org desktop environments";
+    desktops.wayland.enable = lib.mkEnableOption "whether to enable wayland desktop environments";
+  };
   config = {
     services.xserver.displayManager.startx.enable = true;
 
@@ -33,13 +37,19 @@
 
     # Configure the enabled desktop environments
     desktops.xfce.enable = true;
-    desktops.sway.enable = true;
 
+    # Needed if we're using Wayland
+    security.polkit.enable = true;
+
+    # enable niri
     programs.niri.enable = true;
+    programs.niri.package = pkgs.niri-unstable;
+
+    # enable sway
+    programs.sway.enable = true;
   };
 
   imports = [
     ./xfce.nix
-    ./sway.nix
   ];
 }

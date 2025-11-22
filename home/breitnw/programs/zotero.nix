@@ -20,7 +20,7 @@
         package = pkgs.zotero-nix;
         custom-nixpkgs =
           import inputs.zotero-nix.inputs.nixpkgs
-          {inherit (pkgs) system;};
+          {inherit (pkgs.stdenv.hostPlatform) system;};
       };
     };
   };

@@ -21,7 +21,7 @@
   ];
 
   # required udev rules for platformio
-  services.udev.packages = [pkgs.platformio-core.udev];
+  services.udev.packages = [pkgs.platformio-core.udev pkgs.openocd];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -61,8 +61,10 @@
   services.dbus.enable = true;
   xdg.portal = {
     enable = true;
-    # gtk portal needed to make gtk apps happy
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [
+      # gtk portal needed to make gtk apps happy
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   # Enable CUPS to print documents.

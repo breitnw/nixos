@@ -64,7 +64,7 @@
       killall
       fzf
       ffmpeg
-      unstable.yt-dlp
+      yt-dlp
 
       # languages and tools -------------------------
       # ...nix

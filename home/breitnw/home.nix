@@ -11,6 +11,7 @@
 # - TODO move sops spec to corresponding modules
 # - TODO new design pattern for nix/doom interop: do everything in doom config;
 #   only set variables in nix
+# - TODO set MOZ_USE_XINPUT2=1, but maybe only on X11
 {
   imports = [
     ./programs
@@ -64,7 +65,7 @@
       killall
       fzf
       ffmpeg
-      unstable.yt-dlp
+      yt-dlp
 
       # languages and tools -------------------------
       # ...nix
@@ -95,13 +96,13 @@
   modules.qutebrowser.enable = true;
   modules.rclone.enable = true;
   modules.zotero.enable = false;
-  modules.sway.enable = true;
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
 
   # dark themes
   modules.themes = {
+    # themeName = "ic-green-ppl";
     # themeName = "eris"; #                    dark blue city lights
     # themeName = "pico"; #                    highkey ugly but maybe redeemable
     # themeName = "tarot"; #                   very reddish purply

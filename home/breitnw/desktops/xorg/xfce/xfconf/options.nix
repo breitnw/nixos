@@ -49,7 +49,7 @@ in {
   };
 
   config = {
-    xfconf.enable = true;
+    xfconf.enable = config.modules.desktops.xorg.enable;
     xfconf.settings = let
       describeFont = config.utils.fonts.describeFont;
       # some settings are configured by other options (not directly configurable), so

@@ -5,11 +5,6 @@
   inputs,
   ...
 }: {
-  options = {
-    modules.sway = {
-      enable = lib.mkEnableOption "whether to enable the Sway window manager";
-    };
-  };
   config = with inputs.nix-rice.lib.nix-rice; let
     colors = with inputs.nix-rice.lib.nix-rice; rec {
       accent = config.colorscheme.palette.base0D;
@@ -24,10 +19,20 @@
           (color.hexToRgba "#${accent}"));
     };
   in
-    lib.mkIf config.modules.sway.enable {
+    lib.mkIf config.modules.desktops.wayland.enable {
       wayland.windowManager.sway = {
         enable = true;
         config = {
+          startup = [
+            {
+              command = "${pkgs.waybar}/bin/waybar";
+              always = true;
+            }
+            {
+              command = "${pkgs.mako}/bin/mako --default-timeout 5000";
+              always = true;
+            }
+          ];
           gaps = {
             inner = 10;
             outer = 5;
@@ -49,7 +54,7 @@
               xkb_options = "caps:escape";
             };
           };
-          menu = "${pkgs.wofi}/bin/wofi --show drun";
+          menu = "${pkgs.fuzzel}/bin/fuzzel";
 
           left = "h";
           down = "n";
@@ -128,32 +133,6 @@
               text = "#ffffff";
             };
           };
-
-          bars = [
-            {
-              mode = "dock";
-              hiddenState = "hide";
-              position = "bottom";
-              workspaceButtons = true;
-              workspaceNumbers = true;
-              statusCommand = "${pkgs.i3status}/bin/i3status";
-              fonts = {
-                names = ["monospace"];
-                size = 8.0;
-              };
-              trayOutput = "primary";
-              colors = {
-                background = "#000000";
-                statusline = "#ffffff";
-                separator = "#666666";
-                focusedWorkspace = {
-                  border = colors.accentDark;
-                  background = colors.accent;
-                  text = "#ffffff";
-                };
-              };
-            }
-          ];
         };
 
         # TODO verify clamshell mode works
@@ -175,18 +154,5 @@
           bindswitch --reload --locked lid:off output $laptop enable
         '';
       };
-
-      programs.wofi = {
-        enable = true;
-        style = ''
-          * {
-            font-family: CozetteVector;
-            font-size: 13px;
-          }
-        '';
-      };
-
-      # FIXME i don't think mako actually does anything :(
-      # services.mako.enable = true;
     };
 }

@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ./evremap.nix
     ./tiny-dfr.nix
@@ -38,5 +42,6 @@
 
     # enable tiny-dfr, a touchbar daemon
     modules.input.tiny-dfr.enable = true;
+    modules.input.tiny-dfr.package = pkgs.tiny-dfr; # inputs.tiny-dfr.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 }
