@@ -28,7 +28,7 @@
   boot.loader.efi.canTouchEfiVariables = false;
 
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
-  # virtualisation.docker.enable = true;
+  virtualisation.docker.enable = true;
   # virtualisation.docker.extraOptions = "--experimental"; # for buildx
 
   # Enable flakes
@@ -83,6 +83,9 @@
       "video"
       "input" # above needed for brightnessctl
       "docker"
+      # something to do with pio
+      "uucp"
+      "lock"
     ];
   };
 
@@ -96,6 +99,7 @@
     # muvm
     # fex
     qemu
+    distrobox
   ];
 
   # ensure that nixpkgs path aligns with nixpkgs flake input

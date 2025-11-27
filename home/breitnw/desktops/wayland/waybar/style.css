@@ -86,8 +86,8 @@ window#waybar.empty #window {
 #tray,
 #battery
 {
-    /* background: linear-gradient(0deg, @base00 15%, @base00-lighter 90%, @base00-lightest 100%); */
-    background: linear-gradient(0deg, @base00 15%, @base01 90%, @base02 100%);
+    background: linear-gradient(0deg, @base00 15%, @base00-lighter 90%, @base00-lightest 100%);
+    /* background: linear-gradient(0deg, @base00 15%, @base01 90%, @base02 100%); */
     color: @base05;
     border: 1px solid @base00-darker;
 }

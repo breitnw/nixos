@@ -15,11 +15,6 @@
     base00-lightest = with inputs.nix-rice.lib.nix-rice;
       color.toRgbShortHex (color.brighten 35
         (color.hexToRgba "#${config.colorscheme.palette.base00}"));
-    # this should ideally only be defined once (somehow pass to niri module?)
-    border = {
-      width = 3;
-      radius = 2.0;
-    };
   in
     {
       config.modules.niri.enable = config.modules.desktops.wayland.enable;
@@ -33,7 +28,15 @@
       ];
 
       # low battery alerts
-      services.poweralertd.enable = true;
+      services.batsignal.enable = true;
+      services.batsignal.extraArgs = [
+        "-p" # send notifications when plugged/unplugged
+        "-e" # notifications expire
+        "-m"
+        "15" # 15-second interval
+        "-I"
+        "${inputs.buuf-icon-theme}/128x128/battery-green-full.png" # this hack is hideous
+      ];
 
       # fuzzel config
       xdg.configFile."fuzzel/fuzzel.ini".text = lib.generators.toINI {} {
@@ -51,9 +54,12 @@
           selection-text = "${base05}FF";
           selection-match = "${base0D}FF";
           counter = "${base05}FF";
-          border = "${base00-darker}FF";
+          border = "${base0D}FF";
         };
-        inherit border;
+        border = {
+          width = 2;
+          radius = 2.0;
+        };
       };
 
       # waybar config

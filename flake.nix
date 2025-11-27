@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     # tiny-dfr built from source
-    tiny-dfr.url = "github:WhatAmISupposedToPutHere/tiny-dfr/master";
+    tiny-dfr.url = "github:AsahiLinux/tiny-dfr";
     # zotero built from source
     zotero-nix.url = "github:camillemndn/zotero-nix";
 
@@ -84,6 +84,7 @@
     greybird,
     hm-ricing-mode,
     niri-flake,
+    tiny-dfr,
     ...
   } @ inputs: let
     system = "aarch64-linux";
@@ -106,6 +107,7 @@
         bitmap-glyphs-12 = bitmap-glyphs-12.packages.${prev.system}.default;
         greybird-with-accent =
           greybird.packages.${prev.system}.greybird-with-accent;
+        tiny-dfr = tiny-dfr.packages.${prev.system}.default;
         # virglrenderer = prev.virglrenderer.overrideAttrs (old: {
         #   src = final.fetchurl {
         #     url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";

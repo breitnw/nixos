@@ -118,7 +118,7 @@
     # themeName = "mountain"; #              ⋆ dark and moody
     # themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
-    # themeName = "treehouse"; #               summercamp, darker and purpler
+    # themeName = "treehouse"; #             ⋆ summercamp, darker and purpler
     themeName = "elemental"; #             ⋆ earthy and muted
     # themeName = "everforest"; #              greenish and groovy
     # themeName = "summercamp"; #            ⋆ earthy but vibrant
