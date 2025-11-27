@@ -4,11 +4,11 @@
   inputs = {
     # CORE (packages, system, etc) =============================================
 
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # apple silicon support modules
     apple-silicon-support = {
@@ -22,7 +22,7 @@
     # search for files (e.g., headers) in nixpkgs
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # tiny-dfr built from source
     tiny-dfr.url = "github:AsahiLinux/tiny-dfr";
@@ -48,8 +48,9 @@
     # flakified icon theme
     buuf-icon-theme.url = "github:breitnw/buuf-gnome";
     # niri window manager
+    # displaylink bug should be fixed as of 8370c539fb584f78924b826d0ac0ad8fa068cf95
     niri-flake.url = "github:sodiboo/niri-flake";
-    niri-flake.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    niri-flake.inputs.nixpkgs.follows = "nixpkgs";
 
     # NON-FLAKE ================================================================
     # I prefer flake inputs over fetchGit, since fetchGit hits the network every
@@ -76,7 +77,7 @@
 
   outputs = {
     nixpkgs,
-    nixpkgs-unstable,
+    # nixpkgs-unstable,
     home-manager,
     nix-index-database,
     apple-silicon-support,
@@ -120,7 +121,7 @@
     formatter = nixpkgs.legacyPackages.${system}.alejandra;
 
     nixosConfigurations = {
-      mnd = nixpkgs-unstable.lib.nixosSystem {
+      mnd = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
           ({...}: {
@@ -140,7 +141,7 @@
 
     homeConfigurations = {
       "breitnw@mnd" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs-unstable.legacyPackages.${system};
+        pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {inherit inputs;};
         modules = [
           # enable an overlay with unstable packages

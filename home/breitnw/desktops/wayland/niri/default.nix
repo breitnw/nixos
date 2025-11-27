@@ -73,6 +73,7 @@
               display = {color = "${config.colorscheme.palette.base0D}A0";};
             };
           };
+          # TODO keep waybar alive
           spawn-at-startup = [
             {argv = ["${pkgs.waybar}/bin/waybar"];}
             {argv = ["${pkgs.swaybg}/bin/swaybg" "--image" "${./DSCN0700.jpg}"];}

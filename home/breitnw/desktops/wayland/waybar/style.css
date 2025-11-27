@@ -91,6 +91,7 @@ window#waybar.empty #window {
     color: @base05;
     border: 1px solid @base00-darker;
 }
+
 #custom-arrow-left {
     /* background: linear-gradient(0deg, @base00 0%, @base01 90%, @base02 100%); */
     color: @base05;
