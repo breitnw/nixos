@@ -23,46 +23,55 @@
     // lib.mkIf config.modules.desktops.wayland.enable {
       home.packages = with pkgs; [
         swaybg # wallpaper
-        waybar
         fuzzel
       ];
 
       # low battery alerts
-      services.batsignal.enable = true;
-      services.batsignal.extraArgs = [
-        "-p" # send notifications when plugged/unplugged
-        "-e" # notifications expire
-        "-m"
-        "15" # 15-second interval
-        "-I"
-        "${inputs.buuf-icon-theme}/128x128/battery-green-full.png" # this hack is hideous
-      ];
+      # services.batsignal.enable = true;
+      # services.batsignal.extraArgs = [
+      #   "-p" # send notifications when plugged/unplugged
+      #   "-e" # notifications expire
+      #   "-m"
+      #   "15" # 15-second interval
+      #   "-I"
+      #   "${inputs.buuf-icon-theme}/128x128/battery-green-full.png" # this hack is hideous
+      # ];
 
       # fuzzel config
       xdg.configFile."fuzzel/fuzzel.ini".text = lib.generators.toINI {} {
         main = {
           icon-theme = config.gtk.iconTheme.name;
+          hide-prompt = true;
+          horizontal-pad = 30;
+          vertical-pad = 20;
         };
         colors = with config.colorScheme.palette; {
           background = "${base00}FF";
           text = "${base05}FF";
-          prompt = "${base07}FF";
+          prompt = "${base03}FF";
           placeholder = "${base03}FF";
-          input = "${base07}FF";
+          input = "${base03}FF";
           match = "${base0D}FF";
           selection = "${base01}FF";
           selection-text = "${base05}FF";
           selection-match = "${base0D}FF";
           counter = "${base05}FF";
-          border = "${base0D}FF";
+          border = "${base00-lighter}FF";
         };
+        # TODO can border/shadow be configured in niri instead?
         border = {
-          width = 2;
-          radius = 2.0;
+          width = 1;
+          radius = 16;
+          selection-radius = 4;
         };
       };
 
       # waybar config
+      programs.waybar = {
+        enable = true;
+        systemd.enable = true;
+      };
+
       xdg.configFile."waybar/style.css".source = let
         style-header = pkgs.writeTextFile {
           name = "style-header.css";
@@ -78,7 +87,34 @@
           name = "style.css";
           files = [style-header style-body];
         };
-      xdg.configFile."waybar/config.jsonc".source = ./waybar/config.jsonc;
+
+
+
+      # send a notification on song change: rmpc-notify
+      #   notify-send-bin = "${pkgs.libnotify}/bin/notify-send";
+      #   rmpc-notify = pkgs.writeShellScript "rmpc-notify" ''
+      #     TMP_DIR="/tmp/rmpc"
+      #     mkdir -p "$TMP_DIR"
+      #     ALBUM_ART_PATH="$TMP_DIR/notification_cover"
+      #     DEFAULT_ALBUM_ART_PATH="$TMP_DIR/default_album_art.jpg"
+      #     if ! ${rmpc-bin} albumart --output "$ALBUM_ART_PATH"; then
+      #         ALBUM_ART_PATH="$DEFAULT_ALBUM_ART_PATH"
+      #     fi
+      #     ${notify-send-bin} -i "$ALBUM_ART_PATH" "Now Playing" "$ARTIST - $TITLE"
+      #   '';
+      # in {
+      #   "rmpc/config.ron".source = pkgs.replaceVars ./rmpc/config.ron {
+      #     inherit rmpc-toggle-favorite rmpc-notify;
+      #   };
+
+      xdg.configFile."waybar/config.jsonc".source = pkgs.substitute {
+        src = ./waybar/config.jsonc;
+        substitutions = [
+          "--replace"
+          "@notify-send-bin@"
+          "${pkgs.libnotify}/bin/notify-send"
+        ];
+      };
     };
 
   imports = [

@@ -43,7 +43,7 @@
       vesktop # discord client
       picard # music metadata editor
       superTuxKart # epic gaming
-      prismlauncher # epic minecraft
+      # prismlauncher # epic minecraft
       krita # paint
       drawing # basic image editing
       gimp # advanced image editing
@@ -51,12 +51,12 @@
       blender # modeling
       aseprite # pixel art tool
       mate.atril # pdf reader
+      zathura # another (simpler) pdf reader
       pinentry-qt # password prompt for gpg
       qbittorrent # dw about it
       nicotine-plus # dw about this one either
-      # (lmms.overrideAttrs {
-      #   meta.platforms = ["aarch64-linux"];
-      # })
+      audacious # music thing
+      # lmms
 
       # CLI PROGRAMS ================================
       unzip
@@ -88,6 +88,7 @@
 
   # builtin programs
   programs.home-manager.enable = true;
+  programs.mullvad-vpn.enable = true;
 
   # custom modules
   modules.alacritty.enable = true;
@@ -118,8 +119,8 @@
     # themeName = "mountain"; #              ⋆ dark and moody
     # themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
-    themeName = "treehouse"; #             ⋆ summercamp, darker and purpler
-    # themeName = "elemental"; #             ⋆ earthy and muted
+    # themeName = "treehouse"; #             ⋆ summercamp, darker and purpler
+    themeName = "elemental"; #             ⋆ earthy and muted
     # themeName = "everforest"; #              greenish and groovy
     # themeName = "summercamp"; #            ⋆ earthy but vibrant
     # themeName = "horizon-dark"; #            vaporwavey

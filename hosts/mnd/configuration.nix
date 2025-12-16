@@ -23,6 +23,8 @@
   # required udev rules for platformio
   services.udev.packages = [pkgs.platformio-core.udev pkgs.openocd];
 
+  programs.ladybird.enable = true;
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = false;
@@ -98,9 +100,23 @@
     wget
     # muvm
     # fex
-    qemu
-    distrobox
+    # (pkgs.qemu.overrideAttrs (old: {
+    #   postInstall =
+    #     (old.postInstall or "")
+    #     + ''
+    #       mkdir -p $out/share/qemu/keymaps
+    #       cp ${./qemu/colemak} $out/share/qemu/keymaps/colemak
+    #     '';
+    # }))
   ];
+
+  # VPN
+  services.mullvad-vpn.enable = true;
+
+  # qemu with colemak keymap
+  # TODO move this somewhere else
+  environment.etc."qemu/keymaps/colemak".source =
+    ./qemu/colemak;
 
   # ensure that nixpkgs path aligns with nixpkgs flake input
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];

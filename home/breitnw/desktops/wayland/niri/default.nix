@@ -31,10 +31,6 @@
             position.x = 0;
             position.y = 0;
           };
-          cursor = {
-            theme = "Adwaita";
-            size = 20;
-          };
           layout = {
             gaps = 16;
             center-focused-column = "never";
@@ -75,7 +71,7 @@
           };
           # TODO keep waybar alive
           spawn-at-startup = [
-            {argv = ["${pkgs.waybar}/bin/waybar"];}
+            # {argv = ["${pkgs.waybar}/bin/waybar"];}
             {argv = ["${pkgs.swaybg}/bin/swaybg" "--image" "${./DSCN0700.jpg}"];}
             {argv = ["${pkgs.mako}/bin/mako --default-timeout 5000"];}
           ];
@@ -90,6 +86,7 @@
                   title = "^Picture-in-Picture$";
                 }
               ];
+
               open-floating = true;
             }
             # round window corners
@@ -115,6 +112,24 @@
                 offset.y = -4;
                 color = "#000A";
               };
+            }
+            {
+              matches = [
+                {
+                  namespace = "launcher";
+                }
+              ];
+
+              shadow = {
+                enable = true;
+                softness = 20;
+                spread = 2;
+                offset.x = 0;
+                offset.y = 1;
+                color = "#0006";
+                draw-behind-window = true;
+              };
+              # baba-is-float = true;
             }
           ];
 

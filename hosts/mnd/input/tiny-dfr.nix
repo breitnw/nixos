@@ -16,7 +16,7 @@ in {
   config = lib.mkIf cfg.enable {
     # TODO look at https://github.com/basecamp/omarchy/issues/1840
     hardware.apple.touchBar = {
-      enable = true;
+      enable = false;
       package = pkgs.tiny-dfr;
       settings = {
         MediaLayerDefault = true;

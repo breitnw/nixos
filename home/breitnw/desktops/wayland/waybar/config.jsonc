@@ -8,15 +8,17 @@
   },
   "battery": {
     "events": {
-      "on-charging-100": "notify-send -u normal 'Battery Full!'",
-      "on-discharging-critical": "notify-send -u critical 'Very Low Battery'",
-      "on-discharging-warning": "notify-send -u normal 'Low Battery'"
+      "on-charging": "@notify-send-bin@ -u normal 'Battery charging'",
+      "on-discharging": "@notify-send-bin@ -u normal 'Battery discharging'",
+      "on-charging-100": "@notify-send-bin@ -u normal 'Battery full!'",
+      "on-discharging-critical": "@notify-send-bin@ -u critical 'Very low battery'",
+      "on-discharging-warning": "@notify-send-bin@ -u normal 'Low battery'"
     },
     "format": "{capacity}% bat",
     "interval": 5,
     "states": {
-      "critical": 15,
-      "warning": 30
+      "critical": 10,
+      "warning": 20
     },
     "tooltip-format": "{capacity}% {timeTo}"
   },
@@ -53,7 +55,8 @@
     "all-outputs": true,
     "disable-scroll": true,
     "format": "{index}",
-    "tooltip": false
+    "tooltip": false,
+    "cursor": 60,
   },
   "group/info": {
     "drawer": {
@@ -62,22 +65,14 @@
     },
     "modules": [
       "custom/arrow-left",
-      "cpu",
-      "memory",
       "battery",
       "backlight",
       "wireplumber#sink",
-      "wireplumber#source"
+      "wireplumber#source",
     ],
     "orientation": "inherit"
   },
   "height": 0,
-  "image": {
-    "on-click": "exec fuzzel",
-    "on-click-right": "exec fuzzel-logout-menu",
-    "path": "@NixOS@",
-    "size": 14
-  },
   "layer": "top",
   "memory": {
     "format": "{percentage}% mem",
@@ -106,20 +101,21 @@
   },
   "wireplumber#sink": {
     "format": "{volume}% snk",
+    "format-muted": "mut snk",
     "max-volume": 100,
-    "on-click": "pavucontrol",
-    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-    "scroll-step": 2,
+    "on-click-right": "pavucontrol",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "scroll-step": 1,
     "tooltip-format": "{volume}%"
   },
   "wireplumber#source": {
     "format": "{volume}% src",
-    "format-muted": "mut",
+    "format-muted": "mut src",
     "max-volume": 100,
     "node-type": "Audio/Source",
-    "on-click": "pavucontrol",
-    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
-    "scroll-step": 2,
+    "on-click-right": "pavucontrol",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "scroll-step": 1,
     "tooltip-format": "{volume}%"
   },
   "wlr/taskbar": {
@@ -128,6 +124,7 @@
     "icon-theme": "buuf-icon-theme",
     "on-click": "activate",
     "on-click-right": "close",
-    "tooltip-format": "{title}"
+    "tooltip-format": "{title}",
+    "cursor": 60,
   }
 }

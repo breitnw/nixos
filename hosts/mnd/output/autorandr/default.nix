@@ -1,8 +1,8 @@
-{...}: {
+{config, lib, ...}: {
   imports = [./options.nix];
 
   config = {
-    services.autorandr-custom = {
+    services.autorandr-custom = lib.mkIf config.desktops.xorg.enable {
       enable = true;
       profiles = {
         mobile = {

@@ -263,6 +263,9 @@ in {
         );
     };
 
+    # HACK all of the code below this point is really gross and should
+    # eventually be abstracted, but it seems to work fine for the time being
+
     # Timer for synchronized directories
     systemd.user.timers = lib.listToAttrs (
       lib.concatMap
@@ -285,7 +288,7 @@ in {
                 };
                 Timer = {
                   # TODO make this customizable
-                  OnCalendar = "*:0/15";
+                  OnCalendar = "*:0/5";
                 };
                 Install.WantedBy = ["timers.target"];
               })

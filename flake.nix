@@ -48,9 +48,10 @@
     # flakified icon theme
     buuf-icon-theme.url = "github:breitnw/buuf-gnome";
     # niri window manager
-    # displaylink bug should be fixed as of 8370c539fb584f78924b826d0ac0ad8fa068cf95
     niri-flake.url = "github:sodiboo/niri-flake";
     niri-flake.inputs.nixpkgs.follows = "nixpkgs";
+    # cursor theme
+    hackneyed.url = "github:owm111/hackneyed-x11-cursors";
 
     # NON-FLAKE ================================================================
     # I prefer flake inputs over fetchGit, since fetchGit hits the network every
@@ -155,6 +156,7 @@
               # overlay-unstable
               overlay-extra
               inputs.niri-flake.overlays.niri
+              inputs.hackneyed.overlay
             ];
           })
           ./home/breitnw/home.nix

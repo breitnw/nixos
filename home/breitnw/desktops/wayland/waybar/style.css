@@ -123,6 +123,18 @@ window#waybar.empty #window {
     color: @base0D;
 }
 
+#taskbar button:hover,
+#temperature:hover,
+#cpu:hover,
+#backlight:hover,
+#memory:hover,
+#wireplumber:hover,
+#battery:hover
+{
+    border: 1px solid @base0D;
+    transition: all 0.1s ease-in-out;
+}
+
 #temperature.critical,
 #cpu.critical,
 #memory.critical {

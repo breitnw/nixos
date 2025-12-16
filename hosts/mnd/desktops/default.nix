@@ -44,6 +44,7 @@
     # enable niri
     programs.niri.enable = true;
     programs.niri.package = pkgs.niri-unstable;
+    programs.niri.useNautilus = false; # GET THE GNOMES AWAY FROM ME
 
     # enable sway
     programs.sway.enable = true;
