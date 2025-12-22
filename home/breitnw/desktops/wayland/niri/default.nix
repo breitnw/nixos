@@ -4,6 +4,18 @@
   config,
   ...
 }: {
+  options = {
+    modules.desktops.niri.wallpaper = lib.mkOption {
+      description = "Wallpaper to use for the Niri compositor";
+      type = lib.types.path;
+      default = ../../wallpapers/DSCN0700.jpg;
+    };
+    modules.desktops.niri.bg-color = lib.mkOption {
+      description = "Background color to use for the Niri compositor";
+      type = lib.types.str;
+      default = "DADADA";
+    };
+  };
   config = let
     # helper definitions used for styling across multiple apps
     border = {
@@ -19,6 +31,7 @@
       # niri config
       # see https://github.com/sodiboo/niri-flake/blob/main/docs.md#programsnirisettingslayoutborder
       programs.niri = {
+        enable = true;
         package = pkgs.niri-unstable;
         settings = {
           input.touchpad = {
@@ -72,7 +85,17 @@
           # TODO keep waybar alive
           spawn-at-startup = [
             # {argv = ["${pkgs.waybar}/bin/waybar"];}
-            {argv = ["${pkgs.swaybg}/bin/swaybg" "--image" "${./DSCN0700.jpg}"];}
+            {argv = [
+              "${pkgs.swaybg}/bin/swaybg"
+              "--image"
+              "${config.modules.desktops.niri.wallpaper}"
+              "--mode"
+              "fill"
+              # "--mode"
+              # "fit"
+              # "--color"
+              # "${config.modules.desktops.niri.bg-color}"
+            ];}
             {argv = ["${pkgs.mako}/bin/mako --default-timeout 5000"];}
           ];
           prefer-no-csd = true;

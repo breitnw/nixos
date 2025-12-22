@@ -24,10 +24,10 @@
         enable = true;
         config = {
           startup = [
-            {
-              command = "${pkgs.waybar}/bin/waybar";
-              always = true;
-            }
+            # {
+            #   command = "${pkgs.waybar}/bin/waybar";
+            #   always = true;
+            # }
             {
               command = "${pkgs.mako}/bin/mako --default-timeout 5000";
               always = true;
@@ -137,7 +137,7 @@
 
         # TODO verify clamshell mode works
         extraConfig = ''
-          output "*" bg ${./wallpaper.jpg} fill
+          output "*" bg ${../../wallpapers/wallpaper.jpg} fill
 
           # Volume
           bindsym XF86AudioRaiseVolume exec '${pkgs.pamixer}/bin/pamixer -i 10'
