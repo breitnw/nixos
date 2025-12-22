@@ -29,34 +29,52 @@
     };
   };
 
+  # default applications
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplicationPackages = with pkgs; [
+
+      # 1: VIEWERS ==================================
+      mate.atril # pdf reader
+      xfce.thunar # file manager
+      viewnior # image viewer
+      vlc # media player
+      zathura # another (simpler) pdf reader
+
+      # 2: EDITORS ==================================
+      libreoffice-qt6 # work :(
+      kicad # pcb editor
+      krita # paint
+      aseprite # pixel art tool
+      gimp # advanced image editing
+      blender # modeling
+      picard # music metadata editor
+    ];
+  };
+
   home = {
     username = "breitnw";
     homeDirectory = "/home/breitnw";
 
     sessionVariables = {
-      NH_FLAKE = "${config.home.homeDirectory}/Config/nixos"; # config directory for nh
+      # config directory for nh
+      NH_FLAKE = "${config.home.homeDirectory}/Config/nixos"; 
     };
 
-    packages = with pkgs; [
+    packages = with pkgs; config.xdg.mimeApps.defaultApplicationPackages ++ [
+
       # GUI PROGRAMS ================================
-      libreoffice-qt6 # work :(
+      # Note that file viewers and editors should instead be
+      # configured in xdg.mimeApps.defaultApplicationPackages!
       vesktop # discord client
-      picard # music metadata editor
       superTuxKart # epic gaming
-      # prismlauncher # epic minecraft
-      krita # paint
-      drawing # basic image editing
-      gimp # advanced image editing
-      kicad # pcb editor
-      blender # modeling
-      aseprite # pixel art tool
-      mate.atril # pdf reader
-      zathura # another (simpler) pdf reader
       pinentry-qt # password prompt for gpg
       qbittorrent # dw about it
       nicotine-plus # dw about this one either
-      audacious # music thing
-      # lmms
+      hyprpicker # color picker for wayland
+
+      # universal tray applets...
+      networkmanagerapplet
 
       # CLI PROGRAMS ================================
       unzip
@@ -67,22 +85,15 @@
       ffmpeg
       yt-dlp
 
-      # languages and tools -------------------------
-      # ...nix
-      nh # Nix helper
-      nixd # Nix language server
-      alejandra
-      # ...latex
-      texliveFull
-      # ...school
-      octaveFull # GNU Octave (with gui)
-      ccls
+      # languages and tools...
+      nh # nix helper
+      nixd # nix language server
+      alejandra # nix formatter
+      texliveFull # latex
 
       # FONTS AND OTHER =============================
       etBook
       times-newer-roman
-      # nerd-fonts.hack
-      # (pkgs.callPackage ./themes/proggyvector.nix {})
     ];
   };
 
@@ -100,10 +111,8 @@
 
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
-
-  # dark themes
   modules.themes = {
-    # themeName = "ic-green-ppl";
+    # dark themes
     # themeName = "eris"; #                    dark blue city lights
     # themeName = "pico"; #                    highkey ugly but maybe redeemable
     # themeName = "tarot"; #                   very reddish purply
@@ -112,7 +121,7 @@
     # themeName = "stella"; #                  purple, pale-ish
     # themeName = "zenburn"; #               ⋆ grey but in an endearing way
     # themeName = "onedark"; #                 atom propaganda
-    # themeName = "darcula"; #               ⋆ jetbrains propaganda
+    themeName = "darcula"; #               ⋆ jetbrains propaganda
     # themeName = "darkmoss"; #                cool blue-green
     # themeName = "gigavolt"; #                dark, vibrant, and purply
     # themeName = "kanagawa"; #              ⋆ blue with yellowed text
@@ -120,10 +129,12 @@
     # themeName = "spacemacs"; #             ⋆ inoffensively dark and vibrant
     # themeName = "darktooth"; #             ⋆ gruvbox but more purply
     # themeName = "treehouse"; #             ⋆ summercamp, darker and purpler
-    themeName = "elemental"; #             ⋆ earthy and muted
+    # themeName = "elemental"; #             ⋆ earthy and muted
     # themeName = "everforest"; #              greenish and groovy
     # themeName = "summercamp"; #            ⋆ earthy but vibrant
+    # themeName = "ic-green-ppl"; #            i see green people? who knows
     # themeName = "horizon-dark"; #            vaporwavey
+    # themeName = "grayscale-dark"; #          jesse i need to lock in NOW
     # themeName = "oxocarbon-dark"; #        ⋆ dark and vibrant
     # themeName = "terracotta-dark"; #       ⋆ chocolatey and dark
     # themeName = "tokyo-night-storm"; #        blue and purple
@@ -144,7 +155,9 @@
     # themeName = "solarized-light"; #       ⋆ very much yellowed
   };
 
-  # defaults (?)
+  # reload systemd units on home-manager switch 
   systemd.user.startServices = "sd-switch";
+
+  # do not touch
   home.stateVersion = "24.05";
 }
