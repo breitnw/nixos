@@ -2,9 +2,12 @@
   pkgs,
   inputs,
   ...
-} @ args: {
+} @ args:
+
+# XFCE configuration. For available options, see ./options.nix.
+{
   imports = [
-    ./options.nix # my XFCE options module
+    ./options.nix
   ];
   config = {
     modules.de.xfconf = {

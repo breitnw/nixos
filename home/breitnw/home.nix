@@ -109,6 +109,13 @@
   modules.rclone.enable = true;
   modules.zotero.enable = false;
 
+  # desktop environments (see desktops/default.nix)
+  modules.desktops = {
+    primary_display_server = "xorg";
+    wayland.enable = true;
+    xorg.enable = true;
+  };
+
   # global theme
   # themes can be previewed at https://tinted-theming.github.io/tinted-gallery/
   modules.themes = {

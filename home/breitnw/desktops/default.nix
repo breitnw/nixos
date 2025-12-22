@@ -14,11 +14,5 @@
     };
   };
 
-  config.modules.desktops = {
-    primary_display_server = "wayland";
-    wayland.enable = true;
-    xorg.enable = false;
-  };
-
   imports = [./xorg ./wayland ./gtk];
 }
