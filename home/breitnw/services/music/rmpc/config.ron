@@ -24,7 +24,7 @@
       "s":       Stop,
       ".":       VolumeUp,
       "c":       ToggleSingle,
-      "<Tab>":   NextTab,
+      "<C-i>":   NextTab,
       "<C-h>":   PreviousTab,
       "1":       SwitchToTab("Queue"),
       "2":       SwitchToTab("Directories"),
