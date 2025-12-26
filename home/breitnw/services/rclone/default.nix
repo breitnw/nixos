@@ -40,13 +40,13 @@
           #   };
           #   mountPoint = "${config.home.homeDirectory}/Documents/org";
           # };
-          # "music" = {
-          #   enable = true;
-          #   options = {
-          #     vfs-cache-mode = "full";
-          #   };
-          #   mountPoint = "${config.home.homeDirectory}/Music";
-          # };
+          "public/music" = {
+            enable = true;
+            options = {
+              vfs-cache-mode = "full";
+            };
+            mountPoint = "${config.home.homeDirectory}/Music";
+          };
         };
       };
     };
