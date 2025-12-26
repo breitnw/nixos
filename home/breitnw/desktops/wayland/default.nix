@@ -16,11 +16,7 @@
       color.toRgbShortHex (color.brighten 35
         (color.hexToRgba "#${config.colorscheme.palette.base00}"));
   in
-    {
-      config.modules.niri.enable = config.modules.desktops.wayland.enable;
-      config.modules.sway.enable = config.modules.desktops.wayland.enable;
-    }
-    // lib.mkIf config.modules.desktops.wayland.enable {
+    lib.mkIf config.modules.desktops.wayland.enable {
       home.packages = with pkgs; [
         swaybg # wallpaper
         fuzzel
