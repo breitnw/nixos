@@ -25,10 +25,21 @@
         secrets = {
           pass = config.sops.secrets."accounts/copyparty/breitnw".path;
         };
+        backSyncs = {
+          "public/music" = {
+            enable = true;
+            # Don't sync directly to ~/Music, since I want ~/Music to be
+            # read-only. Instead, create a read-only bind mount:
+            #  mount --bind "${config.dataHome}/music-back-sync" ~/Music
+            #  mount -o bind,remount,ro ~/Music
+            dataDir = "${config.xdg.dataHome}/music-back-sync";
+            mountDir = "${config.home.homeDirectory}/Music";
+          };
+        };
         syncs = {
           "private/org" = {
             enable = true;
-            srcDir = "${config.home.homeDirectory}/Documents/org";
+            localDir = "${config.home.homeDirectory}/Documents/org";
           };
         };
         mounts = {
@@ -40,13 +51,13 @@
           #   };
           #   mountPoint = "${config.home.homeDirectory}/Documents/org";
           # };
-          "public/music" = {
-            enable = true;
-            options = {
-              vfs-cache-mode = "full";
-            };
-            mountPoint = "${config.home.homeDirectory}/Music";
-          };
+          # "public/music" = {
+          #   enable = true;
+          #   options = {
+          #     vfs-cache-mode = "full";
+          #   };
+          #   mountPoint = "${config.home.homeDirectory}/Music";
+          # };
         };
       };
     };

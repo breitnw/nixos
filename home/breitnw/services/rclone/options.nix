@@ -157,6 +157,7 @@ in {
                 '';
               };
 
+              # sync local files to remote
               syncs = lib.mkOption {
                 type = with lib.types;
                   attrsOf (
@@ -164,7 +165,43 @@ in {
                       options = {
                         enable = lib.mkEnableOption "this sync";
 
-                        srcDir = lib.mkOption {
+                        localDir = lib.mkOption {
+                          type = lib.types.str;
+                          default = null;
+                        };
+
+                        options = lib.mkOption {
+                          type = with lib.types;
+                            attrsOf (
+                              nullOr (oneOf [
+                                bool
+                                int
+                                float
+                                str
+                              ])
+                            );
+                          default = {};
+                        };
+                      };
+                    }
+                  );
+                default = {};
+              };
+
+              # sync remote files to local
+              backSyncs = lib.mkOption {
+                type = with lib.types;
+                  attrsOf (
+                    lib.types.submodule {
+                      options = {
+                        enable = lib.mkEnableOption "this sync";
+
+                        dataDir = lib.mkOption {
+                          type = lib.types.str;
+                          default = null;
+                        };
+
+                        mountDir = lib.mkOption {
                           type = lib.types.str;
                           default = null;
                         };
@@ -267,7 +304,7 @@ in {
     # eventually be abstracted, but it seems to work fine for the time being
 
     # Timer for synchronized directories
-    systemd.user.timers = lib.listToAttrs (
+    systemd.user.timers = (lib.listToAttrs (
       lib.concatMap
       (
         {
@@ -301,7 +338,41 @@ in {
           (lib.filter (rem: rem.value ? syncs))
         ]
       )
-    );
+    )) // (lib.listToAttrs (
+      lib.concatMap
+      (
+        {
+          name,
+          value,
+        }: let
+          remote-name = name;
+          remote = value;
+        in
+          lib.concatMap (
+            {name, ...}: let
+              dst-path = name;
+            in [
+              # timer job
+              (lib.nameValuePair "rclone-back-sync:${replaceSlashes dst-path}@${remote-name}" {
+                Unit = {
+                  Description = "Rclone backward sync timer for ${remote-name}:${dst-path}";
+                };
+                Timer = {
+                  # TODO make this customizable
+                  OnCalendar = "*:0/5";
+                };
+                Install.WantedBy = ["timers.target"];
+              })
+            ]
+          ) (lib.attrsToList remote.backSyncs)
+      )
+      (
+        lib.pipe cfg.remotes [
+          lib.attrsToList
+          (lib.filter (rem: rem.value ? backSyncs))
+        ]
+      )
+    ));
 
     # Sync and mount services
     systemd.user.services = let
@@ -381,13 +452,15 @@ in {
                   Service = {
                     Type = "oneshot";
                     Environment = ["PATH=/run/wrappers/bin"];
-                    ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${src.srcDir}";
+                    # FIXME maybe don't do this; we don't want to wipe the
+                    # remote if the folder doesn't exist locally
+                    # ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p ${src.localDir}";
                     ExecStart = lib.concatStringsSep " " [
                       (lib.getExe cfg.package)
                       "sync"
                       "-vv"
                       (lib.cli.toGNUCommandLineShell {} src.options)
-                      "${src.srcDir}"
+                      "${src.localDir}"
                       "${remote-name}:${dst-path}"
                     ];
                     Restart = "on-failure";
@@ -405,8 +478,64 @@ in {
           ]
         )
       );
+      # this is getting out of hand
+      backSyncServices = lib.listToAttrs (
+        lib.concatMap
+        (
+          {
+            name,
+            value,
+          }: let
+            remote-name = name;
+            remote = value;
+          in
+            lib.concatMap (
+              {
+                name,
+                value,
+              }: let
+                dst-path = name;
+                src = value;
+              in [
+                # oneshot sync job
+                (lib.nameValuePair "rclone-back-sync:${replaceSlashes dst-path}@${remote-name}" {
+                  Unit = {
+                    Description = "Rclone backward sync job for ${remote-name}:${dst-path}";
+                  };
+
+                  Service = {
+                    Type = "oneshot";
+                    Environment = ["PATH=/run/wrappers/bin"];
+                    ExecStartPre = [
+                      "${pkgs.coreutils}/bin/mkdir -p ${src.dataDir} ${src.mountDir}"
+                      # "+${pkgs.util-linux}/bin/mount --bind ${src.dataDir} ${src.mountDir}"
+                      # "+${pkgs.util-linux}/bin/mount -o bind,remount,ro ${src.mountDir}"
+                    ];
+                    ExecStart = lib.concatStringsSep " " [
+                      (lib.getExe cfg.package)
+                      "sync"
+                      "-vv"
+                      (lib.cli.toGNUCommandLineShell {} src.options)
+                      "${remote-name}:${dst-path}"
+                      "${src.dataDir}"
+                    ];
+                    Restart = "on-failure";
+                  };
+
+                  Install.WantedBy = ["default.target"];
+                })
+              ]
+            ) (lib.attrsToList remote.backSyncs)
+        )
+        (
+          lib.pipe cfg.remotes [
+            lib.attrsToList
+            (lib.filter (rem: rem.value ? backSyncs))
+          ]
+        )
+      );
     in
-      mountServices // syncServices;
+      mountServices // syncServices // backSyncServices;
   };
 
   meta.maintainers = with lib.hm.maintainers; [jess];
