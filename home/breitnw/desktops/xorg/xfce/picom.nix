@@ -10,6 +10,7 @@
     fade = true;
     shadow = true;
     fadeDelta = 3;
+    vSync = true;
     backend = "glx";
 
     # don't show a shadow for the dock or windows with weird frames
