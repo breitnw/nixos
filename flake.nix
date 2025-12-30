@@ -132,6 +132,9 @@
             ];
           })
 
+          # set hostname depending on system (not host!)
+          { networking.hostName = name; }
+
           # host configuration modules
           ./hosts/modules/common.nix
           # host configuration

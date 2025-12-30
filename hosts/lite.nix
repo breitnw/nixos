@@ -2,7 +2,6 @@
 
 {
   # Networking
-  networking.hostName = "lite";
   networking.networkmanager.enable = true;
 
   # Desktop support

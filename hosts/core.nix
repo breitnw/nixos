@@ -2,7 +2,6 @@
 
 {
   # Networking
-  networking.hostName = "core"; # apple haha
   networking.networkmanager.enable = true;
 
   # Desktop support
