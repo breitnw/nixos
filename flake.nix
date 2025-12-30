@@ -5,7 +5,7 @@
     # CORE (packages, system, etc) =============================================
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,94 +76,109 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    # nixpkgs-unstable,
-    home-manager,
-    nix-index-database,
-    apple-silicon-support,
-    bitmap-glyphs-12,
-    greybird,
-    hm-ricing-mode,
-    niri-flake,
-    tiny-dfr,
-    ...
-  } @ inputs: let
-    system = "aarch64-linux";
-    # overlay for unstable and unfree packages, under the "unstable" attribute
-    # overlay-unstable = final: prev: {
-    #   # instantiate nixpkgs-unstable to allow unfree packages
-    #   unstable = import nixpkgs-unstable {
-    #     inherit system;
-    #     config.allowUnfree = true;
-    #     allowUnfreePredicate = _: true;
-    #   };
-    # };
+  outputs = inputs: let
+    # overlay for unstable packages, under the "unstable" attribute
+    overlay-unstable = final: prev:
+      let
+        prev-system = prev.stdenv.hostPlatform.system;
+      in {
+        # instantiate nixpkgs-unstable to allow unfree packages
+        unstable = import inputs.nixpkgs-unstable {
+          system = prev-system;
+          config.allowUnfree = true;
+          allowUnfreePredicate = _: true;
+        };
+      };
+
     # overlay for extra packages fetched from flakes
     overlay-extra = final: prev:
-      with inputs; {
-        firefox-native-base16 =
-          firefox-native-base16.packages.${prev.system}.default;
-        zotero-nix = zotero-nix.packages.${prev.system}.default;
-        cozette = cozette.packages.${prev.system}.default;
-        bitmap-glyphs-12 = bitmap-glyphs-12.packages.${prev.system}.default;
-        greybird-with-accent =
-          greybird.packages.${prev.system}.greybird-with-accent;
-        tiny-dfr = tiny-dfr.packages.${prev.system}.default;
-        # virglrenderer = prev.virglrenderer.overrideAttrs (old: {
-        #   src = final.fetchurl {
-        #     url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20250424/virglrenderer-asahi-20250424.tar.bz2";
-        #     hash = "sha256-9qFOsSv8o6h9nJXtMKksEaFlDP1of/LXsg3LCRL79JM=";
-        #   };
-        #   mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
-        # });
+      with inputs; let
+        system = prev.stdenv.hostPlatform.system;
+        defaultPackage = inp: inp.packages.${system}.default;
+      in {
+        firefox-native-base16 = defaultPackage firefox-native-base16;
+        zotero-nix = defaultPackage zotero-nix;
+        cozette = defaultPackage cozette;
+        bitmap-glyphs-12 = defaultPackage bitmap-glyphs-12;
+        tiny-dfr = defaultPackage tiny-dfr;
+        greybird-with-accent = greybird.packages.${system}.greybird-with-accent;
       };
-  in {
-    formatter = nixpkgs.legacyPackages.${system}.alejandra;
 
-    nixosConfigurations = {
-      mnd = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ({...}: {
-            nixpkgs.overlays = [
-              overlay-extra
-              inputs.niri-flake.overlays.niri
-            ];
-          })
-          # enable an overlay with unstable packages
-          # ({ ... }: { nixpkgs.overlays = [ overlay-unstable ]; })
-          ./hosts/mnd/configuration.nix
-          nix-index-database.nixosModules.nix-index
-          apple-silicon-support.nixosModules.default
-        ];
+    # configuration for each system NixOS/Home Manager will be deployed to
+    systems = {
+      core = {
+        sysinfo = ./systems/core/system.nix;
+        hardware-config = ./systems/core/hardware-configuration.nix;
+        host-config = ./hosts/core.nix;
+        user-config = ./users/breitnw-at-core.nix;
+      };
+      lite = {
+        sysinfo = ./systems/lite/system.nix;
+        hardware-config = ./systems/lite/hardware-configuration.nix;
+        host-config = ./hosts/lite.nix;
+        user-config = ./users/breitnw-at-lite.nix;
       };
     };
-
-    homeConfigurations = {
-      "breitnw@mnd" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
-        extraSpecialArgs = {inherit inputs;};
+  in {
+    # generate NixOS configurations for each system
+    nixosConfigurations = builtins.mapAttrs (name: cfg: 
+      inputs.nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
         modules = [
-          # enable an overlay with unstable packages
           ({...}: {
-            # nixpkgs = {
-            #   # pkgs = nixpkgs-unstable.legacyPackages.${system};
-            #   # useGlobalPkgs = true;
-            #   # useSystemPackages = true;
-            # };
             nixpkgs.overlays = [
-              # overlay-unstable
+              overlay-unstable
               overlay-extra
-              inputs.niri-flake.overlays.niri
+            ];
+          })
+
+          # host configuration modules
+          ./hosts/modules/common.nix
+          # host configuration
+          cfg.host-config
+          # system options module
+          ./systems/options.nix
+          # system configuration
+          cfg.sysinfo
+          # hardware configuration
+          cfg.hardware-config
+
+          # Other dependencies
+          inputs.nix-index-database.nixosModules.nix-index
+          inputs.apple-silicon-support.nixosModules.default # only enabled on asahi
+        ];
+      }) systems;
+
+    # generate home-manager configurations for each system
+    homeConfigurations = inputs.nixpkgs.lib.mapAttrs' (system-name: cfg: {
+      name = "breitnw@${system-name}";
+      value = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = inputs.nixpkgs.legacyPackages
+          .${(import cfg.sysinfo).sysinfo.system};
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          ({...}: {
+            nixpkgs.overlays = [
+              overlay-unstable
+              overlay-extra
               inputs.hackneyed.overlay
             ];
           })
-          ./home/breitnw/home.nix
-          hm-ricing-mode.homeManagerModules.hm-ricing-mode
-          niri-flake.homeModules.niri
+
+          # home-manager configuration modules
+          ./users/modules/common.nix
+          # home-manager configuration
+          cfg.user-config
+          # system options module
+          ./systems/options.nix
+          # system configuration
+          cfg.sysinfo
+
+          # Other dependencies
+          inputs.niri-flake.homeModules.niri
+          inputs.hm-ricing-mode.homeManagerModules.hm-ricing-mode
         ];
       };
-    };
+    }) systems;
   };
 }

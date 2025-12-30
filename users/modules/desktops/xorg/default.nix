@@ -1,0 +1,6 @@
+{...}: {
+  imports = [
+    ./xfce
+    ./redshift.nix
+  ];
+}
