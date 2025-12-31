@@ -1,4 +1,4 @@
-> 🚧 The term "system", as it is used in this document and across my configuration, is subject to be changed to "platform" to emphasize hardware capabilities.
+> The term "system", as it is used in this document and across my configuration, is subject to be changed to "platform" to emphasize hardware capabilities. However, "system" should still be used to refer to a _pairing between a platform and a host_, such as in the name of the `systems` attrset in `flake.nix`.
 
 # breitnw's nixos config
 This repo contains my configuration for NixOS on Asahi Linux. It's obviously meant for my personal use, but there might be useful nuggets here and there if you want to reference it in your own config :)
