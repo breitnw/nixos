@@ -1,5 +1,3 @@
->  Note that the name of the system, not the host, has to be used as the networking hostname due to the limitations of NixOS. Although each NixOS configuration represents an entire system, the attributes holding these configurations must be named according to a specific networking hostname.
-
 # breitnw's nixos config
 This repo contains my configuration for NixOS on Asahi Linux. It's obviously meant for my personal use, but there might be useful nuggets here and there if you want to reference it in your own config :)
 
@@ -57,6 +55,9 @@ systems = {
   };
 };
 ```
+
+> Do note that NixOS and Home-Manager configurations are named according to the *system*, not the host. If the system name differs from the host name, such as in the example above, it will need to be specified on rebuild! 
+
 Concretely, all platform-dependent information is configured in the `platforms/` directory, while all host-dependent info is configured in the `hosts/` directory. Each platform consists of the `hardware-configuration.nix` generated upon NixOS installation, alongside a `platform.nix` that provides details on the keyboard, display, and other hardware characteristics. A platform's `platform.nix` should implement the interface provided by `platforms/options.nix`. These options are threaded through to *both NixOS and Home-Manager*, which can use them to implement desired behaviors in a platform-agnostic way.
 
 ## features

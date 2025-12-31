@@ -120,9 +120,9 @@
     };
   in {
     # generate NixOS configurations for each system
-    nixosConfigurations = builtins.mapAttrs (name: cfg: 
+    nixosConfigurations = builtins.mapAttrs (system-name: cfg: 
       inputs.nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit system-name inputs; };
         modules = [
           ({...}: {
             nixpkgs.overlays = [
@@ -130,9 +130,6 @@
               overlay-extra
             ];
           })
-
-          # set hostname depending on system (not host!)
-          { networking.hostName = name; }
 
           # host configuration modules
           ./hosts/modules/common.nix
@@ -157,7 +154,7 @@
       value = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages
           .${(import cfg.platform).platform.type};
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = { inherit system-name inputs; };
         modules = [
           ({...}: {
             nixpkgs.overlays = [

@@ -2,6 +2,7 @@
 
 {
   # Networking
+  networking.hostName = "core";
   networking.networkmanager.enable = true;
 
   # Desktop support
