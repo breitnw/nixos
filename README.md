@@ -1,3 +1,5 @@
+> 🚧 The term "system", as it is used in this document and across my configuration, is subject to be changed to "platform" to emphasize hardware capabilities.
+
 # breitnw's nixos config
 This repo contains my configuration for NixOS on Asahi Linux. It's obviously meant for my personal use, but there might be useful nuggets here and there if you want to reference it in your own config :)
 
@@ -10,7 +12,7 @@ To keep everything organized, I've settled on a few design patterns for defining
 - For modules that define a lot of options, a file named `options.nix` should be created to handle these options' declaration and use. Meanwhile, the same directory's `default.nix` should import `options.nix` and configure said options. The `xfce` and `mail` modules demonstrate this pattern. 
 
 ### systems and hosts
-Within my configuration, I separate the notion of a "system" from a "host". A system represents all of the immutable capabilities and characteristics of a device (including the architecture, display, internal keyboard, graphics capabilities, etc). The `hardware-configuration.nix` file generated with NixOS **is also part of the system!**. A host, on the other hand, represents the device's observable, configured behaviors. 
+Within my configuration, I separate the notion of a "system" from a "host". A system represents all of the immutable capabilities and characteristics of a device (including the architecture, display, internal keyboard, graphics capabilities, etc). The `hardware-configuration.nix` file generated with NixOS **is also part of the system!** A host, on the other hand, represents the device's observable, configured behaviors. 
 
 The rationale behind this design is to take the reproducibility of NixOS one step further. By separating low-level details from high-level behaviors, a host configuration can be deployed to any computer _regardless of the system_. For example, the host configuration might toggle between DisplayLink and DisplayPort depending on whether the system supports DP Alt Mode, but to the user, the observable behavior when using an external display remains roughly the same. 
 
