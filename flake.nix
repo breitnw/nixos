@@ -122,6 +122,8 @@
     # generate NixOS configurations for each system
     nixosConfigurations = builtins.mapAttrs (system-name: cfg: 
       inputs.nixpkgs.lib.nixosSystem {
+        # TODO Use the system name to generate rebuild commands so that it
+        # doesn't need to be specified when system/hostname differ
         specialArgs = { inherit system-name inputs; };
         modules = [
           ({...}: {
