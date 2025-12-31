@@ -37,7 +37,7 @@
     # theming for firefox
     firefox-native-base16.url = "github:GnRlLeclerc/firefox-native-base16";
     # cozette built from source
-    cozette.url = "github:breitnw/cozette/dev-updated";
+    cozette.url = "github:breitnw/cozette/dev-current";
     # cozette with modifications for use of glyphs with terminus
     bitmap-glyphs-12.url = "github:breitnw/bitmap-glyphs-12";
     bitmap-glyphs-12.inputs.cozette.follows = "cozette";

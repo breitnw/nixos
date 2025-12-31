@@ -130,16 +130,16 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1760823957,
-        "narHash": "sha256-XkGL9bMIjxN0KKKPOBT+pbGo6RAitgPo0MVN1T/DXNM=",
+        "lastModified": 1766456660,
+        "narHash": "sha256-TsOlqlrUo1Vc3ZF27wuN4ZXzeLLV90BnmIouaeTU1jg=",
         "owner": "breitnw",
         "repo": "cozette",
-        "rev": "8c0b8d67ca77aac87f6642ddf490070995c31ddc",
+        "rev": "427aebec4753cf4c2e5bf2412672f371e8fcd8ae",
         "type": "github"
       },
       "original": {
         "owner": "breitnw",
-        "ref": "dev-updated",
+        "ref": "dev-current",
         "repo": "cozette",
         "type": "github"
       }

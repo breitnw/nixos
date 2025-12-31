@@ -45,6 +45,9 @@
       # FIXME doesn't work :(
       # TODO put this somewhere else
       MOZ_USE_XINPUT2 = 1;
+      # default graphical and TUI editor
+      VISUAL = "${config.programs.emacs.package}/bin/emacsclient";
+      EDITOR = "${config.programs.emacs.package}/bin.emacsclient -nw";
     };
   };
 }

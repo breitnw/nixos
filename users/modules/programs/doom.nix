@@ -28,8 +28,6 @@ in {
       enable = true;
       # enable desktop item for emacs client
       client = {enable = true;};
-      # client should be the default editor
-      defaultEditor = true;
       # automatically start daemon when client is started
       socketActivation.enable = true;
     };
