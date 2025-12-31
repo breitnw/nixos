@@ -2,7 +2,7 @@
 
 {
   # Enable asahi if needed by the system
-  hardware.asahi.enable = config.sysinfo.asahi;
+  hardware.asahi.enable = config.platform.asahi;
 
   # Configure the peripheral firmware directory
   # The original can be found at /boot/asahi/

@@ -1,12 +1,17 @@
+# HP Laptop 14t-dq200
+
 {
-  sysinfo = {
-    system = "x86_64-linux";
+  platform = {
+    type = "x86_64-linux";
     asahi = false;
+
+    # features (mainly graphics) available on this system
     available-features = {
       vsync = true;
       gamma-ramp = true;
       dp-alt-mode = true;
     };
+
     # internal keyboard information
     keyboard-management = {
       internal-kbd-name = "AT Translated Set 2 keyboard";
@@ -15,6 +20,7 @@
         { input = [ "KEY_LEFTMETA" ]; output = [ "KEY_LEFTALT" ]; }
       ];
     };
+
     # display and display profile information
     display-management = {
       displays = {

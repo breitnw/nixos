@@ -3,7 +3,7 @@
 let
   # displays are configured at the system-level
   # see systems/[system name].nix to configure
-  cfg = config.sysinfo.display-management;
+  cfg = config.platform.display-management;
 in lib.mkIf config.modules.desktops.xorg.enable {
   services.autorandr.enable = true;
   programs.autorandr = {

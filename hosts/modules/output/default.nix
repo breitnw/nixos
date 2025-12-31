@@ -3,6 +3,6 @@
 
   config = {
     # enable displaylink if DP altmode is not supported
-    modules.output.displaylink.enable = !config.sysinfo.available-features.dp-alt-mode;
+    modules.output.displaylink.enable = !config.platform.available-features.dp-alt-mode;
   };
 }

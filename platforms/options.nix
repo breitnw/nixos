@@ -2,8 +2,9 @@
 
 {
   options = {
-    sysinfo = {
-      system = lib.mkOption {
+    platform = {
+      type = lib.mkOption {
+        description = "The architecture and kernel type of this platform";
         type = lib.types.enum [
           "x86_64-linux"
           "aarch64-linux"

@@ -78,17 +78,14 @@
 
   outputs = inputs: let
     # overlay for unstable packages, under the "unstable" attribute
-    overlay-unstable = final: prev:
-      let
-        prev-system = prev.stdenv.hostPlatform.system;
-      in {
-        # instantiate nixpkgs-unstable to allow unfree packages
-        unstable = import inputs.nixpkgs-unstable {
-          system = prev-system;
-          config.allowUnfree = true;
-          allowUnfreePredicate = _: true;
-        };
+    overlay-unstable = final: prev: {
+      # instantiate nixpkgs-unstable to allow unfree packages
+      unstable = import inputs.nixpkgs-unstable {
+        inherit (prev.stdenv.hostPlatform) system;
+        config.allowUnfree = true;
+        allowUnfreePredicate = _: true;
       };
+    };
 
     # overlay for extra packages fetched from flakes
     overlay-extra = final: prev:
@@ -104,17 +101,19 @@
         greybird-with-accent = greybird.packages.${system}.greybird-with-accent;
       };
 
-    # configuration for each system NixOS/Home Manager will be deployed to
+    # Configuration for each system NixOS/Home Manager will be deployed to.
+    # A system, in my representation, is a pairing of a platform and a host.
+    # See README for more information on platforms, hosts, and systems!
     systems = {
       core = {
-        sysinfo = ./systems/core/system.nix;
-        hardware-config = ./systems/core/hardware-configuration.nix;
+        platform = ./platforms/macbook-pro-13in-m1-2020/platform.nix;
+        hardware-config = ./platforms/macbook-pro-13in-m1-2020/hardware-configuration.nix;
         host-config = ./hosts/core.nix;
         user-config = ./users/breitnw-at-core.nix;
       };
       lite = {
-        sysinfo = ./systems/lite/system.nix;
-        hardware-config = ./systems/lite/hardware-configuration.nix;
+        platform = ./platforms/hp-laptop-14t-dq200/platform.nix;
+        hardware-config = ./platforms/hp-laptop-14t-dq200/hardware-configuration.nix;
         host-config = ./hosts/lite.nix;
         user-config = ./users/breitnw-at-lite.nix;
       };
@@ -139,10 +138,10 @@
           ./hosts/modules/common.nix
           # host configuration
           cfg.host-config
-          # system options module
-          ./systems/options.nix
-          # system configuration
-          cfg.sysinfo
+          # platform options module
+          ./platforms/options.nix
+          # platform configuration
+          cfg.platform
           # hardware configuration
           cfg.hardware-config
 
@@ -157,7 +156,7 @@
       name = "breitnw@${system-name}";
       value = inputs.home-manager.lib.homeManagerConfiguration {
         pkgs = inputs.nixpkgs.legacyPackages
-          .${(import cfg.sysinfo).sysinfo.system};
+          .${(import cfg.platform).platform.type};
         extraSpecialArgs = { inherit inputs; };
         modules = [
           ({...}: {
@@ -172,10 +171,10 @@
           ./users/modules/common.nix
           # home-manager configuration
           cfg.user-config
-          # system options module
-          ./systems/options.nix
-          # system configuration
-          cfg.sysinfo
+          # platform options module
+          ./platforms/options.nix
+          # platform configuration
+          cfg.platform
 
           # Other dependencies
           inputs.niri-flake.homeModules.niri

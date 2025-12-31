@@ -14,7 +14,7 @@
       fade = true;
       shadow = true;
       fadeDelta = 3;
-      vSync = config.sysinfo.available-features.vsync;
+      vSync = config.platform.available-features.vsync;
       backend = "glx";
 
       # don't show a shadow for the dock or windows with weird frames

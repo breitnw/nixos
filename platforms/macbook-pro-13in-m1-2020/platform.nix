@@ -1,8 +1,8 @@
 # Apple MacBook Pro M1 (2020, 13 inch)
 
 {
-  sysinfo = {
-    system = "aarch64-linux";
+  platform = {
+    type = "aarch64-linux";
     asahi = true;
 
     # features (mainly graphics) available on this system

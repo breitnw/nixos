@@ -46,7 +46,7 @@
   virtualisation.docker.enable = true;
   # enable x86 emulation if we're on an aarch64 system
   boot.binfmt.emulatedSystems = lib.mkIf
-    (config.sysinfo.system == "aarch64-linux") ["x86_64-linux"];
+    (config.platform.type == "aarch64-linux") ["x86_64-linux"];
 
   # VPN
   services.mullvad-vpn.enable = true;

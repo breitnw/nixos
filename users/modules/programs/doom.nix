@@ -48,7 +48,7 @@ in {
       # vsync is ever supported
       package =
         if config.modules.desktops.primary_display_server == "wayland"
-           || !config.sysinfo.available-features.vsync
+           || !config.platform.available-features.vsync
         then pkgs.emacs-pgtk
         else pkgs.emacs;
 

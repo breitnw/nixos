@@ -28,7 +28,7 @@
           }
         ];
       in {
-        internal = with config.sysinfo.keyboard-management; {
+        internal = with config.platform.keyboard-management; {
           device_name = internal-kbd-name;
           remap = internal-kbd-remap;
           inherit dual_role;
@@ -41,6 +41,6 @@
     };
 
     # enable tiny-dfr, a touchbar daemon, on asahi linux
-    modules.input.tiny-dfr.enable = config.sysinfo.asahi;
+    modules.input.tiny-dfr.enable = config.platform.asahi;
   };
 }
