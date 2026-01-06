@@ -25,17 +25,6 @@
         secrets = {
           pass = config.sops.secrets."accounts/copyparty/breitnw".path;
         };
-        backSyncs = {
-          "public/music" = {
-            enable = true;
-            # Don't sync directly to ~/Music, since I want ~/Music to be
-            # read-only. Instead, create a read-only bind mount:
-            #  mount --bind "${config.dataHome}/music-back-sync" ~/Music
-            #  mount -o bind,remount,ro ~/Music
-            dataDir = "${config.xdg.dataHome}/music-back-sync";
-            mountDir = "${config.home.homeDirectory}/Music";
-          };
-        };
         syncs = {
           "private/org" = {
             enable = true;
@@ -51,13 +40,23 @@
           #   };
           #   mountPoint = "${config.home.homeDirectory}/Documents/org";
           # };
-          # "public/music" = {
-          #   enable = true;
-          #   options = {
-          #     vfs-cache-mode = "full";
-          #   };
-          #   mountPoint = "${config.home.homeDirectory}/Music";
-          # };
+          "public/music" = {
+            enable = true;
+            options = {
+              async-read = true; # read asynchronously for better performance
+              dir-cache-time = "72h"; # cache directory structure for 3 days
+              vfs-cache-mode = "full"; # allow file caching
+              vfs-cache-max-size = "50G"; # music should have a generous cache
+              vfs-cache-poll-interval = "5m"; # check the cache every 5 min
+              vfs-fast-fingerprint = true;
+              vfs-read-chunk-size = "512M"; # initial chunk read size
+              # vfs-read-chunk-size-limit = "5G"; # double chunk size up to 5G
+              tpslimit = 10;
+              tpslimit-burst = 20;
+              # I don't think we need buffer-size and vfs-read-ahead unless streaming
+            };
+            mountPoint = "${config.home.homeDirectory}/Music";
+          };
         };
       };
     };
