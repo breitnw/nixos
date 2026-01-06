@@ -23,32 +23,49 @@ in {
   };
 
   config = {
-    # use tuigreet as the display manager (actually idek if that's the right
-    # terminology or if tuigreet is something else entirely but it does the
-    # same job so that's what I'm gonna call it)
-    services.greetd = {
+    # NOTE It seems that tuigreet cannot be used as the display manager, at
+    # least out-of-the-box. NixOS expects the session to be wrapped with
+    # services.displayManager.sessionData.wrapper in order to start the fake
+    # graphical-session.target, but this is not done in the greetd NixOS module
+    # (unlike the modules for other display managers). There might be some way
+    # to use the --xsession-wrapper flag, but this doesn't seem to work by
+    # passing the wrapper directly.
+
+    # use greetd/tuigreet as the display manager
+    # services.greetd = {
+    #   enable = true;
+    #   useTextGreeter = true;
+    #   settings = {
+    #     default_session = {
+    #       command = let
+    #         # --xsession-wrapper is necessary to start graphical-session.target
+    #         # for some desktops, including XFCE
+    #         wrapper = config.services.displayManager.sessionData.wrapper;
+    #       in ''
+    #         ${pkgs.tuigreet}/bin/tuigreet \
+    #           --xsession-wrapper "${wrapper}" \
+    #           --remember-session \
+    #           --user-menu \
+    #           --asterisks \
+    #           --time
+    #       '';
+    #     };
+    #   };
+    # };
+
+    # For now, use lightdm (gtk greeter) as the display manager
+    services.xserver.displayManager.lightdm = {
       enable = true;
-      useTextGreeter = true;
-      settings = {
-        default_session = {
-          command = ''
-            ${pkgs.tuigreet}/bin/tuigreet \
-              --remember-session \
-              --user-menu \
-              --asterisks \
-              --time
-          '';
-        };
+      greeters.gtk = {
+        enable = true;
       };
     };
-
+    
     # ALL DESKTOPS =============================================================
 
     security.polkit.enable = true;
-
-    services.graphical-desktop.enable = true;
-
     programs.dconf.enable = true;
+    environment.systemPackages = [ pkgs.polkit_gnome ]; # gui for interactive authentication
 
     # from https://discourse.nixos.org/t/xdg-desktop-portal-gtk-desktop-collision/35063
     # xdg desktop portals expose d-bus interfaces for xdg file access
@@ -97,12 +114,14 @@ in {
       updateDbusEnvironment = cfg.xorg.enable;
     };
 
-    # make sessions visible in display manager
-    services.displayManager.sessionPackages = with pkgs;
-      lib.mkIf cfg.wayland.enable [ niri sway ];
-
     # Window manager only sessions (unlike DEs) don't handle XDG
     # autostart files, so force them to run the service
     services.xserver.desktopManager.runXdgAutostartIfNone = true;
+
+    # WAYLAND ==================================================================
+
+    # make sessions visible in display manager
+    services.displayManager.sessionPackages = with pkgs;
+      lib.mkIf cfg.wayland.enable [ niri sway ];
   };
 }
