@@ -59,6 +59,7 @@
       # FONTS AND OTHER =============================
       etBook
       times-newer-roman
+      mplus-outline-fonts.githubRelease
     ] ++ config.xdg.mimeApps.defaultApplicationPackages;
   };
 

@@ -1,8 +1,13 @@
 {
   pkgs,
-  lib,
   ...
 }: {
+  # should this be here?
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;
