@@ -49,9 +49,6 @@
   boot.binfmt.emulatedSystems = lib.mkIf
     (config.platform.type == "aarch64-linux") ["x86_64-linux"];
 
-  # VPN
-  services.mullvad-vpn.enable = true;
-
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.

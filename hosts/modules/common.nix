@@ -13,6 +13,8 @@
     ./desktops
     # Kernel stuff, including apple silicon support
     ./kernel
+    # Services that need to run as root
+    ./services
   ];
 
   # location service
