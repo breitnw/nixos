@@ -23,7 +23,7 @@
           pass = config.sops.secrets."accounts/copyparty/breitnw".path;
         };
         mounts = {
-          "private/org-temp" = {
+          "private/org" = {
             enable = true;
             options = {
               async-read = true;
