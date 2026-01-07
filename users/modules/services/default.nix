@@ -1,3 +1,3 @@
 {...}: {
-  imports = [./mail ./music ./git-sync.nix ./rclone ./calendar.nix];
+  imports = [./mail ./music ./git-sync.nix ./rclone.nix ./calendar.nix];
 }

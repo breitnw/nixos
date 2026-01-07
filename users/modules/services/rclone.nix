@@ -3,16 +3,13 @@
   lib,
   ...
 }: {
-  imports = [
-    ./options.nix
-  ];
   options = {
     modules.rclone = {
       enable = lib.mkEnableOption "Whether to enable the rclone service";
     };
   };
   config = lib.mkIf config.modules.rclone.enable {
-    programs.rclone-custom = {
+    programs.rclone = {
       enable = true;
       remotes.copyparty = {
         config = {
@@ -25,22 +22,19 @@
         secrets = {
           pass = config.sops.secrets."accounts/copyparty/breitnw".path;
         };
-        syncs = {
-          "private/org" = {
-            enable = true;
-            localDir = "${config.home.homeDirectory}/Documents/org";
-          };
-        };
         mounts = {
-          # "private/org" = {
-          #   enable = true;
-          #   options = {
-          #     vfs-cache-mode = "full";
-          #     dir-cache-time = "1m";
-          #   };
-          #   mountPoint = "${config.home.homeDirectory}/Documents/org";
-          # };
-          "public/music" = {
+          "private/org-temp" = {
+            enable = true;
+            options = {
+              async-read = true;
+              dir-cache-time = "5m";
+              vfs-cache-mode = "full";
+              vfs-cache-max-size = "2G";
+              vfs-cache-poll-interval = "5m";
+            };
+            mountPoint = "${config.home.homeDirectory}/Documents/org";
+          };
+          "private/music" = {
             enable = true;
             options = {
               async-read = true; # read asynchronously for better performance
