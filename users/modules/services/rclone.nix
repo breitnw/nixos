@@ -34,7 +34,7 @@
             };
             mountPoint = "${config.home.homeDirectory}/Documents/org";
           };
-          "private/music" = {
+          "private/music/library" = {
             enable = true;
             options = {
               async-read = true; # read asynchronously for better performance
@@ -50,6 +50,16 @@
               # I don't think we need buffer-size and vfs-read-ahead unless streaming
             };
             mountPoint = "${config.home.homeDirectory}/Music";
+          };
+          "private/" = {
+            enable = true;
+            options = {
+              dir-cache-time = "5m";
+              vfs-cache-mode = "full";
+              vfs-cache-poll-interval = "5m";
+              vfs-cache-max-size = "5G";
+            };
+            mountPoint = "${config.home.homeDirectory}/Copyparty";
           };
         };
       };
