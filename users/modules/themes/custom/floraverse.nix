@@ -24,4 +24,5 @@
     };
   };
   modules.fastfetch.image = ../../programs/fastfetch/images/15.jpg;
+  modules.desktops.niri.wallpaper = ../../desktops/wallpapers/DSCN0737.JPG;
 }
