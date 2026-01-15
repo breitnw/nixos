@@ -28,6 +28,9 @@
     ];
   };
 
+  # required udev rules for platformio
+  services.udev.packages = [pkgs.platformio-core.udev pkgs.openocd];
+
   # Configure system packages
   # STYLE: This should only contain packages necessary for commands/services
   #  run as root, or for system recovery in an emergency. All other packages
