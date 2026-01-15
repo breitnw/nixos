@@ -51,7 +51,7 @@
             };
             mountPoint = "${config.home.homeDirectory}/Music";
           };
-          "private/" = {
+          "private" = {
             enable = true;
             options = {
               dir-cache-time = "5m";
