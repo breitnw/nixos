@@ -8,6 +8,13 @@
     enableZshIntegration = true;
   };
 
+  # home.shell.enableBashIntegration = true;
+  # home.shell.enableZshIntegration = true;
+
+  # For some reason we need bash in order for firefox to pick up on the smooth
+  # scrolling environment variable
+  programs.bash.enable = true;
+
   programs.zsh = {
     enable = true;
     syntaxHighlighting.enable = true;

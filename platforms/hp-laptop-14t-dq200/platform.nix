@@ -1,5 +1,4 @@
 # HP Laptop 14t-dq200
-
 {
   platform = {
     type = "x86_64-linux";
@@ -38,6 +37,14 @@
           scale.xorg = 1.0;
           scale.wayland = 1.0;
         };
+        # Mudd
+        # HDMI-1 = {
+        #   fingerprint = "00ffffffffffff0010acc8424c504a4313220103805022782a9835ac524f9f250e5054a54b00714f81008180a940b300d1c0d100e1c0e77c70a0d0a0295030203a00204f3100001a000000ff00475130564d30340a2020202020000000fc0044454c4c205033343234574542000000fd00304b1e5a3c000a20202020202001a202032af14d104c1f0514450413121103020123091f078301000067030c001000383c67d85dc4017880009f3d70a0d0a0155030203a00204f3100001a565e00a0a0a0295030203500204f3100001acd4600a0a0381f4030203a00204f3100001a00000000000000000000000000000000000000000000000000000000000000d2";
+        #   pixel-size.width = 3440;
+        #   pixel-size.height = 1440;
+        #   scale.xorg = 1.0;
+        #   scale.wayland = 1.0;
+        # };
       };
       profiles.mobile = {
         eDP-1 = {
@@ -54,6 +61,15 @@
           position = "1366x0";
         };
       };
+      # profiles.docked_mudd = {
+      #   eDP-1 = {
+      #     position = "1440x1037";
+      #   };
+      #   HDMI-1 = {
+      #     primary = true;
+      #     position = "0x0";
+      #   };
+      # };
       profiles.docked-lid-closed = {
         HDMI-1 = {
           primary = true;

@@ -35,7 +35,7 @@
       audacious # music player
       tauon # another music player
 
-       # strictly system dependent things...
+      # strictly system dependent things...
       (lib.mkIf (system == "x86_64-linux") slack)
 
       # universal tray applets...
@@ -49,11 +49,11 @@
       fzf
       ffmpeg
       yt-dlp
+      imagemagick
 
       # languages and tools...
       nh # nix helper
       nixd # nix language server
-      alejandra # nix formatter
       texliveFull # latex
 
       # FONTS AND OTHER =============================
@@ -78,7 +78,7 @@
   # desktop environments (see desktops/default.nix)
   modules.desktops = {
     primary_display_server = "xorg";
-    wayland.enable = false;
+    wayland.enable = true;
     xorg.enable = true;
   };
 

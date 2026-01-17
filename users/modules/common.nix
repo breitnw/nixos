@@ -2,7 +2,6 @@
 
 # MODULE ROOT AND UNIVERSAL CONFIGURATION
 
-# other options: lib, options, specialArgs
 # TASKS
 # - TODO configure vi keybinds globally and then apply them
 #   to emacs, qutebrowser, vi, vim, etc.
@@ -11,6 +10,7 @@
 # - TODO new design pattern for nix/doom interop: do everything in doom config;
 #   only set variables in nix
 # - TODO set MOZ_USE_XINPUT2=1, but maybe only on X11
+# - TODO specializations for xorg and wayland
 
 {
   imports = [
@@ -42,9 +42,6 @@
     home.sessionVariables = {
       # config directory for nh
       NH_FLAKE = "${config.home.homeDirectory}/Config/nixos"; 
-      # FIXME doesn't work :(
-      # TODO put this somewhere else
-      MOZ_USE_XINPUT2 = 1;
       # default graphical and TUI editor
       VISUAL = "${config.programs.emacs.package}/bin/emacsclient";
       EDITOR = "${config.programs.emacs.package}/bin.emacsclient -nw";

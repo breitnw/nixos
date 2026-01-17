@@ -7,7 +7,7 @@
 
   # Desktop support
   modules.desktops.xorg.enable = true;
-  modules.desktops.wayland.enable = false;
+  modules.desktops.wayland.enable = true;
 
   # Configure users
   users.mutableUsers = false;

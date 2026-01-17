@@ -60,6 +60,10 @@ in {
         enable = true;
       };
     };
+
+    # services.displayManager.lemurs = {
+    #   enable = true;
+    # };
     
     # ALL DESKTOPS =============================================================
 

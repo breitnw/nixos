@@ -42,6 +42,7 @@
               vfs-cache-mode = "full"; # allow file caching
               vfs-cache-max-size = "50G"; # music should have a generous cache
               vfs-cache-poll-interval = "5m"; # check the cache every 5 min
+              vfs-cache-max-age = "1w";
               vfs-fast-fingerprint = true;
               vfs-read-chunk-size = "512M"; # initial chunk read size
               # vfs-read-chunk-size-limit = "5G"; # double chunk size up to 5G

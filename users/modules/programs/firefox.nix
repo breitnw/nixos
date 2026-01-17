@@ -50,11 +50,12 @@
     '';
   in
     lib.mkIf config.modules.firefox.enable {
-      home.sessionVariables = {
-        # enable smooth scrolling on X11
-        # TODO enable this, but not on wayland
-        # MOZ_USE_XINPUT2 = 1;
-      };
+      home.sessionVariables = lib.mkIf
+        (config.modules.desktops.primary_display_server == "xorg") {
+          # enable smooth scrolling on X11
+          # TODO enable this, but not on wayland
+          MOZ_USE_XINPUT2 = "1";
+        };
       # actually enable firefox
       programs.firefox.enable = true;
       # write manifest to tell firefox where the launcher is
