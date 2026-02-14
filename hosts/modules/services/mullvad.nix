@@ -4,7 +4,7 @@
   options = {
     modules.mullvad.enable = lib.mkEnableOption "Whether to enable the Mullvad daemon";
   };
-  config = {
+  config = lib.mkIf config.modules.mullvad.enable {
     services.mullvad-vpn.enable = true;
 
     # automatically connect on startup

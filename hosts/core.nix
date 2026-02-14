@@ -5,6 +5,9 @@
   networking.hostName = "core";
   networking.networkmanager.enable = true;
 
+  # VPN configuration
+  modules.mullvad.enable = true;
+
   # Desktop support
   modules.desktops.xorg.enable = true;
   modules.desktops.wayland.enable = true;

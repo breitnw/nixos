@@ -5,9 +5,14 @@
   networking.hostName = "lite";
   networking.networkmanager.enable = true;
 
+  # VPN configuration
+  modules.mullvad.enable = false;
+
   # Desktop support
   modules.desktops.xorg.enable = true;
   modules.desktops.wayland.enable = true;
+
+  programs.ladybird.enable = true;
 
   # Configure users
   users.mutableUsers = false;
@@ -38,7 +43,11 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    brightnessctl
   ];
+
+  # virtualization
+  virtualisation.docker.enable = true;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
