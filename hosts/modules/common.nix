@@ -54,7 +54,7 @@
     # Enable automatic optimization
     optimise.automatic = true;
     # ensure that nixpkgs path aligns with nixpkgs flake input
-    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    nixPath = ["nixpkgs=${inputs.nixpkgs}:nixpkgs-unstable=${inputs.nixpkgs-unstable}"];
   };
 
   # Enable the OpenSSH daemon.
