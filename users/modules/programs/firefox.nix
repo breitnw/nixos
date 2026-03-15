@@ -213,7 +213,7 @@
           "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock false;
 
           # native window decorations
-          "browser.tabs.inTitlebar" = lock "0"; 
+          "browser.tabs.inTitlebar" = lock 0; 
 
           # gestures
           "browser.gesture.swipe.left" = lock "";
