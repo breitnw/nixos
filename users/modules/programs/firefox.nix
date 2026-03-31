@@ -78,8 +78,17 @@
       # search engines
       programs.firefox.profiles.default.search = {
         force = true;
-        default = "Kagi";
+        default = "kagi";
         engines = {
+          kagi = {
+            name = "Kagi";
+            urls = [{
+              template = "https://kagi.com/search?";
+              params = [
+                { name = "q"; value = "{searchTerms}"; }
+              ];
+            }];
+          };
           nix-packages = {
             name = "Nixpkgs";
             urls = [{
