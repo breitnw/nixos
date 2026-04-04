@@ -6,11 +6,11 @@
     defaultApplicationPackages = with pkgs; [
 
       # 1: VIEWERS ==================================
-      mate.atril # pdf reader
       xfce.thunar # file manager
       viewnior # image viewer
       vlc # media player
       zathura # another (simpler) pdf reader
+      mate.atril # pdf reader
 
       # 2: EDITORS ==================================
       aseprite # sprite editor
@@ -34,9 +34,11 @@
       nicotine-plus # dw about this one either
       audacious # music player
       tauon # another music player
+      krita 
 
       # strictly system dependent things...
       (lib.mkIf (system == "x86_64-linux") slack)
+      (lib.mkIf (system == "x86_64-linux") vial)
 
       # universal tray applets...
       networkmanagerapplet
