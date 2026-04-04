@@ -1,8 +1,8 @@
 {config, lib, ...}:
 
 let
-  # displays are configured at the system-level
-  # see systems/[system name].nix to configure
+  # displays are configured at the platform-level
+  # see platforms/[platform name].nix to configure
   cfg = config.platform.display-management;
 in lib.mkIf config.modules.desktops.xorg.enable {
   services.autorandr.enable = true;
