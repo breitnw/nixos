@@ -6,6 +6,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 } @ args: let
   cfg = config.modules.themes;

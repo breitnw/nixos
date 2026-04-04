@@ -1,5 +1,5 @@
 # Theme inspired by Doom Emacs' doom-earl-grey
-{...}: {
+{lib, pkgs, ...}: {
   colorScheme = {
     name = "Earl Grey";
     slug = "earl-grey";
@@ -26,4 +26,20 @@
   };
 
   modules.doom.theme = "doom-earl-grey";
+  modules.fastfetch.image = ../../programs/fastfetch/images/7.jpg;
+  # bitmap fonts are hard to see on light mode
+  utils.fonts.xorg.primary = lib.mkForce {
+    family = "Mplus Code 60";
+    weight = "Regular";
+    size = 9; # points
+    package = pkgs.mplus-outline-fonts.githubRelease;
+  };
+  utils.fonts.xorg.monospace = lib.mkForce {
+    family = "Mplus Code 60";
+    weight = "Regular";
+    size = 9; # points
+    package = pkgs.mplus-outline-fonts.githubRelease;
+  };
+  # looks better with the font
+  programs.alacritty.settings.window.dimensions.columns = lib.mkForce 60;
 }
