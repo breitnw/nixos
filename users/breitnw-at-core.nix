@@ -77,7 +77,9 @@
   modules.mail.enable = true;
   modules.firefox.enable = true;
   modules.qutebrowser.enable = true;
-  modules.rclone.enable = true;
+  # there shouldn't be two different computers backing up to the same location
+  # TODO only disable syncing for backups, not mounts
+  modules.rclone.enable = false; 
   modules.zotero.enable = false;
   modules.music.enable = false;
 
