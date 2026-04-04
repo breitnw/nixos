@@ -6,13 +6,11 @@
   networking.networkmanager.enable = true;
 
   # VPN configuration
-  modules.mullvad.enable = false;
+  modules.mullvad.enable = true;
 
   # Desktop support
   modules.desktops.xorg.enable = true;
   modules.desktops.wayland.enable = true;
-
-  programs.ladybird.enable = true;
 
   # Configure users
   users.mutableUsers = false;
@@ -33,8 +31,15 @@
     ];
   };
 
-  # required udev rules for platformio
-  services.udev.packages = [pkgs.platformio-core.udev pkgs.openocd];
+  # udev rules for applications
+  services.udev.packages = [
+    # platformio
+    pkgs.platformio-core.udev
+    pkgs.openocd
+
+    # vial
+    pkgs.vial
+  ];
 
   # Configure system packages
   # STYLE: This should only contain packages necessary for commands/services
