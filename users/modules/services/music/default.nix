@@ -13,7 +13,8 @@
     services.mpd = {
       enable = true;
       # congrats, you found my music stash :P
-      musicDirectory = "https://copyparty.mndco11age.xyz/public/music/";
+      # musicDirectory = "https://copyparty.mndco11age.xyz/public/music/";
+      musicDirectory = "~/Music/";
       # pulseaudio seems to be necessary to not blow out my eardrums
       extraConfig = ''
         audio_output {
