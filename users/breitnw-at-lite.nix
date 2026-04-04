@@ -107,6 +107,7 @@
     # themeName = "treehouse"; #             ⋆ summercamp, darker and purpler
     # themeName = "elemental"; #             ⋆ earthy and muted
     # themeName = "earthsong"; #               elemental but a little less muted
+    themeName = "floraverse"; #            ⋆ pretty purple, pink, green & blue
     # themeName = "everforest"; #              greenish and groovy
     # themeName = "summercamp"; #            ⋆ earthy but vibrant
     # themeName = "ic-green-ppl"; #            i see green people? who knows
@@ -117,7 +118,6 @@
     # themeName = "tokyo-night-storm"; #        blue and purple
     # themeName = "gruvbox-dark-medium"; #   ⋆ a classic
     # themeName = "catppuccin-macchiato"; #    purple pastel
-    themeName = "floraverse";
 
     # light themes
     # themeName = "dirtysea"; #                greeeen and gray
