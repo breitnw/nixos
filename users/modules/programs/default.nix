@@ -11,5 +11,6 @@
     ./zotero.nix
     ./fastfetch
     ./zsh
+    ./gnupod
   ];
 }
