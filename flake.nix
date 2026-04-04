@@ -28,6 +28,8 @@
     tiny-dfr.url = "github:AsahiLinux/tiny-dfr";
     # zotero built from source
     zotero-nix.url = "github:camillemndn/zotero-nix";
+    # gnupod packaged for nix
+    gnupod.url = "github:breitnw/gnupod";
 
     # THEMING ==================================================================
 

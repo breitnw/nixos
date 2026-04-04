@@ -1,0 +1,90 @@
+######################################################
+# GNUpod 0.99.5 Configuration                        #
+#                                                    #
+# Save this file as:                                 #
+# ~/.gnupodrc or $ipod/iPod_Control/.gnupod/gnupodrc #
+######################################################
+
+
+##### GLOBAL OPTIONS #####
+
+## Set the mountpoint for the iPod
+mount = /mnt/ipod
+
+## Specify iPod model
+## This is only needed to get artwork working (GNUpod needs to convert
+## images into a model-specific format)
+##
+## Valid choices are:
+## * video   (default)
+## * nano    (pre-2007 nanos)
+## * nano_3g (the late 2007 nano)
+## * nano_4g (the late 2008 nano)
+model = nano_3g
+
+## Specify background color
+## Artwork that is not square will be converted to a square
+## The bgcolor is used to fill out the image
+## Use any color format ImageMagick understands
+## See http://www.imagemagick.org/script/color.php
+# bgcolor = white
+
+## Let GNUpod call mktunes.pl itself.
+## This may cause a slow-down when dealing with
+## large databases on slow CPUs because mktunes.pl
+## may take some time to complete
+# automktunes = 1
+
+
+
+##### NON GLOBAL OPTIONS ######
+
+# *** mktunes.pl ***
+
+## Specify the iPods name
+mktunes.ipod-name = Nick's iPod
+
+## Set --volume boost to +10 percent
+# mktunes.volume = +10
+
+## Enforce iPod serial number:
+mktunes.fwguid = 000A27001B09D5B9
+
+## Only keep some attributes to make the iTunesDB fit inside small RAM
+## The minimum attributes needed by the iPod are path and title
+## Valid attributes are:
+##   title path album artist genre fdesc eq comment category composer group
+##   desc podcastguid podcastrss chapterdata subtitle tvshow tvepisode
+##   tvnetwork albumartist artistthe keywords sorttitle sortalbum
+##   sortalbumartist sortcomposer sorttvshow
+## NOTE: This a global option because it is read by mktunes and tunes2pod.
+# low_ram_attr = path title artist album
+
+# *** on the go sync (V2 Firmware) ***
+
+## Uncomment this to skip 'on-the-go' sync
+# otgsync.nosync = 1
+
+# *** tunes2pod.pl ***
+
+## Uncomment to set '--force' switch to true (DANGEROUS)
+# tunes2pod.force = 1
+
+## Setting the low_ram_attr option above causes tunes2pod.pl to sync
+## the attibutes in iTunesDB with those in GNUtunesDB.xml to make sure
+## attributes not present in iTunesDB will not be lost
+
+# *** gnupod_search.pl ***
+
+## Always match only once
+# gnupod_search.match-once = 1
+
+
+# *** gnupod_addsong.pl ***
+
+## Disable ID3V2 Tag reading
+# gnupod_addsong.disable-v2 = 1
+
+## Disable ID3V1 Tag reading
+# gnupod_addsong.disable-v1 = 1
+

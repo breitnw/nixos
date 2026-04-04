@@ -73,7 +73,8 @@
   modules.qutebrowser.enable = true;
   modules.rclone.enable = true;
   modules.zotero.enable = false;
-  modules.music.enable = false;
+  modules.music.enable = true;
+  modules.gnupod.enable = true;
 
   # desktop environments (see desktops/default.nix)
   modules.desktops = {
