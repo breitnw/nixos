@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: {
   options = {
@@ -9,6 +10,49 @@
     };
   };
   config = lib.mkIf config.modules.rclone.enable {
+
+    # sync org directory, making a backup each time
+    systemd.user = let
+      remote-name = "copyparty";
+      org-local = "~/Documents/org";
+      org-remote = "private/org";
+      replaceSlashes = builtins.replaceStrings ["/"] ["."];
+      sync-script = pkgs.writeShellScript
+        "rclone-sync-script:${replaceSlashes org-remote}@${remote-name}"
+        (lib.concatStringsSep " " [
+          (lib.getExe config.programs.rclone.package)
+          "sync"
+          org-local
+          "${remote-name}:${org-remote}/current"
+          "--delete-excluded"
+          "--exclude"
+          "org-tex-*"
+          "--backup-dir"
+          "${remote-name}:${org-remote}/backups/$(${pkgs.coreutils}/bin/date +'%Y-%m-%dT%H%M%S%z')"
+        ]);
+    in {
+      timers."rclone-sync:${replaceSlashes org-remote}@${remote-name}" = {
+        Unit = {
+          Description = "Timer to backup org directory using rclone";
+        };
+        Timer.OnCalendar = "*:0/5";
+        Install.WantedBy = ["timers.target"];
+      };
+      services."rclone-sync:${replaceSlashes org-remote}@${remote-name}" = {
+        Unit = {
+          Description = "Backup org directory using rclone";
+        };
+        Service = {
+          Type = "oneshot";
+          Environment = ["PATH=/run/wrappers/bin"];
+          ExecStart = sync-script;
+          Restart = "on-failure";
+        };
+        Install.WantedBy = ["default.target"];
+      };
+    };
+
+    # all other directories are mounts
     programs.rclone = {
       enable = true;
       remotes.copyparty = {
@@ -23,17 +67,17 @@
           pass = config.sops.secrets."accounts/copyparty/breitnw".path;
         };
         mounts = {
-          "private/org" = {
-            enable = true;
-            options = {
-              async-read = true;
-              dir-cache-time = "5m";
-              vfs-cache-mode = "full";
-              vfs-cache-max-size = "2G";
-              vfs-cache-poll-interval = "5m";
-            };
-            mountPoint = "${config.home.homeDirectory}/Documents/org";
-          };
+          # "private/org" = {
+          #   enable = true;
+          #   options = {
+          #     async-read = true;
+          #     dir-cache-time = "5m";
+          #     vfs-cache-mode = "full";
+          #     vfs-cache-max-size = "2G";
+          #     vfs-cache-poll-interval = "5m";
+          #   };
+          #   mountPoint = "${config.home.homeDirectory}/Documents/org";
+          # };
           "private/music/library" = {
             enable = true;
             options = {
