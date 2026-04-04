@@ -35,7 +35,10 @@
         Unit = {
           Description = "Timer to backup org directory using rclone";
         };
-        Timer.OnCalendar = "*:0/5";
+        Timer = {
+          OnCalendar = "daily";
+          Persistent = true;
+        };
         Install.WantedBy = ["timers.target"];
       };
       services."rclone-sync:${replaceSlashes org-remote}@${remote-name}" = {
