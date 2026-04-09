@@ -12,6 +12,26 @@ This repo contains my configuration for NixOS on Asahi Linux. It's obviously mea
 - Thoughtful design with clear host-platform isolation
 - And more!
 
+## but does it look good?
+I daily drive XFCE, and I've done quite a bit of styling to get it to suit my tastes. Here are a few screenshots of themes people seem to like:
+
+<details>
+  <summary>spacemacs</summary>
+  <img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/2cc3df7a-4116-4734-8bec-6174ac10d471" />
+</details>
+
+<details>
+  <summary>solarized-light</summary>
+  <img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/2136b221-ba74-4997-9d95-7e9df3f7c929" />
+</details>
+
+<details>
+  <summary>oxocarbon-dark</summary>
+  <img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/b4f76fd1-fbbb-41b7-8136-473d15d12bc4" />
+</details>
+
+I've put some elbow grease into Niri too, but not quite as much. Sway is still ugly.
+
 ## structure and design
 I use a flake to manage my NixOS and home-manager configurations. Home-manager handles installation and configuration of pretty much all the apps available to the user, while NixOS handles hardware-specific configuration. My general rule of thumb is that if something can be configured at the user-level, it should. 
 
@@ -70,3 +90,4 @@ systems = {
 > Do note that NixOS and Home-Manager configurations are named according to the *system*, not the host. If the system name differs from the host name, such as in the example above, it will need to be specified on rebuild! 
 
 Concretely, all platform-dependent information is configured in the `platforms/` directory, while all host-dependent info is configured in the `hosts/` directory. Each platform consists of the `hardware-configuration.nix` generated upon NixOS installation, alongside a `platform.nix` that provides details on the keyboard, display, and other hardware characteristics. A platform's `platform.nix` should implement the interface provided by `platforms/options.nix`. These options are threaded through to *both NixOS and Home-Manager*, which can use them to implement desired behaviors in a platform-agnostic way.
+
