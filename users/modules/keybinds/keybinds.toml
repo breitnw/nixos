@@ -36,7 +36,7 @@ agenda    = "<Super>a"
 [xfce.exo]
 WebBrowser       = "<Super>q"
 TerminalEmulator = "<Super>t"
-FileBrowser      = "<Super>f"
+FileManager      = "<Super>f"
 
 # xfwm4: automatically added to xfce configuration; xfwm4 command
 # name corresponding with option name
