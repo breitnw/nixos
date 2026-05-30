@@ -1,4 +1,4 @@
-{...}: {
+{inputs, pkgs, lib, ...}: {
   colorScheme = {
     name = "Solarized Light";
     slug = "solarized-light";
@@ -25,4 +25,20 @@
   };
   # set emacs theme
   modules.doom.theme = "doom-solarized-light";
+
+  modules.fastfetch.image = ../../programs/fastfetch/images/1.jpg;
+
+  # utils.fonts.xorg.primary = lib.mkForce {
+  #   family = "creep";
+  #   weight = "Regular";
+  #   size = 12;
+  #   package = pkgs.creep;
+  # };
+
+  # utils.fonts.xorg.monospace = lib.mkForce {
+  #   family = "Cozette";
+  #   weight = "Regular";
+  #   size = 13;
+  #   package = pkgs.cozette;
+  # };
 }

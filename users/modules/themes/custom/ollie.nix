@@ -23,4 +23,6 @@
       base0F = "#551718";
     };
   };
+  # modules.fastfetch.image = ../../programs/fastfetch/images/19.jpg;
+  modules.fastfetch.image = ../../programs/fastfetch/images/9.jpg;
 }

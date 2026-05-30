@@ -34,6 +34,12 @@
     size = 9; # points
     package = pkgs.mplus-outline-fonts.githubRelease;
   };
+  # utils.fonts.xorg.monospace = lib.mkForce {
+  #   family = "Mplus Code 60";
+  #   weight = "Regular";
+  #   size = 9; # points
+  #   package = pkgs.mplus-outline-fonts.githubRelease;
+  # };
   utils.fonts.xorg.monospace = lib.mkForce {
     family = "Mplus Code 60";
     weight = "Regular";
