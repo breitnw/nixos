@@ -241,6 +241,9 @@
           "browser.urlbar.quicksuggest.mlEnabled" = lock false;
           "sidebar.revamp" = lock false;
           "browser.aiwindow.enabled" = lock false;
+
+          # disable system ui font
+          "layout.css.system-ui.enabled" = lock false;
         };
       };
     };
