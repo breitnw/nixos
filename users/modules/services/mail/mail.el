@@ -1,26 +1,17 @@
 ;; -*- lexical-binding: t -*-
 
+;; This file holds mu4e configuration relating to the remote server and
+;; maildirs. Any behavior that is exclusive to the client (e.g., appearance) is
+;; configured in my Doom Emacs config.
+
 (after! mu4e
   (defvar mail-accounts) ;; set by nix config
-
-  ;; appearance tweak: instead of the ugly highlight do blue arrows
-  (set-face-attribute 'mu4e-highlight-face nil :inherit 'nerd-icons-blue)
-
-  (setq mu4e-headers-thread-blank-prefix '("  " . "  ")
-        mu4e-headers-thread-child-prefix '("├─" . "├─")
-        mu4e-headers-thread-connection-prefix '("│ " . "│ ")
-        mu4e-headers-thread-duplicate-prefix '("= " . "= ")
-        mu4e-headers-thread-first-child-prefix '("├─" . "├─")
-        mu4e-headers-thread-last-child-prefix '("└─" . "└─")
-        mu4e-headers-thread-orphan-prefix '("┬─" . "┬─")
-        mu4e-headers-thread-root-prefix '("□ " . "□ ")
-        mu4e-headers-thread-single-orphan-prefix '("── " . "── "))
 
   ;; add bookmark for all inboxes
   (setq mu4e-bookmarks
         `((:name "All inboxes"
            :query ,(format
-                    "(%s) AND NOT flag:trashed"
+                    "(%s)"
                     (mapconcat
                      (lambda (account)
                        (format "maildir:/%s/Inbox" (car account)))
@@ -28,23 +19,31 @@
                      " OR "))
            :key ?i)
           (:name "Unread messages"
-           :query "flag:unread AND NOT flag:trashed"
+           :query "flag:unread"
            :key ?u)
           (:name "Today's messages"
            :query "date:today..now"
            :key ?t)))
 
-  ;; every new email composition gets its own frame!
-  (setq mu4e-compose-switch t)
+
+  ;; don't add the trash flag, because this seems to mess up trash folder behavior
+  (setq mu4e-trash-without-flag t)
+
+  ;; fix trash behavior for gmail
+  ;; TODO ideally, this should only happen for gmail accounts
+  (setf (alist-get 'move mu4e-marks)
+        '(:char ("m" . "▷") :prompt "move" :ask-target mu4e--mark-get-move-target
+          ;; Here's the main difference to the regular trash mark, no +T
+          ;; before -N so the message is not marked as IMAP-deleted:
+          :action (lambda (docid msg target)
+                    (mu4e--server-move docid
+                                       (mu4e--mark-check-target target) "+S-u-N"))))
 
   ;; avoid mail syncing issues when using mbsync
   (setq mu4e-change-filenames-when-moving t)
 
   ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
   (setq mu4e-sent-messages-behavior 'delete)
-
-  (setq message-kill-buffer-on-exit t)
-  (setq mu4e-attachment-dir  "~/Downloads")
 
   ;; send messages with msmtp
   (setq send-mail-function 'smtpmail-send-it
@@ -57,7 +56,7 @@
   ;; select the right sender email from the context.
   (setq message-sendmail-envelope-from 'header)
 
-  ;; refresh mail every 5 minutes
+  ;; refresh mail with mbsync
   (setq mu4e-update-interval nil
         mu4e-get-mail-command "mbsync -a"
         mu4e-root-maildir "~/Mail")
