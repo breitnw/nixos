@@ -15,6 +15,7 @@
       # 2: EDITORS ==================================
       aseprite # sprite editor
       gimp # advanced image editing
+      xournalpp # pdf editor
     ];
   };
 
@@ -52,6 +53,7 @@
       ffmpeg
       yt-dlp
       imagemagick
+      tmux
 
       # languages and tools...
       nh # nix helper
@@ -62,6 +64,10 @@
       etBook
       times-newer-roman
       mplus-outline-fonts.githubRelease
+      scientifica
+      cozette
+      terminus_font
+      (pkgs.callPackage ./modules/themes/proggyvector.nix {})
     ] ++ config.xdg.mimeApps.defaultApplicationPackages;
   };
 
