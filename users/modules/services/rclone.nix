@@ -95,6 +95,7 @@
               vfs-cache-mode = "full";
               vfs-cache-poll-interval = "5m";
               vfs-cache-max-size = "5G";
+              exclude = "/music/library/"; # synced separately
             };
             mountPoint = "${config.home.homeDirectory}/Copyparty";
           };
