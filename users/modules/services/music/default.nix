@@ -4,7 +4,6 @@
   lib,
   ...
 }:
-# TODO use a program like mpdpopm or mpdfav for favorites
 {
   options = {
     modules.music.enable = lib.mkEnableOption "whether to enable mpd and rmpc";
@@ -12,18 +11,25 @@
   config = lib.mkIf config.modules.music.enable {
     services.mpd = {
       enable = true;
-      # congrats, you found my music stash :P
-      # musicDirectory = "https://copyparty.mndco11age.xyz/public/music/";
-      musicDirectory = "~/Music/";
+      # sync music with rclone
+      musicDirectory = config.programs.rclone.remotes.copyparty.mounts."private/music/library".mountPoint; 
+      # do not maintain a db file on local; use satellite instead
+      dbFile = null;
+      # stickers/playlists must be on local (https://github.com/MusicPlayerDaemon/MPD/issues/848)
+      dataDir = "${config.xdg.dataHome}/mpd";
+
       # pulseaudio seems to be necessary to not blow out my eardrums
       extraConfig = ''
         audio_output {
-        type    "pulse"
-        name    "My MPD PulseAudio Output"
-        #server  "localhost"   # optional
-        #sink    "alsa_output" # optional
+          type "pulse"
+          name "MPD PulseAudio Output"
         }
-      bind_to_address "/tmp/mpd_socket"
+        database {
+          plugin "proxy"
+          host "breitnw.duckdns.org"
+          port "6600"
+        }
+        bind_to_address "/tmp/mpd_socket"
       '';
     };
     home.packages = [

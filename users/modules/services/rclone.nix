@@ -70,17 +70,6 @@
           pass = config.sops.secrets."accounts/copyparty/breitnw".path;
         };
         mounts = {
-          # "private/org" = {
-          #   enable = true;
-          #   options = {
-          #     async-read = true;
-          #     dir-cache-time = "5m";
-          #     vfs-cache-mode = "full";
-          #     vfs-cache-max-size = "2G";
-          #     vfs-cache-poll-interval = "5m";
-          #   };
-          #   mountPoint = "${config.home.homeDirectory}/Documents/org";
-          # };
           "private/music/library" = {
             enable = true;
             options = {
