@@ -29,15 +29,13 @@
   ;; don't add the trash flag, because this seems to mess up trash folder behavior
   (setq mu4e-trash-without-flag t)
 
-  ;; fix trash behavior for gmail
-  ;; TODO ideally, this should only happen for gmail accounts
-  (setf (alist-get 'move mu4e-marks)
-        '(:char ("m" . "▷") :prompt "move" :ask-target mu4e--mark-get-move-target
-          ;; Here's the main difference to the regular trash mark, no +T
-          ;; before -N so the message is not marked as IMAP-deleted:
-          :action (lambda (docid msg target)
-                    (mu4e--server-move docid
-                                       (mu4e--mark-check-target target) "+S-u-N"))))
+  (setq +mu4e-gmail-accounts
+        (mapcar
+         (lambda (account)
+           (let ((acc-address (plist-get (cdr account) :address))
+                 (acc-maildir (plist-get (cdr account) :maildir)))
+             (cons acc-address acc-maildir)))
+         (--filter (plist-get (cdr it) :gmail) mail-accounts)))
 
   ;; avoid mail syncing issues when using mbsync
   (setq mu4e-change-filenames-when-moving t)
@@ -69,7 +67,7 @@
         (mapcar
          (lambda (account)
            (let ((acc-name (car account))
-                 (acc-address (cdr account)))
+                 (acc-address (plist-get (cdr account) :address)))
              (make-mu4e-context
               :name acc-name
               :enter-func

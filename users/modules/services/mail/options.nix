@@ -79,7 +79,7 @@ in {
     # is there any way to disable these messages?
     home.packages = [
       # TODO enable only if xfce is enabled
-      pkgs.xfce.xfce4-mailwatch-plugin
+      pkgs.xfce4-mailwatch-plugin
     ];
 
     # enable mbsync to sync messages
@@ -118,13 +118,15 @@ in {
       contexts = lib.concatMapAttrs (name: value: let
         addresses =
           (lib.optional (value.makeMainAddressContext) value.mainAddress)
-          ++ value.aliases;
-      in
-        lib.genAttrs addresses (address:
-          if builtins.length addresses == 1
-          then name
-          else "${name} [${address}]"))
-      cfg.accounts;
+            ++ value.aliases;
+        in lib.genAttrs addresses (address: {
+          inherit (value) gmail;
+          rootMaildir = name;
+          contextName = if builtins.length addresses == 1
+            then name
+            else "${name} [${address}]";
+        })
+      ) cfg.accounts;
 
       # expression to define the contexts for mu4e to load (one for each
       # alias and main address, as desired). uses the address as the key,
@@ -132,7 +134,11 @@ in {
       contexts_expr =
         "(defvar mail-accounts '("
         + lib.concatStringsSep " "
-        (lib.mapAttrsToList (name: value: ''("${value}" . "${name}")'')
+          (lib.mapAttrsToList (name: value:
+          ''("${value.contextName}"
+              :address "${name}"
+              :maildir "${value.rootMaildir}"
+              :gmail ${if value.gmail then "t" else "nil"})'')
           contexts)
         + "))";
 
