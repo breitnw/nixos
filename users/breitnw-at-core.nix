@@ -6,8 +6,8 @@
     defaultApplicationPackages = with pkgs; [
 
       # 1: VIEWERS ==================================
-      mate.atril # pdf reader
-      xfce.thunar # file manager
+      atril # pdf reader
+      thunar # file manager
       viewnior # image viewer
       vlc # media player
       zathura # another (simpler) pdf reader

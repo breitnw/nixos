@@ -6,11 +6,11 @@
     defaultApplicationPackages = with pkgs; [
 
       # 1: VIEWERS ==================================
-      xfce.thunar # file manager
+      thunar # file manager
       viewnior # image viewer
       vlc # media player
       zathura # another (simpler) pdf reader
-      mate.atril # pdf reader
+      atril # pdf reader
 
       # 2: EDITORS ==================================
       aseprite # sprite editor
@@ -61,7 +61,7 @@
       texliveFull # latex
 
       # FONTS AND OTHER =============================
-      etBook
+      et-book
       times-newer-roman
       mplus-outline-fonts.githubRelease
       scientifica

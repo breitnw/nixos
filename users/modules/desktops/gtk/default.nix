@@ -61,6 +61,7 @@ in {
             else "greybird-generated";
         }
         else cfg.customGTKTheme;
+      gtk4.theme = config.gtk.theme;
 
       font = let
         primary = config.utils.fonts.active.primary;

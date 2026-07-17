@@ -3,7 +3,7 @@
 # codec dependencies for parole
 
 {
-  home.packages = [ pkgs.xfce.parole ];
+  home.packages = [ pkgs.parole ];
   nixpkgs.overlays = [
     (final: prev: {
       xfce = prev.xfce.overrideScope (xfinal: xprev: {
