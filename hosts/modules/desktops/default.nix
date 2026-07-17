@@ -93,7 +93,7 @@ in {
       };
       configPackages = [
         (lib.mkIf cfg.wayland.enable pkgs.niri)
-        (lib.mkIf cfg.xorg.enable pkgs.xfce.xfce4-session)
+        (lib.mkIf cfg.xorg.enable pkgs.xfce4-session)
       ];
     };
 
@@ -110,7 +110,7 @@ in {
         desktopNames = [ "XFCE" ];
         bgSupport = true;
         start = ''
-          ${pkgs.runtimeShell} ${pkgs.xfce.xfce4-session.xinitrc} &
+          ${pkgs.runtimeShell} ${pkgs.xfce4-session.xinitrc} &
           waitPID=$!
         '';
       }];
