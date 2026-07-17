@@ -6,7 +6,7 @@
   ];
 
   config = lib.mkIf config.modules.desktops.xorg.enable {
-    modules.picom.enable = false;
+    modules.picom.enable = true;
 
     home.packages = with pkgs; [
       # xfce4-session binary is owned by home-manager

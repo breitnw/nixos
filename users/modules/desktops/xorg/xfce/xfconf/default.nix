@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 } @ args:
 
@@ -37,7 +38,7 @@
         # window manager. I use xfwm4 (the default) since I like the theme options
         xfwm4.general = {
           # use picom instead of the default xfwm4 compositor
-          use_compositing = true;
+          use_compositing = !config.modules.picom.enable;
           # configure the style of the titlebar and decorations
           shadow_opacity = 40;
           button_layout = "O|HMC";

@@ -11,7 +11,7 @@
   config = lib.mkIf config.modules.picom.enable {
     services.picom = {
       enable = true;
-      fade = true;
+      fade = false;
       shadow = true;
       fadeDelta = 3;
       vSync = config.platform.available-features.vsync;
@@ -22,6 +22,7 @@
         "class_g = 'Xfce4-panel' && window_type = 'dock'"
         "class_g = 'Xfwm4'" # task switcher
         "class_g = 'Xfce4-screenshooter'"
+        "class_g = 'clover'"
         "_GTK_FRAME_EXTENTS@:c"
       ];
 
@@ -33,16 +34,18 @@
         notification.shadow = false;
       };
       settings = {
-        # blur = {
-        #   method = "gaussian";
-        #   size = 5;
-        #   deviation = 3.0;
-        # };
-        # blur-background-exclude = [
-        #   "class_g = 'Xfce4-notifyd'"
-        #   "class_g = 'Xfce4-screenshooter'"
-        #   "_GTK_FRAME_EXTENTS@:c"
-        # ];
+        blur = {
+          method = "gaussian";
+          size = 5;
+          deviation = 3.0;
+        };
+        blur-background-exclude = [
+          "class_g = 'Xfce4-notifyd'"
+          "class_g = 'Xfce4-screenshooter'"
+          "class_g = 'firefox'"
+          "class_g = 'clover'"
+          "_GTK_FRAME_EXTENTS@:c"
+        ];
         use-damage = true;
       };
     };
