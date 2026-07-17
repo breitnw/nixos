@@ -20,6 +20,7 @@
   # location service
   location.provider = "geoclue2";
   services.geoclue2.enable = true;
+  services.avahi.enable = true; # needed for geoclue to work properly, I think
 
   powerManagement.enable = true;
 
