@@ -59,6 +59,8 @@
         };
       # actually enable firefox
       programs.firefox.enable = true;
+      # set firefox config path (home-manager 26.11)
+      programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
       # write manifest to tell firefox where the launcher is
       home.file.".mozilla/native-messaging-hosts/firefox_native_base16.json".text = ''
         {
