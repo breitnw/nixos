@@ -98,6 +98,7 @@
     # themeName = "eris"; #                    dark blue city lights
     # themeName = "pico"; #                    highkey ugly but maybe redeemable
     # themeName = "tarot"; #                   very reddish purply
+    # themeName = "ollie"; #                 ⋆ brown but in a cool way
     # themeName = "kimber"; #                  nordish but more red
     # themeName = "embers"; #                  who dimmed the lights
     # themeName = "stella"; #                  purple, pale-ish
@@ -113,11 +114,12 @@
     # themeName = "treehouse"; #             ⋆ summercamp, darker and purpler
     # themeName = "elemental"; #             ⋆ earthy and muted
     # themeName = "earthsong"; #               elemental but a little less muted
-    themeName = "floraverse"; #            ⋆ pretty purple, pink, green & blue
+    # themeName = "floraverse"; #            ⋆ pretty purple, pink, green & blue
     # themeName = "everforest"; #              greenish and groovy
     # themeName = "summercamp"; #            ⋆ earthy but vibrant
     # themeName = "ic-green-ppl"; #            i see green people? who knows
     # themeName = "horizon-dark"; #            vaporwavey
+    themeName = "humanoid-dark"; #           basic, visible
     # themeName = "grayscale-dark"; #          jesse i need to lock in NOW
     # themeName = "oxocarbon-dark"; #        ⋆ dark and vibrant
     # themeName = "terracotta-dark"; #       ⋆ chocolatey and dark
@@ -126,7 +128,7 @@
     # themeName = "catppuccin-macchiato"; #    purple pastel
 
     # light themes
-    # themeName = "dirtysea"; #                greeeen and gray
+    # themeName = "dirtysea"; #              ⋆ greeeen and gray
     # themeName = "earl-grey"; #               the coziest to ever do it
     # themeName = "flatwhite"; #               why is it highlighted? idk
     # themeName = "ayu-light"; #               kinda pastel
