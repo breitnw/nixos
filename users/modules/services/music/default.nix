@@ -12,7 +12,8 @@
     services.mpd = {
       enable = true;
       # sync music with rclone
-      musicDirectory = config.programs.rclone.remotes.copyparty.mounts."private/music/library".mountPoint; 
+      # musicDirectory = config.programs.rclone.remotes.copyparty.mounts."private/music/library".mountPoint; 
+      musicDirectory = "https://copyparty.mndco11age.xyz/music"; 
       # do not maintain a db file on local; use satellite instead
       dbFile = null;
       # stickers/playlists must be on local (https://github.com/MusicPlayerDaemon/MPD/issues/848)
@@ -26,7 +27,7 @@
         }
         database {
           plugin "proxy"
-          host "breitnw.duckdns.org"
+          host "mndco11age.xyz"
           port "6600"
         }
         bind_to_address "/tmp/mpd_socket"
