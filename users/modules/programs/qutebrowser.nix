@@ -31,14 +31,10 @@
           };
           # TODO make helper to create python dict from attrset
           tabs = {
-            "padding[\"bottom\"]" = 4;
-            "padding[\"top\"]" = 4;
             position = "top";
             max_width = 160;
           };
           statusbar = {
-            "padding[\"bottom\"]" = 4;
-            "padding[\"top\"]" = 4;
             position = "bottom";
           };
           content.javascript.clipboard = "access";
