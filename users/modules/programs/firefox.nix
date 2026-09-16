@@ -198,6 +198,11 @@
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/old-reddit-redirect/latest.xpi";
             installation_mode = "force_installed";
           };
+          # Knockoff
+          "knockoff@knockoff.shopping" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/knockoff-amazon-brand-filter/latest.xpi";
+            installation_mode = "force_installed";
+          };
         };
   
         /* ---- PREFERENCES ---- */
@@ -241,11 +246,13 @@
           "browser.tabs.groups.smart.enabled" = lock false;
           "browser.search.visualSearch.featureGate" = lock false;
           "browser.urlbar.quicksuggest.mlEnabled" = lock false;
-          "sidebar.revamp" = lock false;
           "browser.aiwindow.enabled" = lock false;
 
-          # disable system ui font
+          # disable system ui (bitmap) font
           "layout.css.system-ui.enabled" = lock false;
+
+          # warn before closing a window with multiple tabs
+          "browser.tabs.warnOnClose" = lock true;
         };
       };
     };
