@@ -29,13 +29,19 @@
       # GUI PROGRAMS ================================
       # Note that file viewers and editors should instead be
       # configured in xdg.mimeApps.defaultApplicationPackages!
-      vesktop # discord client
+      # NOTE I think withVencord is the same thing as vesktop..
+      (if (system == "x86_64-linux")
+      then unstable.vesktop
+      else (unstable.discord.override {withVencord = true;})) # discord client
       pinentry-qt # password prompt for gpg
       qbittorrent # dw about it
       nicotine-plus # dw about this one either
       audacious # music player
       tauon # another music player
       krita 
+      openutau
+      libreoffice-qt6
+      # clip-studio-paint
 
       # strictly system dependent things...
       (lib.mkIf (system == "x86_64-linux") slack)
@@ -54,6 +60,7 @@
       yt-dlp
       imagemagick
       tmux
+      gpclient # globalprotect VPN
 
       # languages and tools...
       nh # nix helper
@@ -119,7 +126,7 @@
     # themeName = "summercamp"; #            ⋆ earthy but vibrant
     # themeName = "ic-green-ppl"; #            i see green people? who knows
     # themeName = "horizon-dark"; #            vaporwavey
-    themeName = "humanoid-dark"; #           basic, visible
+    # themeName = "humanoid-dark"; #           basic, visible
     # themeName = "grayscale-dark"; #          jesse i need to lock in NOW
     # themeName = "oxocarbon-dark"; #        ⋆ dark and vibrant
     # themeName = "terracotta-dark"; #       ⋆ chocolatey and dark
@@ -130,7 +137,7 @@
     # light themes
     # themeName = "dirtysea"; #              ⋆ greeeen and gray
     # themeName = "earl-grey"; #               the coziest to ever do it
-    # themeName = "flatwhite"; #               why is it highlighted? idk
+    themeName = "flatwhite"; #               why is it highlighted? idk
     # themeName = "ayu-light"; #               kinda pastel
     # themeName = "sagelight"; #               more pastel
     # themeName = "terracotta"; #              earthy and bright
