@@ -3,7 +3,7 @@
 let
   # displays are configured at the platform-level
   # see platforms/[platform name].nix to configure
-  cfg = config.platform.display-management;
+  cfg = config.platform;
 in lib.mkIf config.modules.desktops.xorg.enable {
   services.autorandr.enable = true;
   programs.autorandr = {
@@ -11,12 +11,12 @@ in lib.mkIf config.modules.desktops.xorg.enable {
     profiles = builtins.mapAttrs (prof-name: prof-value: {
       # fingerprint of each display used in this profile
       fingerprint = builtins.mapAttrs (disp-name: disp-value:
-        cfg.displays.${disp-name}.fingerprint
+        disp-value.display.fingerprint
       ) prof-value;
 
       # configuration of each display in this profile
       config = builtins.mapAttrs (disp-name: disp-value: let
-        disp-info = cfg.displays.${disp-name};
+        disp-info = (lib.traceValSeq disp-value).display;
         width = disp-info.pixel-size.width;
         height = disp-info.pixel-size.height;
       in {
@@ -29,6 +29,6 @@ in lib.mkIf config.modules.desktops.xorg.enable {
           [0.0 0.0 1.0]
         ];
       }) prof-value;
-    }) cfg.profiles;
+    }) cfg.display-profiles;
   };
 }

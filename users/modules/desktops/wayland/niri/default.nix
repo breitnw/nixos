@@ -41,7 +41,7 @@
         # TODO map over all displays 
         outputs."eDP-1" = {
           # mode = "2560x1600@60";
-          scale = config.platform.display-management.displays."eDP-1".scale.wayland;
+          scale = config.platform.display-profiles.mobile."eDP-1".display.scale.wayland;
           position.x = 0;
           position.y = 0;
         };

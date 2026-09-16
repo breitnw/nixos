@@ -30,6 +30,8 @@
     zotero-nix.url = "github:camillemndn/zotero-nix";
     # gnupod packaged for nix
     gnupod.url = "github:breitnw/gnupod";
+    # CLIP STUDIO PAINT packaged with wine and nix
+    clip-studio-paint.url = "github:h-banii/clip-studio-paint-nix";
 
     # THEMING ==================================================================
 
@@ -98,6 +100,7 @@
         firefox-native-base16 = defaultPackage firefox-native-base16;
         zotero-nix = defaultPackage zotero-nix;
         cozette = defaultPackage cozette;
+        clip-studio-paint = defaultPackage clip-studio-paint;
         bitmap-glyphs-12 = defaultPackage bitmap-glyphs-12;
         tiny-dfr = defaultPackage tiny-dfr;
         greybird-with-accent = greybird.packages.${system}.greybird-with-accent;
