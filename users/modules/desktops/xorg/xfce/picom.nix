@@ -23,6 +23,7 @@
         "class_g = 'Xfwm4'" # task switcher
         "class_g = 'Xfce4-screenshooter'"
         "class_g = 'clover'"
+        "class_g = 'oneko'"
         "_GTK_FRAME_EXTENTS@:c"
       ];
 
@@ -44,6 +45,7 @@
           "class_g = 'Xfce4-screenshooter'"
           "class_g = 'firefox'"
           "class_g = 'clover'"
+          "class_g = 'oneko'"
           "_GTK_FRAME_EXTENTS@:c"
         ];
         use-damage = true;
