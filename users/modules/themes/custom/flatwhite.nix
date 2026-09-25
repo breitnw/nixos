@@ -1,5 +1,5 @@
 # Theme inspired by Doom Emacs' doom-flatwhite
-{...}: {
+{lib, pkgs, ...}: {
   colorScheme = {
     name = "Flatwhite";
     slug = "flatwhite";
@@ -29,4 +29,18 @@
   programs.emacs.extraConfig = "(setq global-hl-line-mode nil)";
   modules.fastfetch.image = ../../programs/fastfetch/images/7.jpg;
 
+  utils.fonts.xorg.primary = lib.mkForce {
+    family = "Agave";
+    weight = "Regular";
+    size = 12; # points
+    package = pkgs.agave;
+  };
+  utils.fonts.xorg.monospace = lib.mkForce {
+    family = "Agave";
+    weight = "Regular";
+    size = 12; # points
+    package = pkgs.agave;
+  };
+  # looks better with the font
+  # programs.alacritty.settings.window.dimensions.columns = lib.mkForce 50;
 }
