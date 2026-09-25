@@ -16,7 +16,7 @@ in lib.mkIf config.modules.desktops.xorg.enable {
 
       # configuration of each display in this profile
       config = builtins.mapAttrs (disp-name: disp-value: let
-        disp-info = (lib.traceValSeq disp-value).display;
+        disp-info = disp-value.display;
         width = disp-info.pixel-size.width;
         height = disp-info.pixel-size.height;
       in {
