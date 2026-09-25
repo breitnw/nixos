@@ -41,6 +41,8 @@
       krita 
       openutau
       libreoffice-qt6
+      racket # not good support through nix, so install globally
+      blender
       # clip-studio-paint
 
       # strictly system dependent things...
