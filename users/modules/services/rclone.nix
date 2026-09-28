@@ -76,7 +76,7 @@
               async-read = true; # read asynchronously for better performance
               dir-cache-time = "72h"; # cache directory structure for 3 days
               vfs-cache-mode = "full"; # allow file caching
-              vfs-cache-max-size = "50G"; # music should have a generous cache
+              vfs-cache-max-size = "5G"; # music should have a generous cache
               vfs-cache-poll-interval = "5m"; # check the cache every 5 min
               vfs-cache-max-age = "1w";
               vfs-fast-fingerprint = true;
@@ -94,7 +94,7 @@
               dir-cache-time = "5m";
               vfs-cache-mode = "full";
               vfs-cache-poll-interval = "5m";
-              vfs-cache-max-size = "5G";
+              vfs-cache-max-size = "1G";
               exclude = "/music/library/"; # synced separately
             };
             mountPoint = "${config.home.homeDirectory}/Copyparty";
