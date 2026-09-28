@@ -44,7 +44,7 @@
       NH_FLAKE = "${config.home.homeDirectory}/Config/nixos"; 
       # default graphical and TUI editor
       VISUAL = "${config.programs.emacs.package}/bin/emacsclient";
-      EDITOR = "${config.programs.emacs.package}/bin.emacsclient -nw";
+      EDITOR = "${config.programs.emacs.package}/bin/emacsclient -nw";
     };
   };
 }
