@@ -28,6 +28,7 @@
       dataDir = "${config.xdg.dataHome}/mpd";
 
       # pulseaudio seems to be necessary to not blow out my eardrums
+      # cloudflare is proxied, so mpd can't be accessed behind mndco11age.xyz
       extraConfig = ''
         audio_output {
           type "pulse"
@@ -35,7 +36,7 @@
         }
         database {
           plugin "proxy"
-          host "mndco11age.xyz"
+          host "breitnw.duckdns.org"
           port "6600"
         }
         bind_to_address "/tmp/mpd_socket"
