@@ -11,6 +11,18 @@
   config = let
     mpd_socket_path = "/tmp/mpd_socket";
   in lib.mkIf config.modules.music.enable {
+    # pull the required MPD credentials from sops
+    sops.templates."mpd-database.conf" = {
+      content = ''
+        database {
+          plugin "proxy"
+          # cloudflare is proxied, so mpd can't be accessed behind mndco11age.xyz
+          host "breitnw.duckdns.org"
+          port "6600"
+          password "${config.sops.placeholder."services/mpd"}"
+        }
+      '';
+    };
     # enables media control keys, etc
     services.mpdris2-rs = {
       enable = true;
@@ -26,19 +38,20 @@
       dbFile = null;
       # stickers/playlists must be on local (https://github.com/MusicPlayerDaemon/MPD/issues/848)
       dataDir = "${config.xdg.dataHome}/mpd";
+      # TODO cache directory?
 
-      # pulseaudio seems to be necessary to not blow out my eardrums
-      # cloudflare is proxied, so mpd can't be accessed behind mndco11age.xyz
-      extraConfig = ''
+      extraConfig = let
+      in ''
+        # details for the MPD database are stored separately, as they include credentials
+        include "${config.sops.templates."mpd-database.conf".path}"
+
+        # pulseaudio seems to be necessary to not blow out my eardrums
         audio_output {
           type "pulse"
           name "MPD PulseAudio Output"
         }
-        database {
-          plugin "proxy"
-          host "breitnw.duckdns.org"
-          port "6600"
-        }
+
+        # unix sockets are supposedly faster, idk
         bind_to_address "/tmp/mpd_socket"
       '';
     };

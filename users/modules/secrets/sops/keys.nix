@@ -9,5 +9,7 @@
     "accounts/copyparty/breitnw" = {};
     # calendar
     "accounts/caldav/breitnw" = {};
+    # music
+    "services/mpd" = {};
   };
 }
