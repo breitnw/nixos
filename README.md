@@ -17,17 +17,17 @@ I daily drive XFCE, and I've done quite a bit of styling to get it to suit my ta
 
 <details>
   <summary>spacemacs</summary>
-  <img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/2cc3df7a-4116-4734-8bec-6174ac10d471" />
+  <img width="2560" alt="spacemacs theme" src="https://github.com/user-attachments/assets/2cc3df7a-4116-4734-8bec-6174ac10d471" />
 </details>
 
 <details>
   <summary>solarized-light</summary>
-  <img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/2136b221-ba74-4997-9d95-7e9df3f7c929" />
+  <img width="2560" alt="solarized-light theme" src="https://github.com/user-attachments/assets/2136b221-ba74-4997-9d95-7e9df3f7c929" />
 </details>
 
 <details>
   <summary>oxocarbon-dark</summary>
-  <img width="2560" height="1600" alt="image" src="https://github.com/user-attachments/assets/b4f76fd1-fbbb-41b7-8136-473d15d12bc4" />
+  <img width="2560" alt="oxocarbon-dark theme" src="https://github.com/user-attachments/assets/b4f76fd1-fbbb-41b7-8136-473d15d12bc4" />
 </details>
 
 I've put some elbow grease into Niri too, but not quite as much. Sway is still ugly.
